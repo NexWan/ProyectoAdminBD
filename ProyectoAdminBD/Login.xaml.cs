@@ -16,11 +16,11 @@ using System.Windows.Navigation;
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Login.xaml
 ***REMOVED***
-    public partial class MainWindow : Window
+***REMOVED***
     ***REMOVED***
-        public MainWindow()
+***REMOVED***
         ***REMOVED***
 ***REMOVED***
 ***REMOVED***
