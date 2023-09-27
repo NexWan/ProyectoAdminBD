@@ -58,16 +58,15 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,50,0,50">
-                    <TextBlock x:Uid="User"
+                    <TextBlock
                            Text="Usuario"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Center"
                            FontSize="25"
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"/>
-                    <Border Margin="15" Padding="5" BorderThickness="1" BorderBrush="Red" Background="White" CornerRadius="20" Width="200" Height="30">
-                        <TextBox Width="200" Height="30"  FontSize="15" Foreground="Black" Background="Transparent" BorderThickness="0"/>
-                    </Border>
+                    <TextBox x:Uid="User"  VerticalAlignment="Center" Margin="5" Style="{StaticResource ModernTextBox}"/>
+
                     <TextBlock x:Uid="User"
                            Text="Contraseña"
                            VerticalAlignment="Center"
@@ -75,9 +74,7 @@
                            FontSize="25"
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"/>
-                    <Border Margin="15" Padding="5" BorderThickness="1" BorderBrush="Red" Background="White" CornerRadius="20" Width="200" Height="30">
-                        <PasswordBox Width="200" Height="30" BorderThickness="0"/>
-                    </Border>
+                    <PasswordBox x:Name="MyPasswordBox" Style="{StaticResource ModernPasswordBox}" Tag="Enter password" PasswordChanged="passwordChanged" Background="{StaticResource PasswordHint}"/>
 
                 </StackPanel>
                 <Border Grid.Row="1" Grid.Column="1" Background="White" Width="100" Height="30" VerticalAlignment="Bottom" Margin="20" CornerRadius="20">
@@ -86,4 +83,4 @@
             </Grid>
         </Grid>
     </Border>
-</Window>
+</Window> 
