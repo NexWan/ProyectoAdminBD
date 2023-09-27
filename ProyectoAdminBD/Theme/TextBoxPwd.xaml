@@ -1,0 +1,49 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ProyectoAdminBD">
+
+    <Style TargetType="***REMOVED***x:Type PasswordBox***REMOVED***" x:Key="ModernPasswordBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="***REMOVED***x:Type PasswordBox***REMOVED***">
+                    <Border CornerRadius="10"
+                            Background="#353340"
+                            Width="200" Height="40">
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <PasswordBox Margin="1"
+                                        BorderThickness="0"
+                                        Background="Transparent"
+                                        VerticalContentAlignment="Center"
+                                        Padding="5"
+                                        Foreground="#CFCFCF"
+                                        x:Name="PasswordBoxControl"
+                                       />
+
+                            <TextBlock IsHitTestVisible="False"
+                                       Text="***REMOVED***TemplateBinding Tag***REMOVED***"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"
+                                       FontSize="11"
+                                       Foreground="DarkGray"
+                                       Grid.Column="1"
+                                       x:Name="PlaceholderTextBlock">
+                                <TextBlock.Style>
+                                    <Style TargetType="***REMOVED***x:Type TextBlock***REMOVED***">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="***REMOVED***Binding Password.Length, ElementName=PasswordBoxControl***REMOVED***" Value="0">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

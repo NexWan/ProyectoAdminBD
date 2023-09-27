@@ -1,0 +1,50 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style TargetType="***REMOVED***x:Type TextBox***REMOVED***" x:Key="ModernTextBox">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="***REMOVED***x:Type TextBox***REMOVED***">
+                    <Border CornerRadius="10"
+                            Background="#353340"
+                            Width="200" Height="40">
+
+                        <Grid>
+                            <Rectangle StrokeThickness="1"/>
+                            <TextBox Margin="1"
+                                     Text="***REMOVED***TemplateBinding Text***REMOVED***"
+                                     BorderThickness="0"
+                                     Background="Transparent"
+                                     VerticalContentAlignment="Center"
+                                     Padding="5"
+                                     Foreground="#CFCFCF"
+                                     x:Name="LoginText"/>
+
+                            <TextBlock IsHitTestVisible="False"
+                                       Text="***REMOVED***TemplateBinding Uid***REMOVED***"
+                                       HorizontalAlignment="Left"
+                                       VerticalAlignment="Center"
+                                       Margin="10,0,0,0"
+                                       FontSize="11"
+                                       Foreground="DarkGray"
+                                       Grid.Column="1">
+
+                                <TextBlock.Style>
+                                    <Style TargetType="***REMOVED***x:Type TextBlock***REMOVED***">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="***REMOVED***Binding Text, ElementName=LoginText***REMOVED***" Value="">
+                                                <Setter Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </Style>
+                                </TextBlock.Style>
+
+                            </TextBlock>
+                        </Grid>
+                        
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

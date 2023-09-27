@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:ProyectoAdminBD"
              StartupUri="Login.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/TestBoxLogin.xaml"/>
+                <ResourceDictionary Source="Theme/TextBoxPwd.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="PasswordHint" Color="LightGray" />
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
