@@ -17,7 +17,7 @@
                                         VerticalContentAlignment="Center"
                                         Padding="5"
                                         Foreground="#CFCFCF"
-                                        x:Name="PasswordBoxControl"
+                                         x:Name="pwdBox"
                                        />
 
                             <TextBlock IsHitTestVisible="False"
@@ -28,18 +28,8 @@
                                        FontSize="11"
                                        Foreground="DarkGray"
                                        Grid.Column="1"
-                                       x:Name="PlaceholderTextBlock">
-                                <TextBlock.Style>
-                                    <Style TargetType="***REMOVED***x:Type TextBlock***REMOVED***">
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="***REMOVED***Binding Password.Length, ElementName=PasswordBoxControl***REMOVED***" Value="0">
-                                                <Setter Property="Visibility" Value="Visible"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                        <Setter Property="Visibility" Value="Hidden"/>
-                                    </Style>
-                                </TextBlock.Style>
-                            </TextBlock>
+                                       x:Name="PlaceholderTextBlock"/>
+
                         </Grid>
                     </Border>
                 </ControlTemplate>

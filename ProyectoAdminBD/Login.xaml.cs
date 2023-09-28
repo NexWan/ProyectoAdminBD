@@ -1,18 +1,12 @@
 ***REMOVED***
-using System.Collections.Generic;
-***REMOVED***
-using System.Linq;
-***REMOVED***
-using System.Text;
-using System.Threading.Tasks;
 ***REMOVED***
 ***REMOVED***
-using System.Windows.Data;
-using System.Windows.Documents;
 ***REMOVED***
 ***REMOVED***
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
 ***REMOVED***
 
 ***REMOVED***
@@ -74,7 +68,7 @@ using System.Windows.Navigation;
 
 ***REMOVED***
             ***REMOVED***
-                if (passwordBox.Password.Length != 0)
+                if (FindVisualChild<PasswordBox>(passwordBox,"pwdBox").Password.Length == 0)
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
@@ -100,9 +94,28 @@ using System.Windows.Navigation;
 ***REMOVED***
 ***REMOVED***
 
-        private void MyPasswordBox_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+***REMOVED***
         ***REMOVED***
+            Debug.WriteLine("Hola");
+            SqlConnection conn = new SqlConn(" "," ", "actas").GetConnection();
+***REMOVED***
+            String user = LoginText.Text;
+            String pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox").Password;
+            Debug.WriteLine($"***REMOVED***pwd***REMOVED*** ------- ***REMOVED***user***REMOVED***");
+***REMOVED***
 
+        String ConvertToUnsecureString(SecureString secureString)
+        ***REMOVED***
+***REMOVED***
+***REMOVED***
+            ***REMOVED***
+***REMOVED***
+***REMOVED***
+    ***REMOVED***
+***REMOVED***
+            ***REMOVED***
+***REMOVED***
+    ***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
