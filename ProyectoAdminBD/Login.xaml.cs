@@ -1,19 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
+using System.Runtime.InteropServices;
 using System.Security;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using ProyectoAdminBD.Connection;
 
 namespace ProyectoAdminBD
 {
@@ -74,7 +68,7 @@ namespace ProyectoAdminBD
 
             if (watermarkTextBlock != null)
             {
-                if (passwordBox.Password.Length != 0)
+                if (FindVisualChild<PasswordBox>(passwordBox,"pwdBox").Password.Length == 0)
                     watermarkTextBlock.Visibility = Visibility.Visible;
                 else
                     watermarkTextBlock.Visibility = Visibility.Hidden;
@@ -100,9 +94,28 @@ namespace ProyectoAdminBD
             return null;
         }
 
-        private void MyPasswordBox_FocusableChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void ClickLogin(object sender, RoutedEventArgs e)
         {
+            Debug.WriteLine("Hola");
+            SqlConnection conn = new SqlConn(" "," ", "actas").GetConnection();
+            conn.Open();
+            String user = LoginText.Text;
+            String pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox").Password;
+            Debug.WriteLine($"{pwd} ------- {user}");
+        }
 
+        String ConvertToUnsecureString(SecureString secureString)
+        {
+            IntPtr valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(secureString);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
         }
     }
 }
