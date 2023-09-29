@@ -8,11 +8,12 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
 
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-    /// Interaction logic for Login.xaml
+***REMOVED***
 ***REMOVED***
 ***REMOVED***
     ***REMOVED***
@@ -62,30 +63,30 @@
 ***REMOVED***
 
 ***REMOVED***
-            TextBlock watermarkTextBlock = FindVisualChild<TextBlock>(passwordBox, "PlaceholderTextBlock");
+***REMOVED***
 
 ***REMOVED***
 
 ***REMOVED***
             ***REMOVED***
-                if (FindVisualChild<PasswordBox>(passwordBox,"pwdBox").Password.Length == 0)
+***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
     ***REMOVED***
 ***REMOVED***
 
-        private T FindVisualChild<T>(DependencyObject parent, string name) where T : FrameworkElement
+***REMOVED***
         ***REMOVED***
 ***REMOVED***
             ***REMOVED***
-                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+***REMOVED***
 ***REMOVED***
                 ***REMOVED***
 ***REMOVED***
         ***REMOVED***
 
-                T childOfChild = FindVisualChild<T>(child, name);
+***REMOVED***
 ***REMOVED***
                 ***REMOVED***
 ***REMOVED***
@@ -94,17 +95,40 @@
 ***REMOVED***
 ***REMOVED***
 
+        //Logica detras del boton de login
 ***REMOVED***
         ***REMOVED***
             Debug.WriteLine("Hola");
-            SqlConnection conn = new SqlConn(" "," ", "actas").GetConnection();
+            SqlConnection conn = new SqlConn("actas").GetConnection();
 ***REMOVED***
-            String user = LoginText.Text;
-            String pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox").Password;
-            Debug.WriteLine($"***REMOVED***pwd***REMOVED*** ------- ***REMOVED***user***REMOVED***");
+***REMOVED***
+***REMOVED***
+***REMOVED***
+            MatchCollection matchCollection = regex.Matches(pwd);
+
+            if(matchCollection.Count > 0)
+            ***REMOVED***
+                MessageBox.Show("Contraseña invalida, has puesto caracteres invalidos");
+***REMOVED***
+    ***REMOVED***
+            String query = $"SELECT * FROM empleados WHERE id_empleado=***REMOVED***user***REMOVED*** AND clave= '***REMOVED***pwd***REMOVED***'";
+            SqlCommand? cmd = conn.CreateCommand();
+***REMOVED***
+            ***REMOVED***
+                cmd.CommandText = query;
+                SqlDataReader? reader = cmd.ExecuteReader();
+                if (reader.Read())  //Si resulta cualquier valor significa que es verdadero
+                    MessageBox.Show($"Usuario: ***REMOVED***user***REMOVED*** \n Contraseña: ***REMOVED***pwd***REMOVED*** \n Contraseña valida");
+***REMOVED*** MessageBox.Show("Usuario y/o contraseña invalida");
+    ***REMOVED***
+            catch(Exception ex)
+            ***REMOVED***
+                MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña");
+    ***REMOVED***
 ***REMOVED***
 
-        String ConvertToUnsecureString(SecureString secureString)
+        //Este metodo sirve para poder convertir un string seguro a un string normal
+***REMOVED***
         ***REMOVED***
 ***REMOVED***
 ***REMOVED***

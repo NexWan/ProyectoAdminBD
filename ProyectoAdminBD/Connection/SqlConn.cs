@@ -11,12 +11,19 @@ using Microsoft.SqlServer.Server;
 ***REMOVED***
         ***REMOVED***
         private SqlConnection sqlCon;
+
             public SqlConn(String user, String pwd, String db)
             ***REMOVED***
-                String conn = $"Server=localhost\\SQLEXPRESS03;Database=***REMOVED***db***REMOVED***;Trusted_Connection=True;";
-                sqlCon = new SqlConnection(conn);
+            String conn = $"Server=localhost\\SQLEXPRESS03;Database=***REMOVED***db***REMOVED***;Trusted_Connection=True;";
+            sqlCon = new SqlConnection(conn);
     ***REMOVED***
 
+        public SqlConn(String db)
+        ***REMOVED***
+            String conn = $"Server=localhost\\SQLEXPRESS03;Database=***REMOVED***db***REMOVED***;Trusted_Connection=True;";
+            sqlCon = new SqlConnection(conn);
+***REMOVED***
+        
 ***REMOVED***
             ***REMOVED***
     ***REMOVED***
