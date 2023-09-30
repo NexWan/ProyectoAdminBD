@@ -11,3 +11,5 @@ The project will be created using the following tools:
 
 ## DOCS
 I'll be adding all the documentation as soon as I finish the login menu.
+
+You can meanwhile see the [docs](/Docs)
