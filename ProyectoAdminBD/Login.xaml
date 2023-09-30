@@ -71,6 +71,48 @@
                      MouseEnter="Ellipse_MouseEnter"
                      MouseLeave="Ellipse_MouseLeave"
                      />
+
+            <Border Background="Red" Width="20" Grid.Column="1" Margin="602,86,-22,-238" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="40"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>
+            <Border Background="White" Width="20" Grid.Column="1" Margin="522,250,58,-202" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="40"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>
+            <Border Background="Green" Width="20" Grid.Column="1" Margin="555,56,25,-332" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="40"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>
+            <Ellipse Fill="SandyBrown" Grid.Column="1" Margin="546,460,40,54" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+                <Ellipse.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="45.526"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Ellipse.RenderTransform>
+            </Ellipse>
+
             <!-- ///////////////////////////// DISEÑO //////////////////////////////// -->
 
             <!-- ///////////////////////////// MENU //////////////////////////////// -->
