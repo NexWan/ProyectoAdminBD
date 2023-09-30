@@ -27,7 +27,10 @@
                     <TextBlock Text="Gestor de Actas" Foreground="White" Background="Transparent" VerticalAlignment="Center" Padding="10" FontSize="30" FontFamily="Segoe UI Variable Display Semibold"/>
                 </Border>
             </Grid>
-            <Border Grid.Column="0" Grid.Row="1" Background="#341931" BorderThickness="0" CornerRadius="0 0 0 40"/>
+            <Border Grid.Column="0" Grid.Row="1" Background="#341931" BorderThickness="0" CornerRadius="0 0 0 40">
+                <Image VerticalAlignment="Top" HorizontalAlignment="Center" Source="/Images/logoMexico.png" Margin="0,456,0,0" Height="51" Width="148" RenderTransformOrigin="0.509,0.464"/>
+            </Border>
+
             <!-- ///////////////////////////// DISEÑO //////////////////////////////// -->
 
             <Border Background="#44475a" Margin="294,0,594,0" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="5" CornerRadius="0" Panel.ZIndex="99999"/>
@@ -72,7 +75,7 @@
                      MouseLeave="Ellipse_MouseLeave"
                      />
 
-            <Border Background="Red" Width="20" Grid.Column="1" Margin="602,86,-22,-238" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+            <Border Background="Red" Width="20" Grid.Column="1" Margin="567,371,13,-35" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -82,7 +85,7 @@
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
-            <Border Background="White" Width="20" Grid.Column="1" Margin="522,250,58,-202" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+            <Border Background="White" Width="20" Grid.Column="1" Margin="548,356,32,-33" Grid.Row="1" RenderTransformOrigin="0.5,0.5">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -92,13 +95,12 @@
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
-            <Border Background="Green" Width="20" Grid.Column="1" Margin="555,56,25,-332" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="2">
+            <Border Background="Green" Width="20" Grid.Column="1" Margin="532,338,48,-36" RenderTransformOrigin="0.5,0.5" Grid.Row="1">
                 <Border.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
-                        <SkewTransform/>
                         <RotateTransform Angle="40"/>
-                        <TranslateTransform/>
+                        <TranslateTransform X="-1.969" Y="-1.652"/>
                     </TransformGroup>
                 </Border.RenderTransform>
             </Border>
@@ -117,7 +119,7 @@
 
             <!-- ///////////////////////////// MENU //////////////////////////////// -->
 
-            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0 0 0 60">
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Height="388" RenderTransformOrigin="0.508,0.495">
                 <RadioButton Content="Log in"
                              Name="LoginScene"
                              Height="50"
@@ -142,6 +144,21 @@
             </StackPanel>
 
             <!-- ///////////////////////////// MENU //////////////////////////////// -->
+
+            <!-- ///////////////////////////// INICIO //////////////////////////////// -->
+
+            <Grid Grid.Row="1" Grid.Column="2" Name="InicioWindow" Visibility="Visible">
+                <TextBlock Text="Bienvenido al sistema de actas de nacimiento. &#x0A;Si eres un trabajador dirigete al login, de lo contrario&#x0A; Si deseas hacer una consulta dirigete a invitado" 
+                           Foreground="White" 
+                           FontSize="20" 
+                           HorizontalAlignment="Center" 
+                           Margin="10 50 0 10"
+                           TextWrapping="Wrap"
+                           TextAlignment="Center"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 30" Text="Proyecto desarrollado por: " Foreground="White" FontSize="12"/>
+                <Image Source="/Images/dataimage.png" Width="300"/>
+            </Grid>
+            <!-- ///////////////////////////// INICIO //////////////////////////////// -->
 
             <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
 

@@ -1,11 +1,9 @@
 ***REMOVED***
-using System.Collections.Generic;
 ***REMOVED***
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 ***REMOVED***
-using Microsoft.SqlServer.Server;
+***REMOVED***
+***REMOVED***
+***REMOVED***
 
 ***REMOVED***.Connection
 ***REMOVED***
@@ -15,9 +13,16 @@ using Microsoft.SqlServer.Server;
 
             public SqlConn(String user, String pwd, String db)
             ***REMOVED***
-    ***REMOVED***
+***REMOVED***
+
+***REMOVED***
+
+***REMOVED***
+
+***REMOVED***
+***REMOVED***
                 ***REMOVED***
-                    String conn = $"Server=localhost\\SQLEXPRESS03;Database=***REMOVED***db***REMOVED***;Trusted_Connection=True;";
+                    String conn = $"Server=34.42.98.79;Database=***REMOVED***db***REMOVED***;Trusted_Connection=False;User Id=***REMOVED***user***REMOVED***;Password=***REMOVED***pwd***REMOVED***!";
                     sqlCon = new SqlConnection(conn);
         ***REMOVED***catch (Exception e)
                 ***REMOVED***
@@ -27,7 +32,7 @@ using Microsoft.SqlServer.Server;
 
         public SqlConn(String db)
         ***REMOVED***
-            String conn = $"Server=localhost\\SQLEXPRESS03;Database=***REMOVED***db***REMOVED***;Trusted_Connection=True;";
+            String conn = $"Server=34.42.98.79;Database=***REMOVED***db***REMOVED***;User Id=sqlserver;Password=Olakase45!";
 ***REMOVED***
             ***REMOVED***
                 sqlCon = new SqlConnection(conn);

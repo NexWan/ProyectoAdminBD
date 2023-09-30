@@ -10,6 +10,7 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
 
 ***REMOVED***
 ***REMOVED***
@@ -97,13 +98,18 @@
 ***REMOVED***
 
         //Logica detras del boton de login
-***REMOVED***
+        private async void ClickLogin(object sender, RoutedEventArgs e)
         ***REMOVED***
+            using (HttpClient client = new HttpClient())
+            ***REMOVED***
+                string response = await client.GetStringAsync("https://api64.ipify.org?format=json");
+                Console.WriteLine(response);
+    ***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
             ***REMOVED***
-***REMOVED***
+                sqlObject = new SqlConn("bd_actas");
 ***REMOVED***
 ***REMOVED***
     ***REMOVED***catch(Exception ex)
@@ -157,11 +163,16 @@
         ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-            LoginWindow.Visibility = radioButton.Name == "LoginScene" ? Visibility.Visible : Visibility.Hidden;
-            SignupWindow.Visibility = radioButton.Name == "SignupScene" ? Visibility.Visible : Visibility.Hidden;
-            Tittle.Text = radioButton.Name == "LoginScene" ? "Log in" : "Sign up";
-
 ***REMOVED***
+            ***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
+
+    ***REMOVED***
+    ***REMOVED***
+            
             
 ***REMOVED***
 

@@ -8,16 +8,35 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\dataimage.png" />
+    <None Remove="Images\logoMexico.png" />
+    <None Remove="Images\test.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="MVVM\ViewModel\" />
     <Folder Include="MVVM\View\" />
     <Folder Include="MVVM\Model\" />
-    <Folder Include="Images\" />
     <Folder Include="Fonts\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.62.1" />
+    <PackageReference Include="Google.Cloud.Storage.V1" Version="4.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\dataimage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\logoMexico.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\test.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>
