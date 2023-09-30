@@ -98,9 +98,19 @@
         //Logica detras del boton de login
 ***REMOVED***
         ***REMOVED***
-            Debug.WriteLine("Hola");
-            SqlConnection conn = new SqlConn("actas").GetConnection();
 ***REMOVED***
+***REMOVED***
+***REMOVED***
+            ***REMOVED***
+***REMOVED***
+***REMOVED***
+***REMOVED***
+    ***REMOVED***catch(Exception ex)
+            ***REMOVED***
+***REMOVED***
+***REMOVED***
+    ***REMOVED***
+            
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
@@ -112,7 +122,7 @@
 ***REMOVED***
     ***REMOVED***
             String query = $"SELECT * FROM empleados WHERE id_empleado=***REMOVED***user***REMOVED*** AND clave= '***REMOVED***pwd***REMOVED***'";
-            SqlCommand? cmd = conn.CreateCommand();
+            SqlCommand? cmd = conn?.CreateCommand();
 ***REMOVED***
             ***REMOVED***
                 cmd.CommandText = query;

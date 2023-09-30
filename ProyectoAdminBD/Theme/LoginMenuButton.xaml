@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style BasedOn="***REMOVED***StaticResource ***REMOVED***x:Type RadioButton***REMOVED******REMOVED***"
+       TargetType="***REMOVED***x:Type RadioButton***REMOVED***"
+       x:Key="LoginMenuButton">
+        <Style.Resources>
+            <Storyboard x:Key="FontSizeIncrease">
+                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="22" Duration="0:0:0.2"/>
+            </Storyboard>
+            <Storyboard x:Key="FontSizeDecrease">
+                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20" Duration="0:0:0.2"/>
+            </Storyboard>
+        </Style.Resources>
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="***REMOVED***TemplateBinding Background***REMOVED***">
+                            <TextBlock x:Name="TextBlock" Text="***REMOVED***TemplateBinding Content***REMOVED***" VerticalAlignment="Center" Margin="50 0 0 0"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard Storyboard="***REMOVED***StaticResource FontSizeIncrease***REMOVED***"/>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard Storyboard="***REMOVED***StaticResource FontSizeDecrease***REMOVED***"/>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="20"/>
+        </Style.Setters>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="#1b1124"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background"  Value="#151324"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

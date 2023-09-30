@@ -11,7 +11,7 @@
         Background="Transparent"
         AllowsTransparency="True"
         >
-    <Border Background="#272537"
+    <Border Background="#1f1b34"
             CornerRadius="40">
         <Grid>
             <Grid.RowDefinitions>
@@ -22,8 +22,24 @@
                 <ColumnDefinition Width="300"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="30,0,0,0" Grid.Column="2">
+                    <TextBlock Text="Gestor de Actas" Foreground="White" Background="Transparent" VerticalAlignment="Center" Padding="10" FontSize="30"/>
+                </Border>
+            </Grid>
+            <Border Grid.Column="0" Grid.Row="1" Background="#341931" BorderThickness="0" CornerRadius="0 0 0 40"/>
+            <!-- ///////////////////////////// DISEÑO //////////////////////////////// -->
 
-            <Border Background="#181724" MouseDown="Border_MouseDown" CornerRadius="0,30,0,0" Grid.Column="2">
+            <Border Background="#44475a" Margin="294,0,594,0" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="5" CornerRadius="0" Panel.ZIndex="99999"/>
+            <Border Background="#44475a" Margin="147,-381,448,79" Grid.RowSpan="2" Width="5" CornerRadius="0" RenderTransformOrigin="0.5,0.5" Grid.Column="1" Panel.ZIndex="99999">
+                <Border.RenderTransform>
+                    <TransformGroup>
+                        <RotateTransform Angle="-90"/>
+                    </TransformGroup>
+                </Border.RenderTransform>
+            </Border>
+
+            <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="0,30,0,0" Grid.Column="2">
                 <TextBlock Text="Login" 
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -50,6 +66,31 @@
                      Margin="35,20"
                      MouseLeftButtonDown="Minimize" ToolTip="Minimize" Cursor="Hand"
                      />
+            <!-- ///////////////////////////// DISEÑO //////////////////////////////// -->
+
+            <!-- ///////////////////////////// MENU //////////////////////////////// -->
+
+            <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0 0 0 60">
+                <RadioButton Content="Log in"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"/>
+                <RadioButton Content="Sign up"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"/>
+                <RadioButton Content="Invitado"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="20"
+                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"/>
+            </StackPanel>
+            
+            <!-- ///////////////////////////// MENU //////////////////////////////// -->
+
+            <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
 
             <Grid Grid.Row="1" Grid.Column="2" Name="LoginWindow">
                 <Grid.ColumnDefinitions>
@@ -81,19 +122,15 @@
                            DockPanel.Dock="Left"
                            Margin="0 10 0 0"/>
                     <PasswordBox Margin="10" x:Name="MyPasswordBox" Style="***REMOVED***StaticResource ModernPasswordBox***REMOVED***" Tag="Enter password" PasswordChanged="passwordChanged" Background="***REMOVED***StaticResource PasswordHint***REMOVED***"/>
-
                 </StackPanel>
                 <Border Grid.Row="1" Grid.Column="1" Background="White" Width="100" Height="30" VerticalAlignment="Bottom" Margin="20" CornerRadius="20">
                     <Button Grid.Row="1" Grid.Column="1" Width="100" Height="30"  Content="Ok" FontSize="18" Background="Transparent" BorderThickness="0" Click="ClickLogin"/>
                 </Border>
             </Grid>
-            <Grid Grid.Column="0" Grid.Row="0">
-                <Border Background="#15202B" MouseDown="Border_MouseDown" CornerRadius="30,0,0,0" Grid.Column="2">
-                    <TextBlock Text="Gestor de Actas" Foreground="White" Background="Transparent" VerticalAlignment="Center" Padding="10" FontSize="30"/>
-                </Border>
-            </Grid>
-            <Border Grid.Column="0" Grid.Row="1" CornerRadius="0 0 0 40" Background="#192734" BorderThickness="0"/>
-            <Border Background="#44475a" Margin="294,0,594,0" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="5" CornerRadius="0"/>
+            <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
+
+            <!-- ///////////////////////////// SIGN UP //////////////////////////////// -->
+            
         </Grid>
     </Border>
 </Window> 
