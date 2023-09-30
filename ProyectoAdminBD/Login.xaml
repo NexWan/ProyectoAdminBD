@@ -40,12 +40,13 @@
             </Border>
 
             <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="0,30,0,0" Grid.Column="2">
-                <TextBlock Text="Login" 
+                <TextBlock Text="Inicio" 
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="White"
                        FontSize="25"
                        Margin="0,10,0,10"
+                       x:Name="Tittle"
                     />
             </Border>
             <Ellipse Fill="Red" Grid.Column="2" 
@@ -72,27 +73,33 @@
 
             <StackPanel Grid.Row="1" VerticalAlignment="Center" Margin="0 0 0 60">
                 <RadioButton Content="Log in"
+                             Name="LoginScene"
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"/>
+                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"
+                             Click="EnableScene"/>
                 <RadioButton Content="Sign up"
+                             x:Name="SignupScene"
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"/>
+                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"
+                             Click="EnableScene"/>
                 <RadioButton Content="Invitado"
+                             Name="InvitadoScene"
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"/>
+                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"
+                             Click="EnableScene"/>
             </StackPanel>
-            
+
             <!-- ///////////////////////////// MENU //////////////////////////////// -->
 
             <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
 
-            <Grid Grid.Row="1" Grid.Column="2" Name="LoginWindow">
+            <Grid Grid.Row="1" Grid.Column="2" Name="LoginWindow" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition/>
@@ -123,14 +130,54 @@
                            Margin="0 10 0 0"/>
                     <PasswordBox Margin="10" x:Name="MyPasswordBox" Style="***REMOVED***StaticResource ModernPasswordBox***REMOVED***" Tag="Enter password" PasswordChanged="passwordChanged" Background="***REMOVED***StaticResource PasswordHint***REMOVED***"/>
                 </StackPanel>
-                <Border Grid.Row="1" Grid.Column="1" Background="White" Width="100" Height="30" VerticalAlignment="Bottom" Margin="20" CornerRadius="20">
-                    <Button Grid.Row="1" Grid.Column="1" Width="100" Height="30"  Content="Ok" FontSize="18" Background="Transparent" BorderThickness="0" Click="ClickLogin"/>
-                </Border>
+                <Button Style="***REMOVED***DynamicResource ButtonStyle1***REMOVED***" Foreground="Black" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="120" Height="30"  Content="Log in" FontWeight="Bold" FontSize="18" Click="ClickLogin" Margin="0 0 0 20"/>
+
             </Grid>
             <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
 
             <!-- ///////////////////////////// SIGN UP //////////////////////////////// -->
-            
+            <Grid Grid.Row="1" Grid.Column="1" Name="SignupWindow" Visibility="Hidden">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" Grid.Column="1" Margin="0,20,0,50">
+                    <TextBlock
+                           Text="Nombre"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="AntiqueWhite" 
+                           DockPanel.Dock="Left"/>
+                    <TextBox x:Uid="Name" x:Name="SignUpName"  VerticalAlignment="Center" Margin="10" Style="***REMOVED***StaticResource ModernTextBox***REMOVED***"/>
+                    <TextBlock
+                           Text="Apellidos"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="AntiqueWhite" 
+                           DockPanel.Dock="Left"/>
+                    <TextBox x:Uid="Last names" x:Name="SignUpLastName"  VerticalAlignment="Center" Margin="10" Style="***REMOVED***StaticResource ModernTextBox***REMOVED***"/>
+                    <TextBlock x:Uid="Contraseña"
+                           Text="Contraseña"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="25"
+                           Foreground="AntiqueWhite" 
+                           DockPanel.Dock="Left"
+                           Margin="0 10 0 0"/>
+                    <PasswordBox Margin="10" x:Name="SignUpBox" Style="***REMOVED***StaticResource ModernPasswordBox***REMOVED***" Tag="Enter password" PasswordChanged="passwordChanged" Background="***REMOVED***StaticResource PasswordHint***REMOVED***"/>
+                </StackPanel>
+                <Button Style="***REMOVED***DynamicResource ButtonStyle1***REMOVED***" Foreground="Black" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="120" Height="30"  Content="Sign up" FontWeight="Bold" FontSize="18" Click="ClickLogin" Margin="190,400,190,0"/>
+            </Grid>
+            <!-- ///////////////////////////// SIGN UP //////////////////////////////// -->
+
         </Grid>
     </Border>
 </Window> 

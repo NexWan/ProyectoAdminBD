@@ -151,5 +151,28 @@
 ***REMOVED***
     ***REMOVED***
 ***REMOVED***
+
+***REMOVED***
+        ***REMOVED***
+***REMOVED***
+***REMOVED***
+            switch (receivedScene)
+            ***REMOVED***
+                case "LoginScene":
+                    LoginWindow.Visibility = Visibility.Visible;
+                    SignupWindow.Visibility = Visibility.Hidden;
+                    Tittle.Text = "Log in";
+                    break;
+                case "SignupScene":
+                    LoginWindow.Visibility = Visibility.Hidden;
+                    SignupWindow.Visibility = Visibility.Visible;
+                    Tittle.Text = "Sign up";
+
+                    break;
+                case "InvitadoScene":
+                    MessageBox.Show("Soy la escena de invitado");
+                    break;
+    ***REMOVED***
+***REMOVED***
 ***REMOVED***
 ***REMOVED***
