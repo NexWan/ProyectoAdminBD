@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProyectoAdminBD"
         mc:Ignorable="d"
-        Height="600" Width="560"
+        Height="600" Width="900"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
@@ -18,16 +18,21 @@
                 <RowDefinition Height="70"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
 
-            <Border Background="#181724" MouseDown="Border_MouseDown" CornerRadius="30,30,0,0">
+            <Border Background="#181724" MouseDown="Border_MouseDown" CornerRadius="0,30,0,0" Grid.Column="2">
                 <TextBlock Text="Login" 
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
                        Foreground="White"
                        FontSize="25"
-                       Margin="0,10,0,10"/>
+                       Margin="0,10,0,10"
+                    />
             </Border>
-            <Ellipse Fill="Red" 
+            <Ellipse Fill="Red" Grid.Column="2" 
                      Height="20" 
                      Width="20" 
                      Grid.Row="0"
@@ -36,7 +41,7 @@
                      Margin="10,20"
                      MouseLeftButtonDown="CloseApp" ToolTip="Close" Cursor="Hand"
                      />
-            <Ellipse Fill="Yellow" 
+            <Ellipse Fill="Yellow" Grid.Column="2"
                      Height="20" 
                      Width="20" 
                      Grid.Row="0"
@@ -46,7 +51,7 @@
                      MouseLeftButtonDown="Minimize" ToolTip="Minimize" Cursor="Hand"
                      />
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1" Grid.Column="2" Name="LoginWindow">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition/>
@@ -82,6 +87,13 @@
                     <Button Grid.Row="1" Grid.Column="1" Width="100" Height="30"  Content="Ok" FontSize="18" Background="Transparent" BorderThickness="0" Click="ClickLogin"/>
                 </Border>
             </Grid>
+            <Grid Grid.Column="0" Grid.Row="0">
+                <Border Background="#15202B" MouseDown="Border_MouseDown" CornerRadius="30,0,0,0" Grid.Column="2">
+                    <TextBlock Text="Gestor de Actas" Foreground="White" Background="Transparent" VerticalAlignment="Center" Padding="10" FontSize="30"/>
+                </Border>
+            </Grid>
+            <Border Grid.Column="0" Grid.Row="1" CornerRadius="0 0 0 40" Background="#192734" BorderThickness="0"/>
+            <Border Background="#44475a" Margin="294,0,594,0" Grid.ColumnSpan="2" Grid.RowSpan="2" Width="5" CornerRadius="0"/>
         </Grid>
     </Border>
 </Window> 
