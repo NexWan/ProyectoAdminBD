@@ -16,7 +16,7 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="RadioButton">
                         <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="***REMOVED***TemplateBinding Background***REMOVED***">
-                            <TextBlock x:Name="TextBlock" Text="***REMOVED***TemplateBinding Content***REMOVED***" VerticalAlignment="Center" Margin="50 0 0 0"/>
+                            <TextBlock x:Name="TextBlock" Text="***REMOVED***TemplateBinding Content***REMOVED***" VerticalAlignment="Center" Margin="50 0 0 0" FontFamily="Segoe UI Variable Small Semibold"/>
                         </Grid>
                         <ControlTemplate.Triggers>
                             <EventTrigger RoutedEvent="MouseEnter">

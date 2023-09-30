@@ -9,6 +9,7 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+***REMOVED***
 
 ***REMOVED***
 ***REMOVED***
@@ -173,6 +174,21 @@
                     MessageBox.Show("Soy la escena de invitado");
                     break;
     ***REMOVED***
+***REMOVED***
+
+***REMOVED***
+        ***REMOVED***
+***REMOVED***
+            if (ellipse.Name == "close") ellipse.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFF0000"));
+            else if (ellipse.Name == "minimize") ellipse.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFFFF00"));
+            
+***REMOVED***
+
+***REMOVED***
+        ***REMOVED***
+***REMOVED***
+            if (ellipse.Name == "close") ellipse.Fill = new SolidColorBrush(Colors.DarkRed);
+            else if (ellipse.Name == "minimize") ellipse.Fill = new SolidColorBrush(Colors.Yellow);
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
