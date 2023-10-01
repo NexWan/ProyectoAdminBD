@@ -3,13 +3,19 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:ProyectoAdminBD.MVVM.ViewModel"
         xmlns:local="clr-namespace:ProyectoAdminBD"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="920"
+        Title="MainWindow" Height="600" Width="1080"
         WindowStyle="None"
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
+    
+    <Window.DataContext>
+        <viewModel:ViewModel/>
+    </Window.DataContext>
+    
     <Border Background="#272537"
             CornerRadius="30">
         <Grid>
@@ -21,6 +27,27 @@
                 <RowDefinition Height="75"/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
+            <!-- /////////////////// DISEÑO //////////////////////////////-->
+            <Border Background="#483248" Grid.Row="1" CornerRadius="0 0 0 30"/>
+            <Border Background="#301934" CornerRadius="30 0 0 0"/>
+            <Border Background="#301934" CornerRadius="0 30 0 0" Grid.Column="1"/>
+            <Rectangle Fill="White" Margin="192,0,872,0" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="2"/>
+            <Rectangle Fill="White" Margin="338,-463,540,-15" Grid.RowSpan="2" Width="2" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-90."/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <!-- /////////////////// DISEÑO //////////////////////////////-->
+
+            <ContentControl Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="10"
+                            Content="{Binding CurrentView}"/>
         </Grid>
     </Border>
 </Window>

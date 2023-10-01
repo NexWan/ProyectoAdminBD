@@ -108,19 +108,8 @@ namespace ProyectoAdminBD
         /// <param name="e"></param>
         private void ClickLogin(object sender, RoutedEventArgs e)
         {
-            SqlConn sqlObject = null;
-            SqlConnection? conn = null;
-            try
-            {
-                sqlObject = new SqlConn("actas");
-                conn = sqlObject.GetConnection();
-                conn.Open();
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return;
-            }
-            
+            SqlConnection conn = getConn();
+            conn.Open();
             String? user = FindVisualChild<TextBox>(LoginText, "LoginText").Text;
             String? pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox").Password;
             if (CheckForValidText(pwd))
@@ -137,7 +126,7 @@ namespace ProyectoAdminBD
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña");
+                    MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña", "Error!",MessageBoxButton.OK,MessageBoxImage.Exclamation);
                 }
             }
         }
@@ -158,7 +147,7 @@ namespace ProyectoAdminBD
             MessageBox.Show(name + "\n" + last_name + "\n" + pwd);
         }
         
-        private SqlConnection getConn() {
+        private SqlConnection? getConn() {
             try
             {
                 return new SqlConn(_configuration).GetConnection();
@@ -213,17 +202,19 @@ namespace ProyectoAdminBD
         /// <param name="e"></param>
         private void EnableScene(object sender, RoutedEventArgs e)
         {
-            RadioButton radioButton = sender as RadioButton;
-            String receivedScene = radioButton.Name;
-            if(receivedScene != null)
+            RadioButton? radioButton = sender as RadioButton;
+            string name = radioButton.Name;
+            String receivedScene = name;
+            if (receivedScene != null)
             {
                 InicioWindow.Visibility = Visibility.Hidden;
                 LoginWindow.Visibility = radioButton.Name == "LoginScene" ? Visibility.Visible : Visibility.Hidden;
                 SignupWindow.Visibility = radioButton.Name == "SignupScene" ? Visibility.Visible : Visibility.Hidden;
                 Tittle.Text = radioButton.Name == "LoginScene" ? "Log in" : "Sign up";
 
-            if (radioButton.Name == "InvitadoScene") MessageBox.Show("Soy la escena de invitado");
-            
+                if (radioButton.Name == "InvitadoScene") MessageBox.Show("Soy la escena de invitado");
+
+            }
         }
 
         /// <summary>
@@ -233,7 +224,7 @@ namespace ProyectoAdminBD
         /// <param name="e"></param>
         private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
         {
-            Ellipse ellipse = sender as Ellipse;
+            Ellipse? ellipse = sender as Ellipse;
             ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFF0000")) : (ellipse.Name == "minimize") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFFFF00")) : null;
 
 
