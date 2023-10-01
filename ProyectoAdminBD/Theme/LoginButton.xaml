@@ -5,7 +5,7 @@
         <Setter Property="Control.Template">
             <Setter.Value>
                 <ControlTemplate>
-                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="***REMOVED***DynamicResource ***REMOVED***x:Static SystemColors.ControlTextBrushKey***REMOVED******REMOVED***" SnapsToDevicePixels="true" StrokeThickness="1"/>
+                    <Rectangle Margin="2" StrokeDashArray="1 2" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" SnapsToDevicePixels="true" StrokeThickness="1"/>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -19,7 +19,7 @@
     <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4"/>
     <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5"/>
     <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383"/>
-    <Style x:Key="ButtonStyle1" TargetType="***REMOVED***x:Type Button***REMOVED***">
+    <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
         <Style.Resources>
             <Storyboard x:Key="FontSizeIncrease">
                 <DoubleAnimation Storyboard.TargetProperty="FontSize" To="20" Duration="0:0:0.2"/>
@@ -28,19 +28,19 @@
                 <DoubleAnimation Storyboard.TargetProperty="FontSize" To="18" Duration="0:0:0.2"/>
             </Storyboard>
         </Style.Resources>
-        <Setter Property="FocusVisualStyle" Value="***REMOVED***StaticResource FocusVisual***REMOVED***"/>
-        <Setter Property="Background" Value="***REMOVED***StaticResource Button.Static.Background***REMOVED***"/>
-        <Setter Property="BorderBrush" Value="***REMOVED***StaticResource Button.Static.Border***REMOVED***"/>
-        <Setter Property="Foreground" Value="***REMOVED***DynamicResource ***REMOVED***x:Static SystemColors.ControlTextBrushKey***REMOVED******REMOVED***"/>
+        <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+        <Setter Property="Background" Value="{StaticResource Button.Static.Background}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
         <Setter Property="BorderThickness" Value="1"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Padding" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="***REMOVED***x:Type Button***REMOVED***">
-                    <Border CornerRadius="10"  x:Name="border" Background="#EFDEFF" BorderBrush="***REMOVED***TemplateBinding BorderBrush***REMOVED***" BorderThickness="0" SnapsToDevicePixels="true">
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="***REMOVED***TemplateBinding HorizontalContentAlignment***REMOVED***" Margin="***REMOVED***TemplateBinding Padding***REMOVED***" RecognizesAccessKey="True" SnapsToDevicePixels="***REMOVED***TemplateBinding SnapsToDevicePixels***REMOVED***" VerticalAlignment="***REMOVED***TemplateBinding VerticalContentAlignment***REMOVED***"/>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border CornerRadius="10"  x:Name="border" Background="#EFDEFF" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0" SnapsToDevicePixels="true">
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <EventTrigger RoutedEvent="MouseEnter">
@@ -52,7 +52,7 @@
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
-                            <BeginStoryboard Storyboard="***REMOVED***StaticResource FontSizeIncrease***REMOVED***"/>
+                            <BeginStoryboard Storyboard="{StaticResource FontSizeIncrease}"/>
                         </EventTrigger>
                         <EventTrigger RoutedEvent="MouseLeave">
                             <BeginStoryboard>
@@ -63,7 +63,7 @@
                                         Duration="0:0:0.2" />
                                 </Storyboard>
                             </BeginStoryboard>
-                            <BeginStoryboard Storyboard="***REMOVED***StaticResource FontSizeDecrease***REMOVED***"/>
+                            <BeginStoryboard Storyboard="{StaticResource FontSizeDecrease}"/>
                         </EventTrigger>
                         <Trigger Property="IsDefaulted" Value="true">
                             <Setter Property="BorderBrush" TargetName="border" Value="#EFDEFF"/>
@@ -79,7 +79,7 @@
                         <Trigger Property="IsEnabled" Value="false">
                             <Setter Property="Background" TargetName="border" Value="#DFBDFF"/>
                             <Setter Property="BorderBrush" TargetName="border" Value="#DFBDFF"/>
-                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="***REMOVED***StaticResource Button.Disabled.Foreground***REMOVED***"/>
+                            <Setter Property="TextElement.Foreground" TargetName="contentPresenter" Value="{StaticResource Button.Disabled.Foreground}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

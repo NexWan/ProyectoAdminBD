@@ -1,17 +1,17 @@
-***REMOVED***
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-***REMOVED***
+using System.Windows;
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
+namespace ProyectoAdminBD
+{
+    /// <summary>
     /// Interaction logic for App.xaml
-***REMOVED***
+    /// </summary>
     public partial class App : Application
-    ***REMOVED***
-***REMOVED***
-***REMOVED***
+    {
+    }
+}

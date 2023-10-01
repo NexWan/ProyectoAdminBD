@@ -1,27 +1,27 @@
-***REMOVED***
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-***REMOVED***
-***REMOVED***
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-***REMOVED***
-***REMOVED***
+using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
-***REMOVED***
+using System.Windows.Shapes;
 
-***REMOVED***
-***REMOVED***
-***REMOVED***
+namespace ProyectoAdminBD
+{
+    /// <summary>
     /// Interaction logic for MainWindow.xaml
-***REMOVED***
+    /// </summary>
     public partial class MainWindow : Window
-    ***REMOVED***
+    {
         public MainWindow()
-        ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+        {
+            InitializeComponent();
+        }
+    }
+}

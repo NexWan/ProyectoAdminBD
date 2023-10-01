@@ -1,18 +1,18 @@
-﻿***REMOVED***
+﻿using Microsoft.Extensions.Configuration;
 using System.IO;
 
-***REMOVED***.Connection
-***REMOVED***
+namespace ProyectoAdminBD.Connection
+{
     public class LoadConfig
-    ***REMOVED***
-        public IConfiguration Configuration ***REMOVED*** get; ***REMOVED***
+    {
+        public IConfiguration Configuration { get; }
 
         public LoadConfig()
-        ***REMOVED***
+        {
             Configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json")
                 .Build();
-***REMOVED***
-***REMOVED***
-***REMOVED***
+        }
+    }
+}

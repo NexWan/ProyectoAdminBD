@@ -12,61 +12,61 @@ This class contains all the logic behind the login window, one of the most impor
 ```cs
 private IConfiguration _configuration;
 
-***REMOVED***
-        ***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
-***REMOVED***
+        public Login()
+        {
+            InitializeComponent();
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var appConfig = new LoadConfig();
+            _configuration = appConfig.Configuration;
+        }
 ```
 This snippet code loads the configuration onto a IConfiguration type that will be pass on to the connection class
 
 ``` cs
 class SqlConn
-        ***REMOVED***
+        {
 
-***REMOVED***
-***REMOVED***
+        private readonly IConfiguration _configuration;
+        private SqlConnection? sqlCon;
 
-***REMOVED***
-            ***REMOVED***
-***REMOVED***
-    ***REMOVED***
+            public SqlConn(IConfiguration configuration)
+            {
+                _configuration = configuration;
+            }
 
         
-***REMOVED***
-            ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
+            public SqlConnection GetConnection()
+            {
+                string keyFilePath = "evident-ethos-400620-d4ba39dfc502.json";
+                GoogleCredential credential = GoogleCredential.FromFile(keyFilePath);
+                StorageClient storageClient = StorageClient.Create(credential);
+                Debug.WriteLine("Authenticated successfully.");
 
-    ***REMOVED***
-                ***REMOVED***
-    ***REMOVED***
-        ***REMOVED***
-    ***REMOVED***
-                ***REMOVED***
-                    MessageBox.Show($"Ocurrio un error con la conexion!, codigo de error: \n***REMOVED***e***REMOVED***");
-        ***REMOVED***
-    ***REMOVED***
-    ***REMOVED***
+                try
+                {
+                    sqlCon = new SqlConnection(_configuration.GetConnectionString("AdminConnection"));
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show($"Ocurrio un error con la conexion!, codigo de error: \n{e}");
+                }
+                return sqlCon;
+            }
 
-***REMOVED***
+        }
 ```
 As you can see, this is the SqlCon class, where we need a IConfiguration type to access the database connectionString, so in order to create a connection we'll need this code snippet:
 
 ```cs
 SqlConnection? conn = null;
-***REMOVED***
-            ***REMOVED***
+            try
+            {
                 conn = new SqlConn(_configuration).GetConnection();
-***REMOVED***
-    ***REMOVED***catch(Exception ex)
-            ***REMOVED***
-***REMOVED***
-***REMOVED***
-    ***REMOVED***
+                conn.Open();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return;
+            }
 ```
 And as easy as that you are connected to the sql server instance! this can be replicated to all the cs classes that requires for a db connection!

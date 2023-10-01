@@ -2,10 +2,10 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:ProyectoAdminBD">
 
-    <Style TargetType="***REMOVED***x:Type PasswordBox***REMOVED***" x:Key="ModernPasswordBox">
+    <Style TargetType="{x:Type PasswordBox}" x:Key="ModernPasswordBox">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="***REMOVED***x:Type PasswordBox***REMOVED***">
+                <ControlTemplate TargetType="{x:Type PasswordBox}">
                     <Border CornerRadius="10"
                             Background="#353340"
                             Width="250" Height="40">
@@ -21,7 +21,7 @@
                                        />
 
                             <TextBlock IsHitTestVisible="False"
-                                       Text="***REMOVED***TemplateBinding Tag***REMOVED***"
+                                       Text="{TemplateBinding Tag}"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        Margin="10,0,0,0"

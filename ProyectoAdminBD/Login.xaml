@@ -125,21 +125,21 @@
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"
+                             Style="{StaticResource LoginMenuButton}"
                              Click="EnableScene"/>
                 <RadioButton Content="Sign up"
                              x:Name="SignupScene"
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"
+                             Style="{StaticResource LoginMenuButton}"
                              Click="EnableScene"/>
                 <RadioButton Content="Invitado"
                              Name="InvitadoScene"
                              Height="50"
                              Foreground="White"
                              FontSize="20"
-                             Style="***REMOVED***StaticResource LoginMenuButton***REMOVED***"
+                             Style="{StaticResource LoginMenuButton}"
                              Click="EnableScene"/>
             </StackPanel>
 
@@ -181,7 +181,7 @@
                            FontSize="25"
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"/>
-                    <TextBox x:Uid="User" x:Name="LoginText"  VerticalAlignment="Center" Margin="10" Style="***REMOVED***StaticResource ModernTextBox***REMOVED***"/>
+                    <TextBox x:Uid="User" x:Name="LoginText"  VerticalAlignment="Center" Margin="10" Style="{StaticResource ModernTextBox}"/>
 
                     <TextBlock x:Uid="Contraseña"
                            Text="Contraseña"
@@ -191,9 +191,9 @@
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"
                            Margin="0 10 0 0"/>
-                    <PasswordBox Margin="10" x:Name="MyPasswordBox" Style="***REMOVED***StaticResource ModernPasswordBox***REMOVED***" Tag="Enter password" PasswordChanged="passwordChanged" Background="***REMOVED***StaticResource PasswordHint***REMOVED***"/>
+                    <PasswordBox Margin="10" x:Name="MyPasswordBox" Style="{StaticResource ModernPasswordBox}" Tag="Enter password" PasswordChanged="passwordChanged" Background="{StaticResource PasswordHint}"/>
                 </StackPanel>
-                <Button Style="***REMOVED***DynamicResource ButtonStyle1***REMOVED***" Foreground="Black" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="120" Height="30"  Content="Log in" FontWeight="Bold" FontSize="18" Click="ClickLogin" Margin="0 0 0 20"/>
+                <Button Style="{DynamicResource ButtonStyle1}" Foreground="Black" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Width="120" Height="30"  Content="Log in" FontWeight="Bold" FontSize="18" Click="ClickLogin" Margin="0 0 0 20"/>
 
             </Grid>
             <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
@@ -218,7 +218,7 @@
                            FontSize="25"
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"/>
-                    <TextBox x:Uid="Name" x:Name="SignUpName"  VerticalAlignment="Center" Margin="10" Style="***REMOVED***StaticResource ModernTextBox***REMOVED***"/>
+                    <TextBox x:Uid="Name" x:Name="SignUpName"  VerticalAlignment="Center" Margin="10" Style="{StaticResource ModernTextBox}"/>
                     <TextBlock
                            Text="Apellidos"
                            VerticalAlignment="Center"
@@ -226,7 +226,7 @@
                            FontSize="25"
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"/>
-                    <TextBox x:Uid="Last names" x:Name="SignUpLastName"  VerticalAlignment="Center" Margin="10" Style="***REMOVED***StaticResource ModernTextBox***REMOVED***"/>
+                    <TextBox x:Uid="Last names" x:Name="SignUpLastName"  VerticalAlignment="Center" Margin="10" Style="{StaticResource ModernTextBox}"/>
                     <TextBlock x:Uid="Contraseña"
                            Text="Contraseña"
                            VerticalAlignment="Center"
@@ -235,9 +235,9 @@
                            Foreground="AntiqueWhite" 
                            DockPanel.Dock="Left"
                            Margin="0 10 0 0"/>
-                    <PasswordBox Margin="10" x:Name="SignUpBox" Style="***REMOVED***StaticResource ModernPasswordBox***REMOVED***" Tag="Enter password" PasswordChanged="passwordChanged" Background="***REMOVED***StaticResource PasswordHint***REMOVED***"/>
+                    <PasswordBox Margin="10" x:Name="SignUpBox" Style="{StaticResource ModernPasswordBox}" Tag="Enter password" PasswordChanged="passwordChanged" Background="{StaticResource PasswordHint}"/>
                 </StackPanel>
-                <Button Style="***REMOVED***DynamicResource ButtonStyle1***REMOVED***" Foreground="Black" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="120" Height="30"  Content="Sign up" FontWeight="Bold" FontSize="18" Click="ClickSignup" Margin="190,400,190,0"/>
+                <Button Style="{DynamicResource ButtonStyle1}" Foreground="Black" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Width="120" Height="30"  Content="Sign up" FontWeight="Bold" FontSize="18" Click="ClickSignup" Margin="190,400,190,0"/>
             </Grid>
             <!-- ///////////////////////////// SIGN UP //////////////////////////////// -->
 
