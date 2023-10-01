@@ -107,10 +107,8 @@ using Microsoft.Identity.Client;
         ***REMOVED***
 ***REMOVED***
 ***REMOVED***
-***REMOVED***
             ***REMOVED***
-                sqlObject = new SqlConn(_configuration);
-***REMOVED***
+                conn = new SqlConn(_configuration).GetConnection();
 ***REMOVED***
     ***REMOVED***catch(Exception ex)
             ***REMOVED***
