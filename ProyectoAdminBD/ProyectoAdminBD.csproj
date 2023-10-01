@@ -10,7 +10,6 @@
   <ItemGroup>
     <None Remove="Images\dataimage.png" />
     <None Remove="Images\logoMexico.png" />
-    <None Remove="Images\test.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +24,8 @@
     <PackageReference Include="Google.Cloud.Storage.V1" Version="4.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.11" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+	<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+	<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,9 +35,15 @@
     <Resource Include="Images\logoMexico.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Images\test.jpg">
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </None>
+    <None Update="evident-ethos-400620-d4ba39dfc502.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

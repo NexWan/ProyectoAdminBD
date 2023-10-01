@@ -11,6 +11,8 @@
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
+using Microsoft.Identity.Client;
+***REMOVED***
 
 ***REMOVED***
 ***REMOVED***
@@ -19,9 +21,12 @@
 ***REMOVED***
 ***REMOVED***
     ***REMOVED***
+***REMOVED***
 
 ***REMOVED***
         ***REMOVED***
+***REMOVED***
+***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
@@ -98,18 +103,13 @@
 ***REMOVED***
 
         //Logica detras del boton de login
-        private async void ClickLogin(object sender, RoutedEventArgs e)
+***REMOVED***
         ***REMOVED***
-            using (HttpClient client = new HttpClient())
-            ***REMOVED***
-                string response = await client.GetStringAsync("https://api64.ipify.org?format=json");
-                Console.WriteLine(response);
-    ***REMOVED***
 ***REMOVED***
 ***REMOVED***
 ***REMOVED***
             ***REMOVED***
-                sqlObject = new SqlConn("bd_actas");
+                sqlObject = new SqlConn(_configuration);
 ***REMOVED***
 ***REMOVED***
     ***REMOVED***catch(Exception ex)
