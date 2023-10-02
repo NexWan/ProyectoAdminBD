@@ -30,7 +30,7 @@
             <!-- /////////////////// DISEÑO //////////////////////////////-->
             <Border Background="#483248" Grid.Row="1" CornerRadius="0 0 0 30"/>
             <Border Background="#301934" CornerRadius="30 0 0 0"/>
-            <Border Background="#301934" CornerRadius="0 30 0 0" Grid.Column="1"/>
+            <Border Background="#301934" CornerRadius="0 30 0 0" Grid.Column="1" MouseDown="Border_MouseDown"/>
             <Rectangle Fill="White" Margin="192,0,872,0" Grid.RowSpan="2" Grid.ColumnSpan="2" Width="2"/>
             <Rectangle Fill="White" Margin="338,-463,540,-15" Grid.RowSpan="2" Width="2" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
                 <Rectangle.RenderTransform>
