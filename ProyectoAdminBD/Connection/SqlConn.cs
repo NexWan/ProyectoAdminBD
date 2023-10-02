@@ -1,33 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.SqlServer.Server;
+using System.Diagnostics;
+using System.Windows;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
+using Microsoft.Extensions.Configuration;
 
 namespace ProyectoAdminBD.Connection
 {
         class SqlConn
         {
-        private SqlConnection sqlCon;
 
-            public SqlConn(String user, String pwd, String db)
+        private readonly IConfiguration _configuration;
+        private SqlConnection? sqlCon;
+
+            public SqlConn(IConfiguration configuration)
             {
-            String conn = $"Server=localhost\\SQLEXPRESS03;Database={db};Trusted_Connection=True;";
-            sqlCon = new SqlConnection(conn);
+                _configuration = configuration;
             }
 
-        public SqlConn(String db)
-        {
-            String conn = $"Server=localhost\\SQLEXPRESS03;Database={db};Trusted_Connection=True;";
-            sqlCon = new SqlConnection(conn);
-        }
         
             public SqlConnection GetConnection()
             {
-                return sqlCon;
+            string keyFilePath = "evident-ethos-400620-d4ba39dfc502.json";
+            GoogleCredential credential = GoogleCredential.FromFile(keyFilePath);
+            StorageClient storageClient = StorageClient.Create(credential);
+            Debug.WriteLine("Authenticated successfully.");
+
+            try
+            {
+                sqlCon = new SqlConnection(_configuration.GetConnectionString("AdminConnection"));
             }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Ocurrio un error con la conexion!, codigo de error: \n{e}");
+            }
+            return sqlCon;
+        }
 
         }
 }

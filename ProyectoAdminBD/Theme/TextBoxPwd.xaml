@@ -8,7 +8,7 @@
                 <ControlTemplate TargetType="{x:Type PasswordBox}">
                     <Border CornerRadius="10"
                             Background="#353340"
-                            Width="200" Height="40">
+                            Width="250" Height="40">
                         <Grid>
                             <Rectangle StrokeThickness="1"/>
                             <PasswordBox Margin="1"

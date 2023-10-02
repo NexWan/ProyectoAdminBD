@@ -2,14 +2,22 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ProyectoAdminBD"
+             xmlns:viewModel="clr-namespace:ProyectoAdminBD.MVVM.ViewModel"
+             xmlns:view="clr-namespace:ProyectoAdminBD.MVVM.View"
              StartupUri="Login.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Theme/TestBoxLogin.xaml"/>
                 <ResourceDictionary Source="Theme/TextBoxPwd.xaml"/>
+                <ResourceDictionary Source="Theme/LoginMenuButton.xaml"/>
+                <ResourceDictionary Source="Theme/LoginButton.xaml"/>
+                
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PasswordHint" Color="LightGray" />
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

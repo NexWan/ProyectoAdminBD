@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text.RegularExpressions;
@@ -8,6 +9,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
+using Microsoft.Extensions.Configuration;
 using ProyectoAdminBD.Connection;
 
 namespace ProyectoAdminBD
@@ -17,11 +20,14 @@ namespace ProyectoAdminBD
     /// </summary>
     public partial class Login : Window
     {
+        private IConfiguration _configuration;
 
         public Login()
         {
             InitializeComponent();
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            var appConfig = new LoadConfig();
+            _configuration = appConfig.Configuration;
         }
 
 
@@ -95,39 +101,69 @@ namespace ProyectoAdminBD
             return null;
         }
 
-        //Logica detras del boton de login
+        /// <summary>
+        /// Function that handles all the login logic 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ClickLogin(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("Hola");
-            SqlConnection conn = new SqlConn("actas").GetConnection();
+            SqlConnection conn = getConn();
             conn.Open();
             String? user = FindVisualChild<TextBox>(LoginText, "LoginText").Text;
             String? pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox").Password;
-            Regex regex = new Regex("[@#'\"]");
-            MatchCollection matchCollection = regex.Matches(pwd);
-
-            if(matchCollection.Count > 0)
+            if (CheckForValidText(pwd))
             {
-                MessageBox.Show("Contraseña invalida, has puesto caracteres invalidos");
-                return;
-            }
-            String query = $"SELECT * FROM empleados WHERE id_empleado={user} AND clave= '{pwd}'";
-            SqlCommand? cmd = conn.CreateCommand();
-            try
-            {
-                cmd.CommandText = query;
-                SqlDataReader? reader = cmd.ExecuteReader();
-                if (reader.Read())  //Si resulta cualquier valor significa que es verdadero
-                    MessageBox.Show($"Usuario: {user} \n Contraseña: {pwd} \n Contraseña valida");
-                else MessageBox.Show("Usuario y/o contraseña invalida");
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña");
+                String query = $"SELECT * FROM empleados WHERE id_empleado={user} AND clave= '{pwd}'";
+                SqlCommand? cmd = conn?.CreateCommand();
+                try
+                {
+                    cmd.CommandText = query;
+                    SqlDataReader? reader = cmd.ExecuteReader();
+                    if (reader.Read())  //Si resulta cualquier valor significa que es verdadero
+                        MessageBox.Show($"Usuario: {user} \n Contraseña: {pwd} \n Contraseña valida");
+                    else MessageBox.Show("Usuario y/o contraseña invalida");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña", "Error!",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                }
             }
         }
 
-        //Este metodo sirve para poder convertir un string seguro a un string normal
+        /// <summary>
+        /// Function that handles all the sign up logic 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClickSignup(object sender, RoutedEventArgs e)
+        {
+            SqlConnection conn = getConn();
+            conn.Open();
+            String? name = FindVisualChild<TextBox>(SignUpName, "LoginText").Text;
+            String? last_name = FindVisualChild<TextBox>(SignUpLastName, "LoginText").Text;
+            String? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox").Password;
+
+            MessageBox.Show(name + "\n" + last_name + "\n" + pwd);
+        }
+        
+        private SqlConnection? getConn() {
+            try
+            {
+                return new SqlConn(_configuration).GetConnection();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ha ocurrido un error! {ex.Message}","ERROR!",MessageBoxButton.OK,MessageBoxImage.Error);
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Function to turn a SecureString to a normal string
+        /// </summary>
+        /// <param name="secureString"></param>
+        /// <returns>Normal string</returns>
         String? ConvertToUnsecureString(SecureString secureString)
         {
             IntPtr valuePtr = IntPtr.Zero;
@@ -140,6 +176,64 @@ namespace ProyectoAdminBD
             {
                 Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
             }
+        }
+
+        /// <summary>
+        /// Function that checks if a string contains invalid text (sqlinjectio ex)
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns>bool</returns>
+        private bool CheckForValidText(String text)
+        {
+            Regex regex = new Regex("[@#'\"]");
+            MatchCollection matchCollection = regex.Matches(text);
+            if (matchCollection.Count > 0)
+            {
+                MessageBox.Show("Contraseña o usuario con caracteres ilegales, intente de nuevo","ERROR!",MessageBoxButton.OK,MessageBoxImage.Error);
+                return false; 
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Function to switch between scenes on the login window class
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnableScene(object sender, RoutedEventArgs e)
+        {
+            RadioButton? radioButton = sender as RadioButton;
+            string name = radioButton.Name;
+            String receivedScene = name;
+            if (receivedScene != null)
+            {
+                InicioWindow.Visibility = Visibility.Hidden;
+                LoginWindow.Visibility = radioButton.Name == "LoginScene" ? Visibility.Visible : Visibility.Hidden;
+                SignupWindow.Visibility = radioButton.Name == "SignupScene" ? Visibility.Visible : Visibility.Hidden;
+                Tittle.Text = radioButton.Name == "LoginScene" ? "Log in" : "Sign up";
+
+                if (radioButton.Name == "InvitadoScene") MessageBox.Show("Soy la escena de invitado");
+
+            }
+        }
+
+        /// <summary>
+        /// Function that sets the color when the close or minize button is hovered
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Ellipse? ellipse = sender as Ellipse;
+            ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFF0000")) : (ellipse.Name == "minimize") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFFFF00")) : null;
+
+
+        }
+
+        private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Ellipse? ellipse = sender as Ellipse;
+            ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush(Colors.DarkRed) : (ellipse.Name == "minimize") ? new SolidColorBrush(Colors.Yellow) : null;
         }
     }
 }
