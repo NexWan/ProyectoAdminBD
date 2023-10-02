@@ -22,6 +22,16 @@ namespace ProyectoAdminBD
         public MainWindow()
         {
             InitializeComponent();
+            this.Visibility = Visibility.Visible;
+            this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 }

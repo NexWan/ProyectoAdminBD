@@ -120,8 +120,12 @@ namespace ProyectoAdminBD
                 {
                     cmd.CommandText = query;
                     SqlDataReader? reader = cmd.ExecuteReader();
-                    if (reader.Read())  //Si resulta cualquier valor significa que es verdadero
+                    if (reader.Read())
+                    {  //Si resulta cualquier valor significa que es verdadero
                         MessageBox.Show($"Usuario: {user} \n Contraseña: {pwd} \n Contraseña valida");
+                        new MainWindow();
+                        Close();
+                    }
                     else MessageBox.Show("Usuario y/o contraseña invalida");
                 }
                 catch (Exception ex)
