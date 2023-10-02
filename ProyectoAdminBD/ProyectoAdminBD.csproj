@@ -39,6 +39,12 @@
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="evident-ethos-400620-8733b08f5584.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="evident-ethos-400620-d4ba39dfc502.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
