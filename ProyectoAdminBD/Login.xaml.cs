@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text.RegularExpressions;
@@ -108,10 +107,10 @@ namespace ProyectoAdminBD
         /// <param name="e"></param>
         private void ClickLogin(object sender, RoutedEventArgs e)
         {
-            SqlConnection conn = getConn();
-            conn.Open();
-            String? user = FindVisualChild<TextBox>(LoginText, "LoginText").Text;
-            String? pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox").Password;
+            SqlConnection? conn = getConn();
+            conn?.Open();
+            String? user = FindVisualChild<TextBox>(LoginText, "LoginText")?.Text;
+            String? pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox")?.Password;
             if (CheckForValidText(pwd))
             {
                 String query = $"SELECT * FROM empleados WHERE id_empleado={user} AND clave= '{pwd}'";
@@ -144,9 +143,9 @@ namespace ProyectoAdminBD
         {
             SqlConnection conn = getConn();
             conn.Open();
-            String? name = FindVisualChild<TextBox>(SignUpName, "LoginText").Text;
-            String? last_name = FindVisualChild<TextBox>(SignUpLastName, "LoginText").Text;
-            String? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox").Password;
+            String? name = FindVisualChild<TextBox>(SignUpName, "LoginText")?.Text;
+            String? last_name = FindVisualChild<TextBox>(SignUpLastName, "LoginText")?.Text;
+            String? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox")?.Password;
 
             MessageBox.Show(name + "\n" + last_name + "\n" + pwd);
         }
@@ -230,8 +229,6 @@ namespace ProyectoAdminBD
         {
             Ellipse? ellipse = sender as Ellipse;
             ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFF0000")) : (ellipse.Name == "minimize") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFFFF00")) : null;
-
-
         }
 
         private void Ellipse_MouseLeave(object sender, MouseEventArgs e)

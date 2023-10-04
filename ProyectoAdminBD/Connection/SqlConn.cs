@@ -20,12 +20,12 @@ namespace ProyectoAdminBD.Connection
             }
 
         
-            public SqlConnection GetConnection()
+            public SqlConnection? GetConnection()
             {
-            string keyFilePath = "evident-ethos-400620-8733b08f5584.json";
-            GoogleCredential credential = GoogleCredential.FromFile(keyFilePath);
-            StorageClient storageClient = StorageClient.Create(credential);
-            Debug.WriteLine("Authenticated successfully.");
+                string keyFilePath = "evident-ethos-400620-8733b08f5584.json";
+                GoogleCredential credential = GoogleCredential.FromFile(keyFilePath);
+                StorageClient storageClient = StorageClient.Create(credential);
+                Debug.WriteLine("Authenticated successfully.");
 
             try
             {

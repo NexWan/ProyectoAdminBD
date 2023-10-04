@@ -33,5 +33,43 @@ namespace ProyectoAdminBD
                 DragMove();
             }
         }
+
+        private void CloseApp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void Minimize(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Ellipse? ellipse = sender as Ellipse;
+            ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFF0000")) : (ellipse.Name == "minimize") ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#CCFFFF00")) : null;
+        }
+
+        private void Ellipse_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Ellipse? ellipse = sender as Ellipse;
+            ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush(Colors.DarkRed) : (ellipse.Name == "minimize") ? new SolidColorBrush(Colors.Yellow) : null;
+        }
     }
 }
