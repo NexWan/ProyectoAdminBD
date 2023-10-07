@@ -144,10 +144,13 @@ namespace ProyectoAdminBD
             SqlConnection conn = getConn();
             conn.Open();
             String? name = FindVisualChild<TextBox>(SignUpName, "LoginText")?.Text;
-            String? last_name = FindVisualChild<TextBox>(SignUpLastName, "LoginText")?.Text;
+            String? last_nameF = FindVisualChild<TextBox>(LastNameFather, "LoginText")?.Text;
+            String? last_nameM = FindVisualChild<TextBox>(LastNameMother, "LoginText")?.Text;
             String? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox")?.Password;
 
-            MessageBox.Show(name + "\n" + last_name + "\n" + pwd);
+
+            MessageBox.Show(name + "\n" + last_nameF + $" {last_nameM}" + "\n" + pwd);
+            MessageBox.Show("Num Control");
         }
         
         private SqlConnection? getConn() {
