@@ -3,9 +3,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using Microsoft.Extensions.Configuration;
 using ProyectoAdminBD.Connection;
+using ProyectoAdminBD.Theme;
 
 namespace ProyectoAdminBD
 {
@@ -22,6 +21,7 @@ namespace ProyectoAdminBD
     public partial class Login : Window
     {
         private IConfiguration _configuration;
+        DataHolder dh;
 
         public Login()
         {
@@ -29,6 +29,7 @@ namespace ProyectoAdminBD
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             var appConfig = new LoadConfig();
             _configuration = appConfig.Configuration;
+            dh = DataHolder.Instance;
         }
 
 
@@ -123,6 +124,8 @@ namespace ProyectoAdminBD
                     SqlDataReader? reader = cmd.ExecuteReader();
                     if (reader.Read())
                     {
+                        string logUser = reader.GetString(1);
+                        dh.ChangeUser(logUser);
                         // Perform UI-related operations on the UI thread using Dispatcher
                         Dispatcher.Invoke(() =>
                         {

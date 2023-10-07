@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoAdminBD.Theme;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,8 +23,10 @@ namespace ProyectoAdminBD
         public MainWindow()
         {
             InitializeComponent();
+            DataHolder dh = DataHolder.Instance;
             this.Visibility = Visibility.Visible;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+            LoggText.Text += $" {dh.UserLoggedIn}";
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

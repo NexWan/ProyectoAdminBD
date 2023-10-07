@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoAdminBD.Theme;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace ProyectoAdminBD.MVVM.View
     /// </summary>
     public partial class HomeView : UserControl
     {
+        DataHolder dh;
         public HomeView()
         {
             InitializeComponent();
+            dh = DataHolder.Instance;
+            WelcomeText.Text += " " + dh.UserLoggedIn;
         }
     }
 }
