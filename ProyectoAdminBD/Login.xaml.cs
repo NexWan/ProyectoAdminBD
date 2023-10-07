@@ -3,7 +3,9 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -120,16 +122,31 @@ namespace ProyectoAdminBD
                     cmd.CommandText = query;
                     SqlDataReader? reader = cmd.ExecuteReader();
                     if (reader.Read())
-                    {  //Si resulta cualquier valor significa que es verdadero
-                        MessageBox.Show($"Usuario: {user} \n Contraseña: {pwd} \n Contraseña valida");
-                        new MainWindow();
-                        Close();
+                    {
+                        // Perform UI-related operations on the UI thread using Dispatcher
+                        Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show($"Usuario: {user} \n Contraseña: {pwd} \n Contraseña valida");
+                            new MainWindow().Show();
+                            Close();
+                        });
                     }
-                    else MessageBox.Show("Usuario y/o contraseña invalida");
+                    else
+                    {
+                        // Perform UI-related operations on the UI thread using Dispatcher
+                        Dispatcher.Invoke(() =>
+                        {
+                            MessageBox.Show("Usuario y/o contraseña invalida", "Datos incorrectos!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        });
+                    }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña", "Error!",MessageBoxButton.OK,MessageBoxImage.Exclamation);
+                    // Perform UI-related operations on the UI thread using Dispatcher
+                    Dispatcher.Invoke(() =>
+                    {
+                        MessageBox.Show("Ocurrio un error! Comprueba el usuario o contraseña", "Error!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    });
                 }
             }
         }
@@ -143,17 +160,49 @@ namespace ProyectoAdminBD
         {
             SqlConnection conn = getConn();
             conn.Open();
-            String? name = FindVisualChild<TextBox>(SignUpName, "LoginText")?.Text;
-            String? last_nameF = FindVisualChild<TextBox>(LastNameFather, "LoginText")?.Text;
-            String? last_nameM = FindVisualChild<TextBox>(LastNameMother, "LoginText")?.Text;
-            String? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox")?.Password;
 
+            string? name = FindVisualChild<TextBox>(SignUpName, "LoginText")?.Text;
+            string? last_nameF = FindVisualChild<TextBox>(LastNameFather, "LoginText")?.Text;
+            string? last_nameM = FindVisualChild<TextBox>(LastNameMother, "LoginText")?.Text;
+            string? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox")?.Password;
 
-            MessageBox.Show(name + "\n" + last_nameF + $" {last_nameM}" + "\n" + pwd);
-            MessageBox.Show("Num Control");
+            if (CheckForValidText(name) && CheckForValidText(last_nameM) && CheckForValidText(last_nameF) && CheckForValidText(pwd))
+            {
+                Random r = new Random();
+                long numControl = r.Next(1, 99999999);
+
+                string query = $"INSERT INTO empleados VALUES ({numControl}, '{name}', '{last_nameF}', '{last_nameM}', '{pwd}')";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                try
+                {
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    if (rowsAffected == 1)
+                    {
+                        MessageBox.Show($"Usuario creado exitosamente!\nSu número de control es: {numControl}", "Usuario creado!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show($"Se le redireccionará a la pantalla de inicio de sesión", "Usuario creado!", MessageBoxButton.OK, MessageBoxImage.Information);
+                        EnableScene(LoginScene, e);
+                        LoginScene.IsChecked = true;
+                        SignupScene.IsChecked = false;
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se pudo crear el usuario. Verifique los datos y vuelva a intentarlo.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ocurrió un error al crear el usuario: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Por favor valida que no hayas usado caracteres ilegales.", "Error!", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
-        
-        private SqlConnection? getConn() {
+
+            private SqlConnection? getConn() {
             try
             {
                 return new SqlConn(_configuration).GetConnection();
