@@ -73,8 +73,6 @@ namespace ProyectoAdminBD
             // Find the TextBlock named "PlaceholderTextBlock" within the PasswordBox template
             TextBlock? watermarkTextBlock = FindVisualChild<TextBlock>(passwordBox, "PlaceholderTextBlock");
 
-            Debug.WriteLine(passwordBox.Password.Length);
-
             if (watermarkTextBlock != null)
             {
                 if (FindVisualChild<PasswordBox>(passwordBox, "pwdBox").Password.Length == 0)
@@ -129,7 +127,7 @@ namespace ProyectoAdminBD
                         // Perform UI-related operations on the UI thread using Dispatcher
                         Dispatcher.Invoke(() =>
                         {
-                            MessageBox.Show($"Usuario: {user} \n Contraseña: {pwd} \n Contraseña valida");
+                            MessageBox.Show($"Bienvenido {logUser}!","Login exitoso!",MessageBoxButton.OK,MessageBoxImage.Information);
                             new MainWindow().Show();
                             Close();
                         });
@@ -168,6 +166,11 @@ namespace ProyectoAdminBD
             string? last_nameF = FindVisualChild<TextBox>(LastNameFather, "LoginText")?.Text;
             string? last_nameM = FindVisualChild<TextBox>(LastNameMother, "LoginText")?.Text;
             string? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox")?.Password;
+
+            if(pwd == null || last_nameF == null || last_nameM == null ||  pwd == null) {
+                MessageBox.Show("Asegurate que los campos no esten vacios!","ERROR!",MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
             if (CheckForValidText(name) && CheckForValidText(last_nameM) && CheckForValidText(last_nameF) && CheckForValidText(pwd))
             {
@@ -290,6 +293,18 @@ namespace ProyectoAdminBD
         {
             Ellipse? ellipse = sender as Ellipse;
             ellipse.Fill = (ellipse.Name == "close") ? new SolidColorBrush(Colors.DarkRed) : (ellipse.Name == "minimize") ? new SolidColorBrush(Colors.Yellow) : null;
+        }
+
+        private void KeyManager(object sender, KeyEventArgs e)
+        {
+            PasswordBox? pb = sender as PasswordBox;
+            if(pb != null)
+            {
+                if (pb.Name == "MyPasswordBox")
+                    ClickLogin((object)MyPasswordBox, e);
+                else if (pb.Name == "SignUpBox")
+                    ClickSignup((object)SignUpBox, e);
+            }
         }
     }
 }
