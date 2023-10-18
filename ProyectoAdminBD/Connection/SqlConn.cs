@@ -8,24 +8,24 @@ using Microsoft.Extensions.Configuration;
 
 namespace ProyectoAdminBD.Connection
 {
-        class SqlConn
-        {
+    class SqlConn
+    {
 
         private readonly IConfiguration _configuration;
         private SqlConnection? sqlCon;
 
-            public SqlConn(IConfiguration configuration)
-            {
-                _configuration = configuration;
-            }
+        public SqlConn(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
-        
-            public SqlConnection? GetConnection()
-            {
-                string keyFilePath = "evident-ethos-400620-d4ba39dfc502.json";
-                GoogleCredential credential = GoogleCredential.FromFile(keyFilePath);
-                StorageClient storageClient = StorageClient.Create(credential);
-                Debug.WriteLine("Authenticated successfully.");
+
+        public SqlConnection? GetConnection()
+        {
+            string keyFilePath = "evident-ethos-400620-8733b08f5584.json";
+            GoogleCredential credential = GoogleCredential.FromFile(keyFilePath);
+            StorageClient storageClient = StorageClient.Create(credential);
+            Debug.WriteLine("Authenticated successfully.");
 
             try
             {
@@ -35,8 +35,14 @@ namespace ProyectoAdminBD.Connection
             {
                 MessageBox.Show($"Ocurrio un error con la conexion!, codigo de error: \n{e}");
             }
-            return sqlCon;
+            if( sqlCon != null )
+            {
+                return sqlCon;
+            }
+            else
+            {
+                return null;
+            }
         }
-
-        }
+    }
 }

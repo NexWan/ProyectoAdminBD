@@ -12,7 +12,7 @@
                 <ResourceDictionary Source="Theme/TextBoxPwd.xaml"/>
                 <ResourceDictionary Source="Theme/LoginMenuButton.xaml"/>
                 <ResourceDictionary Source="Theme/LoginButton.xaml"/>
-                
+                <ResourceDictionary Source="Theme/MainWindowButton.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PasswordHint" Color="LightGray" />
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

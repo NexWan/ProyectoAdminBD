@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Images\dataimage.png" />
+    <None Remove="Images\defaultpfp.png" />
+    <None Remove="Images\istockphoto-1393750072-612x612-removebg-preview.png" />
     <None Remove="Images\logoMexico.png" />
   </ItemGroup>
 
@@ -28,6 +30,12 @@
 
   <ItemGroup>
     <Resource Include="Images\dataimage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\defaultpfp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\istockphoto-1393750072-612x612-removebg-preview.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\logoMexico.png">

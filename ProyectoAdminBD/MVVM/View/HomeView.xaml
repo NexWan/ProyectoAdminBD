@@ -3,13 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View"
+             xmlns:local="clr-namespace:ProyectoAdminBD"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <DockPanel>
             <TextBlock DockPanel.Dock="Top" Width="400" Height="50" Text="Bienvenido!" Name="WelcomeText" FontSize="30" Foreground="White" TextAlignment="Center" Margin="0 30 0 0"/>
             <Border Margin="20 0 20 20" Width="600" Height="250">
+                <DockPanel>
+                    <TextBlock DockPanel.Dock="Left" Text="Datos del trabajador: " FontSize="20" Foreground="Black" Margin="20 10 20 0" Name="UserInfoBox"/>
+                    <DockPanel>
+                        <Image Source="../../Images/istockphoto-1393750072-612x612-removebg-preview.png" Width="200" Height="200" DockPanel.Dock="Top"/>
+                        <Button Content="Change Pfp" Style="{StaticResource MainButton}" Width="100" Margin="0 0 0 10" Click="ChangePfp"/>
+
+                    </DockPanel>
+                </DockPanel>
                 <Border.Clip>
                     <RectangleGeometry RadiusX="10" RadiusY="10" Rect="0,0,600,250"/>
                 </Border.Clip>

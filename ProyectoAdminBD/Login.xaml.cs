@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
+using System.Globalization;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text.RegularExpressions;
@@ -46,7 +49,8 @@ namespace ProyectoAdminBD
             try
             {
                 Close();
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -109,6 +113,11 @@ namespace ProyectoAdminBD
         private void ClickLogin(object sender, RoutedEventArgs e)
         {
             SqlConnection? conn = getConn();
+            if (conn == null)
+            {
+                MessageBox.Show("Ha ocurrido un error con la conexion!, comprueba la conexion", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             conn?.Open();
             String? user = FindVisualChild<TextBox>(LoginText, "LoginText")?.Text;
             String? pwd = FindVisualChild<PasswordBox>(MyPasswordBox, "pwdBox")?.Password;
@@ -123,11 +132,17 @@ namespace ProyectoAdminBD
                     if (reader.Read())
                     {
                         string logUser = reader.GetString(1);
+                        string logLastFName = reader.GetString(2);
+                        string logLastMName = reader.GetString(3);
+                        var logId = reader.GetDecimal(0);
+                        dh.setUserLastMName(logLastMName);
+                        dh.SetUserLastFName(logLastFName);
                         dh.ChangeUser(logUser);
+                        dh.setUserId(logId);
                         // Perform UI-related operations on the UI thread using Dispatcher
                         Dispatcher.Invoke(() =>
                         {
-                            MessageBox.Show($"Bienvenido {logUser}!","Login exitoso!",MessageBoxButton.OK,MessageBoxImage.Information);
+                            MessageBox.Show($"Bienvenido {logUser}!", "Login exitoso!", MessageBoxButton.OK, MessageBoxImage.Information);
                             new MainWindow().Show();
                             Close();
                         });
@@ -160,6 +175,11 @@ namespace ProyectoAdminBD
         private void ClickSignup(object sender, RoutedEventArgs e)
         {
             SqlConnection conn = getConn();
+            if (conn == null)
+            {
+                MessageBox.Show("Ha ocurrido un error con la conexion!, comprueba la conexion", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             conn.Open();
 
             string? name = FindVisualChild<TextBox>(SignUpName, "LoginText")?.Text;
@@ -167,8 +187,9 @@ namespace ProyectoAdminBD
             string? last_nameM = FindVisualChild<TextBox>(LastNameMother, "LoginText")?.Text;
             string? pwd = FindVisualChild<PasswordBox>(SignUpBox, "pwdBox")?.Password;
 
-            if(pwd == null || last_nameF == null || last_nameM == null ||  pwd == null) {
-                MessageBox.Show("Asegurate que los campos no esten vacios!","ERROR!",MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            if (pwd == null || last_nameF == null || last_nameM == null || pwd == null)
+            {
+                MessageBox.Show("Asegurate que los campos no esten vacios!", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 return;
             }
 
@@ -208,16 +229,21 @@ namespace ProyectoAdminBD
             }
         }
 
-            private SqlConnection? getConn() {
-            try
+        private SqlConnection? getConn()
+        {
+            if (CheckForInternetConnection())
             {
-                return new SqlConn(_configuration).GetConnection();
+                try
+                {
+                    return new SqlConn(_configuration).GetConnection();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Ha ocurrido un error! {ex.Message}", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return null;
+                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ha ocurrido un error! {ex.Message}","ERROR!",MessageBoxButton.OK,MessageBoxImage.Error);
-                return null;
-            }
+            return null;
         }
 
         /// <summary>
@@ -250,8 +276,8 @@ namespace ProyectoAdminBD
             MatchCollection matchCollection = regex.Matches(text);
             if (matchCollection.Count > 0)
             {
-                MessageBox.Show("Contraseña o usuario con caracteres ilegales, intente de nuevo","ERROR!",MessageBoxButton.OK,MessageBoxImage.Error);
-                return false; 
+                MessageBox.Show("Contraseña o usuario con caracteres ilegales, intente de nuevo", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
             }
             return true;
         }
@@ -264,6 +290,7 @@ namespace ProyectoAdminBD
         private void EnableScene(object sender, RoutedEventArgs e)
         {
             RadioButton? radioButton = sender as RadioButton;
+            if (radioButton == null) return;
             string name = radioButton.Name;
             String receivedScene = name;
             if (receivedScene != null)
@@ -298,12 +325,38 @@ namespace ProyectoAdminBD
         private void KeyManager(object sender, KeyEventArgs e)
         {
             PasswordBox? pb = sender as PasswordBox;
-            if(pb != null)
+            if (pb != null)
             {
-                if (pb.Name == "MyPasswordBox")
+                if ((pb.Name == "MyPasswordBox") && e.Key == Key.Return)
                     ClickLogin((object)MyPasswordBox, e);
-                else if (pb.Name == "SignUpBox")
+                else if (pb.Name == "SignUpBox" && e.Key == Key.Return)
                     ClickSignup((object)SignUpBox, e);
+            }
+        }
+
+        public static bool CheckForInternetConnection(int timeoutMs = 10000, string url = null)
+        {
+            try
+            {
+                url ??= CultureInfo.InstalledUICulture switch
+                {
+                    { Name: var n } when n.StartsWith("fa") => // Iran
+                        "http://www.aparat.com",
+                    { Name: var n } when n.StartsWith("zh") => // China
+                        "http://www.baidu.com",
+                    _ =>
+                        "http://www.gstatic.com/generate_204",
+                };
+
+                var request = (HttpWebRequest)WebRequest.Create(url);
+                request.KeepAlive = false;
+                request.Timeout = timeoutMs;
+                using (var response = (HttpWebResponse)request.GetResponse())
+                    return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

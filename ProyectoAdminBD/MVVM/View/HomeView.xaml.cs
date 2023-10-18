@@ -1,4 +1,5 @@
-﻿using ProyectoAdminBD.Theme;
+﻿using Microsoft.Win32;
+using ProyectoAdminBD.Theme;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,23 @@ namespace ProyectoAdminBD.MVVM.View
             InitializeComponent();
             dh = DataHolder.Instance;
             WelcomeText.Text += " " + dh.UserLoggedIn;
+            UserInfoBox.Text += $"\n Nombre: {dh.UserLoggedIn}" +
+                $"\n Apellido Paterno: {dh.userLastFName}" +
+                $"\n Apellido Materno: {dh.userLastMName}" +
+                $"\n Numero de control: {dh.userId}";
+        }
+
+        private void ChangePfp(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = @"C:\";
+            saveFileDialog.Title = "Save an Image";
+            saveFileDialog.DefaultExt = "png";
+
+            // Set the filter to allow only image files (e.g., PNG, JPG, BMP, GIF)
+            saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif|All Files|*.*";
+
+            saveFileDialog.ShowDialog();
         }
     }
 }

@@ -14,6 +14,10 @@ namespace ProyectoAdminBD.Theme
     {
         private static DataHolder instance;
         public string UserLoggedIn { get; private set; }
+        public string userFirstName { get; private set; }
+        public string userLastFName { get; private set; }
+        public string userLastMName { get; private set; }   
+        public Decimal userId { get; private set; }  
         public DataHolder() {
             this.UserLoggedIn = "";
         }
@@ -33,6 +37,26 @@ namespace ProyectoAdminBD.Theme
         public void ChangeUser(String name)
         {
             UserLoggedIn = name; 
+        }
+
+        public void ChangeUserFirstName(String name)
+        {
+            userFirstName = name;
+        }
+
+        public void SetUserLastFName(String name)
+        {
+            userLastFName = name;
+        }
+
+        public void setUserLastMName(String name)
+        {
+            userLastMName = name;
+        }
+
+        public void setUserId(Decimal id)
+        {
+            userId = id;
         }
     }
 }
