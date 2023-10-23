@@ -23,7 +23,7 @@
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Grid.Row="0">
-                <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="30,0,0,0" Grid.Column="2">
+                <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="30,0,0,0" Grid.Column="0">
                     <TextBlock Text="Gestor de Actas" Foreground="White" Background="Transparent" VerticalAlignment="Center" Padding="10" FontSize="30" FontFamily="Segoe UI Variable Display Semibold"/>
                 </Border>
             </Grid>
@@ -42,7 +42,7 @@
                 </Border.RenderTransform>
             </Border>
 
-            <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="0,30,0,0" Grid.Column="2">
+            <Border Background="#1b1124" MouseDown="Border_MouseDown" CornerRadius="0,30,0,0" Grid.Column="1">
                 <TextBlock Text="Inicio" 
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"
@@ -52,7 +52,7 @@
                        x:Name="Tittle" FontFamily="Segoe UI Variable Display Semibold"
                     />
             </Border>
-            <Ellipse Fill="DarkRed" Grid.Column="2" Name="close"
+            <Ellipse Fill="DarkRed" Grid.Column="1" Name="close"
                      Height="20" 
                      Width="20" 
                      Grid.Row="0"
@@ -63,7 +63,7 @@
                      MouseEnter="Ellipse_MouseEnter"
                      MouseLeave="Ellipse_MouseLeave"
                      />
-            <Ellipse Fill="Yellow" Grid.Column="2" Name="minimize"
+            <Ellipse Fill="Yellow" Grid.Column="1" Name="minimize"
                      Height="20" 
                      Width="20" 
                      Grid.Row="0"
@@ -124,21 +124,18 @@
                              Name="LoginScene"
                              Height="50"
                              Foreground="White"
-                             FontSize="20"
                              Style="{StaticResource LoginMenuButton}"
                              Click="EnableScene"/>
                 <RadioButton Content="Sign up"
                              x:Name="SignupScene"
                              Height="50"
                              Foreground="White"
-                             FontSize="20"
                              Style="{StaticResource LoginMenuButton}"
                              Click="EnableScene"/>
                 <RadioButton Content="Invitado"
                              Name="InvitadoScene"
                              Height="50"
                              Foreground="White"
-                             FontSize="20"
                              Style="{StaticResource LoginMenuButton}"
                              Click="EnableScene"/>
             </StackPanel>
@@ -147,7 +144,7 @@
 
             <!-- ///////////////////////////// INICIO //////////////////////////////// -->
 
-            <Grid Grid.Row="1" Grid.Column="2" Name="InicioWindow" Visibility="Visible">
+            <Grid Grid.Row="1" Grid.Column="1" Name="InicioWindow" Visibility="Visible">
                 <TextBlock Text="Bienvenido al sistema de actas de nacimiento. &#x0A;Si eres un trabajador dirigete al login, de lo contrario&#x0A; Si deseas hacer una consulta dirigete a invitado" 
                            Foreground="White" 
                            FontSize="20" 
@@ -162,7 +159,7 @@
 
             <!-- ///////////////////////////// LOGIN //////////////////////////////// -->
 
-            <Grid Grid.Row="1" Grid.Column="2" Name="LoginWindow" Visibility="Hidden">
+            <Grid Grid.Row="1" Grid.Column="1" Name="LoginWindow" Visibility="Hidden">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="50"/>
                     <ColumnDefinition/>

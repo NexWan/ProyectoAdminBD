@@ -7,9 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <DockPanel>
-            <TextBlock DockPanel.Dock="Top" Width="400" Height="50" Text="Bienvenido!" Name="WelcomeText" FontSize="30" Foreground="White" TextAlignment="Center" Margin="0 30 0 0"/>
-            <Border Margin="20 0 20 20" Width="600" Height="250">
+        <Grid>
+            <TextBlock VerticalAlignment="Top" Width="400" Height="50" Text="Bienvenido!" Name="WelcomeText" FontSize="30" Foreground="White" TextAlignment="Center" Margin="0 30 0 0"/>
+            <Border Margin="20 0 20 20" Width="600" Height="250" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <DockPanel>
                     <TextBlock DockPanel.Dock="Left" Text="Datos del trabajador: " FontSize="20" Foreground="Black" Margin="20 10 20 0" Name="UserInfoBox"/>
                     <DockPanel>
@@ -28,6 +28,7 @@
                     </LinearGradientBrush>
                 </Border.Background>
             </Border>
-        </DockPanel>
+            <TextBlock Name="dateTextBlock" VerticalAlignment="Bottom" HorizontalAlignment="Center"  Height="30" Width="400" Margin="0 0 0 40" Foreground="White" Text="La fecha de hoy es: " TextAlignment="Center" FontSize="20"/>
+        </Grid>
     </Grid>
 </UserControl>

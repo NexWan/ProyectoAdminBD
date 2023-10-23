@@ -1,19 +1,8 @@
 ﻿using Microsoft.Win32;
 using ProyectoAdminBD.Theme;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProyectoAdminBD.MVVM.View
 {
@@ -32,17 +21,25 @@ namespace ProyectoAdminBD.MVVM.View
                 $"\n Apellido Paterno: {dh.userLastFName}" +
                 $"\n Apellido Materno: {dh.userLastMName}" +
                 $"\n Numero de control: {dh.userId}";
+            dateTextBlock.Text += $" {DateTime.Now.ToString("dd MM yyyy")}";
         }
 
+
+        /// <summary>
+        /// Function where the user will be able to upload a profile picture and store it on the database 
+        /// (It's still on the making, but the file dialog is working at the moment)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ChangePfp(object sender, RoutedEventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = @"C:\";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
             saveFileDialog.Title = "Save an Image";
             saveFileDialog.DefaultExt = "png";
 
             // Set the filter to allow only image files (e.g., PNG, JPG, BMP, GIF)
-            saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif|All Files|*.*";
+            saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
 
             saveFileDialog.ShowDialog();
         }
