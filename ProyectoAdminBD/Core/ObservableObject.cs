@@ -6,7 +6,7 @@ namespace ProyectoAdminBD.Core
 {
     class ObservableObject : INotifyPropertyChanged
     {
-        public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected void OnPropertyChanged([CallerMemberName] string name = null)
         {

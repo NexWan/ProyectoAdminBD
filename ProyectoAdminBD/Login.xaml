@@ -152,7 +152,7 @@
                            Margin="10 50 0 10"
                            TextWrapping="Wrap"
                            TextAlignment="Center"/>
-                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 30" Text="Proyecto desarrollado por: " Foreground="White" FontSize="12"/>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 10" Text="Proyecto desarrollado por: &#x0a;Leonardo Contreras Martinez&#x0a;21051403" Foreground="White" FontSize="12" TextAlignment="Center"/>
                 <Image Source="/Images/dataimage.png" Width="300"/>
             </Grid>
             <!-- ///////////////////////////// INICIO //////////////////////////////// -->

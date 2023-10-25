@@ -3,6 +3,8 @@ using ProyectoAdminBD.Theme;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ProyectoAdminBD.MVVM.View
 {
@@ -21,7 +23,7 @@ namespace ProyectoAdminBD.MVVM.View
                 $"\n Apellido Paterno: {dh.userLastFName}" +
                 $"\n Apellido Materno: {dh.userLastMName}" +
                 $"\n Numero de control: {dh.userId}";
-            dateTextBlock.Text += $" {DateTime.Now.ToString("dd MM yyyy")}";
+            dateTextBlock.Text += $" {DateTime.Now.ToString("dd/MM/yyyy")}";
         }
 
 
@@ -33,15 +35,17 @@ namespace ProyectoAdminBD.MVVM.View
         /// <param name="e"></param>
         private void ChangePfp(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-            saveFileDialog.Title = "Save an Image";
-            saveFileDialog.DefaultExt = "png";
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            openFileDialog.Title = "Save an Image";
+            openFileDialog.DefaultExt = "png";
 
             // Set the filter to allow only image files (e.g., PNG, JPG, BMP, GIF)
-            saveFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
+            openFileDialog.Filter = "Image Files|*.png;*.jpg;*.jpeg;*.bmp;*.gif";
 
-            saveFileDialog.ShowDialog();
+            if(openFileDialog.ShowDialog() == true) {
+                ImageSetter.ImageSource =  new BitmapImage(new Uri(openFileDialog.FileName));
+            }
         }
     }
 }

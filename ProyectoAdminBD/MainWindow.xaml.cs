@@ -57,6 +57,35 @@ namespace ProyectoAdminBD
 
         }
 
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            RadioButton? rb = sender as RadioButton;
+            if(rb != null)
+            {
+                if (ListaRegistros.Visibility == Visibility.Visible)
+                {
+                    ListaRegistros.Visibility = Visibility.Collapsed;
+                }
+                else if (ListaRegistros.Visibility == Visibility.Collapsed) ListaRegistros.Visibility = Visibility.Visible;
+                else
+                {
+                    if (rb.IsChecked == true) // Use rb.IsChecked to check if RadioButton is checked
+                    {
+                        ListaRegistros.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        ListaRegistros.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
+
         private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
         {
             Ellipse? ellipse = sender as Ellipse;

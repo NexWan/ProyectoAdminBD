@@ -20,6 +20,9 @@
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
                 <view:HomeView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:RegisterViewModel}">
+                <view:RegistersWindow/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

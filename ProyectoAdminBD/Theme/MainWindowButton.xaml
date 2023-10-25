@@ -22,7 +22,7 @@
     <Style x:Key="MainButton" TargetType="{x:Type Button}">
         <Style.Resources>
             <Storyboard x:Key="FontSizeIncrease">
-                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="16" Duration="0:0:0.2"/>
+                <DoubleAnimation Storyboard.TargetProperty="FontSize" To="15" Duration="0:0:0.2"/>
             </Storyboard>
             <Storyboard x:Key="FontSizeDecrease">
                 <DoubleAnimation Storyboard.TargetProperty="FontSize" To="14" Duration="0:0:0.2"/>

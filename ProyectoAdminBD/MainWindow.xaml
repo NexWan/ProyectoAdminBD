@@ -11,11 +11,33 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True">
-    
+
     <Window.DataContext>
         <viewModel:ViewModel/>
     </Window.DataContext>
-    
+    <Window.Resources>
+        <!-- Style for the ListBox -->
+        <Style x:Key="ListBoxStyle" TargetType="ListBox">
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Background" Value="#301934"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <!-- Style for the ListBoxItem -->
+        <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
+            <Style.Triggers>
+                <!-- Apply these triggers when the ListBoxItem is hovered -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#402947"/>
+                    <!-- Change the background color -->
+                    <Setter Property="FontSize" Value="14"/>
+                    <!-- Increase the font size -->
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
     <Border Background="#272537"
             CornerRadius="30">
         <Grid>
@@ -74,9 +96,29 @@
                             Content="{Binding CurrentView}"
             />
 
+
+            <!-- /////////////////// MENU //////////////////////////////-->
+
             <StackPanel Grid.Row="1" Grid.Column="0" Margin="0 10 0 20">
-                <RadioButton Content="Actualizar registros" Style="{StaticResource MainWindowRadio}" Foreground="white" Height="40"/>
+                <RadioButton Style="{StaticResource MainWindowRadio}"
+                             IsChecked="True"
+                             Content="Inicio"
+                             Foreground="White"
+                             Height="40"
+                             Command="{Binding HomeViewCommand}"/>
+                <RadioButton IsChecked="False" 
+                             Content="Actualizar registros"
+                             Style="{StaticResource MainWindowRadio}" 
+                             Foreground="white" Height="40"
+                             Click="RadioButton_Checked"
+                             />
+                <ListBox x:Name="ListaRegistros" Visibility="Collapsed" Style="{StaticResource ListBoxStyle}">
+                    <ListBoxItem Content="Option 1" Style="{StaticResource ListBoxItemStyle}" />
+                    <ListBoxItem Content="Option 2" Style="{StaticResource ListBoxItemStyle}"/>
+                    <ListBoxItem Content="Option 3" Style="{StaticResource ListBoxItemStyle}"/>
+                </ListBox>
             </StackPanel>
         </Grid>
     </Border>
+   
 </Window>
