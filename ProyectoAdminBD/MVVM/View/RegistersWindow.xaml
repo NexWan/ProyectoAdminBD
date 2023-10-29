@@ -3,10 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View"
+             xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.Model"
+             xmlns:model="clr-namespace:ProyectoAdminBD.MVVM.Model"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="White">
-        
+    <Grid Background="Transparent">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="10 30" Height="60">
+                <TextBlock Text="Id Genero" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
+                <TextBox Style="{StaticResource ModernTextBox}" Uid="Id de genero"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10 0" Height="60">
+                <TextBlock Text="Descripcion" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
+                <TextBox Style="{StaticResource ModernTextBox}" Uid="Descripcion"/>
+            </StackPanel>
+            <ListView ItemsSource="{Binding Source={x:Static local:VMModel:DV}}">
+                
+            </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>

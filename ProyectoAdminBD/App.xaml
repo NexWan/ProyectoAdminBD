@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:ProyectoAdminBD"
              xmlns:viewModel="clr-namespace:ProyectoAdminBD.MVVM.ViewModel"
              xmlns:view="clr-namespace:ProyectoAdminBD.MVVM.View"
+             xmlns:model="clr-namespace:ProyectoAdminBD.MVVM.Model"
              StartupUri="Login.xaml">
     <Application.Resources>
         <ResourceDictionary>
