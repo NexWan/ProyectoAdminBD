@@ -1,9 +1,5 @@
 ﻿using ProyectoAdminBD.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace ProyectoAdminBD.MVVM.ViewModel
 {
@@ -14,6 +10,7 @@ namespace ProyectoAdminBD.MVVM.ViewModel
 
         public HomeViewModel HomeVm { get; set; }
         public RegisterViewModel RegVm { get; set; }
+
 
         private object _currentView;
             

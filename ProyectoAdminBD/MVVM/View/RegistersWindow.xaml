@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.Model"
+             xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View"
              xmlns:model="clr-namespace:ProyectoAdminBD.MVVM.Model"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -11,15 +11,28 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30" Height="60">
                 <TextBlock Text="Id Genero" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
-                <TextBox Style="{StaticResource ModernTextBox}" Uid="Id de genero"/>
+                <TextBox Name="IdBox" Style="{StaticResource ModernTextBox}" Uid="Id de genero" TextChanged="SearchByTextBox"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="10 0" Height="60">
+            <StackPanel Orientation="Horizontal" Margin="10 0 10 20" Height="60">
                 <TextBlock Text="Descripcion" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
-                <TextBox Style="{StaticResource ModernTextBox}" Uid="Descripcion"/>
+                <TextBox Name="DescBox" Style="{StaticResource ModernTextBox}" Uid="Descripcion"/>
             </StackPanel>
-            <ListView ItemsSource="{Binding Source={x:Static local:VMModel:DV}}">
-                
-            </ListView>
+            <Border MaxHeight="150" Height="150">
+                <ListView x:Name="myListView">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}"/>
+                            <GridViewColumn Header="Descripcion" Width="200" DisplayMemberBinding="{Binding Descripcion}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+            <StackPanel Orientation="Horizontal" Margin="20" Height="30" HorizontalAlignment="Center">
+                <Button Click="ExecOperation" Name="Save" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button Click="ExecOperation" Name="Update" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button Click="ExecOperation" Name="Delete" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button Click="ExecOperation" Name="Select" Style="{StaticResource MainButton}" Content="Buscar" Width="90" Margin="10 0" Foreground="White"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

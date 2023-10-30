@@ -29,12 +29,19 @@
             <Style.Triggers>
                 <!-- Apply these triggers when the ListBoxItem is hovered -->
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#402947"/>
-                    <!-- Change the background color -->
                     <Setter Property="FontSize" Value="14"/>
                     <!-- Increase the font size -->
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Trigger>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
                 </Trigger>
             </Style.Triggers>
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
         </Style>
     </Window.Resources>
 
@@ -110,12 +117,20 @@
                              Content="Actualizar registros"
                              Style="{StaticResource MainWindowRadio}" 
                              Foreground="white" Height="40"
-                             Click="RadioButton_Checked"
+                             Checked="RadioButton_Checked"
                              />
-                <ListBox x:Name="ListaRegistros" Visibility="Collapsed" Style="{StaticResource ListBoxStyle}">
-                    <ListBoxItem Content="Option 1" Style="{StaticResource ListBoxItemStyle}" />
-                    <ListBoxItem Content="Option 2" Style="{StaticResource ListBoxItemStyle}"/>
-                    <ListBoxItem Content="Option 3" Style="{StaticResource ListBoxItemStyle}"/>
+                <ListBox x:Name="ListaRegistros" Visibility="Collapsed" Style="{StaticResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged">
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
+                        <RadioButton Content="Genero" 
+                                     Style="{StaticResource MainWindowRadio}"
+                                     Foreground="White"
+                                     IsChecked="False"
+                                     Click="CheckQuery"
+                                     Command="{Binding RegViewCommand}"
+                                     Width="196"
+                                     Height="25"
+                                     />
+                    </ListBoxItem>
                 </ListBox>
             </StackPanel>
         </Grid>

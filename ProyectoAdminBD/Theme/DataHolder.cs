@@ -19,6 +19,7 @@ namespace ProyectoAdminBD.Theme
         public string userFirstName { get; private set; }
         public string userLastFName { get; private set; }
         public string userLastMName { get; private set; }   
+        public string currentQuery { get; private set; }
         public Decimal userId { get; private set; }  
         public DataHolder() {
             this.UserLoggedIn = "";
@@ -59,6 +60,11 @@ namespace ProyectoAdminBD.Theme
         public void setUserId(Decimal id)
         {
             userId = id;
+        }
+
+        public void setCurrentQuery(string query)
+        {
+            this.currentQuery = query;
         }
 
         public bool CheckForInternetConnection(int timeoutMs = 10000, string url = null)

@@ -1,4 +1,5 @@
-﻿using ProyectoAdminBD.Theme;
+﻿using ProyectoAdminBD.MVVM.ViewModel;
+using ProyectoAdminBD.Theme;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -59,13 +60,20 @@ namespace ProyectoAdminBD
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            ListBox? lb = sender as ListBox;
+            if (lb != null) {
+                RadioButton rb = FindVisualChild<RadioButton>((ListBoxItem)lb.SelectedItem);
+                if (rb != null)
+                {
+                    MessageBox.Show(rb.Content.ToString());
+                }
+            }
         }
 
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
             RadioButton? rb = sender as RadioButton;
-            if(rb != null)
+            if (rb != null)
             {
                 if (ListaRegistros.Visibility == Visibility.Visible)
                 {
@@ -85,6 +93,48 @@ namespace ProyectoAdminBD
                 }
             }
         }
+
+        private void CheckQuery(object sender, RoutedEventArgs e)
+        {
+            String query = "";
+            RadioButton rb = sender as RadioButton;
+            if(rb != null)
+            {
+                String context = rb.Content as String;
+                if (context != null)
+                {
+                    switch (context.ToUpper())
+                    {
+                        case "GENERO":
+                            query = "SELECT id_genero, DESCRIPCION FROM genero";
+                            break;
+                    }
+                    DataHolder.Instance.setCurrentQuery(query);
+                }
+            }
+        }
+
+        private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        {
+            for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+            {
+                DependencyObject child = VisualTreeHelper.GetChild(parent, i);
+
+                if (child != null && child is T)
+                {
+                    return (T)child;
+                }
+
+                T childOfChild = FindVisualChild<T>(child);
+                if (childOfChild != null)
+                {
+                    return childOfChild;
+                }
+            }
+
+            return null;
+        }
+
 
         private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
         {
