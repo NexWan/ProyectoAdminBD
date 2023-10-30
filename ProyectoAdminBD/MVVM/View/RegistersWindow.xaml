@@ -15,7 +15,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 0 10 20" Height="60">
                 <TextBlock Text="Descripcion" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
-                <TextBox Name="DescBox" Style="{StaticResource ModernTextBox}" Uid="Descripcion"/>
+                <TextBox Name="DescBox" Style="{StaticResource ModernTextBox}" Uid="Descripcion" TextChanged="SearchByTextBox"/>
             </StackPanel>
             <Border MaxHeight="150" Height="150">
                 <ListView x:Name="myListView">

@@ -4,7 +4,9 @@ using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace ProyectoAdminBD.Theme
 {
@@ -91,6 +93,17 @@ namespace ProyectoAdminBD.Theme
             {
                 return false;
             }
+        }
+
+        public bool CheckForValidText(String text)
+        {
+            Regex regex = new Regex("[@#'\"]");
+            MatchCollection matchCollection = regex.Matches(text);
+            if (matchCollection.Count > 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

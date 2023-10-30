@@ -59,6 +59,11 @@ namespace ProyectoAdminBD.MVVM.View
                 string? context = button.Content as string;
                 if (context != null)
                 {
+                    if(!holder.CheckForValidText(passedId) || !holder.CheckForValidText(passedDesc))
+                    {
+                        MessageBox.Show("Caracteres ilegales detectados, por favor intente de nuevo", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
                     Debug.Write(context);
                     switch (context.ToUpper())
                     {
@@ -155,12 +160,16 @@ namespace ProyectoAdminBD.MVVM.View
 
         private void SearchByTextBox(object sender, TextChangedEventArgs e)
         {
-            TextBox actualTb = FindVisualChild<TextBox>(sender as TextBox, "LoginText");
-            if (actualTb != null)
+            TextBox IdTxtbox = FindVisualChild<TextBox>(sender as TextBox, "LoginText");
+            if (IdTxtbox != null)
             {
-                if(actualTb.Text != string.Empty)
+                if (IdTxtbox.Text != string.Empty && ((TextBox)sender).Name == "IdBox")
                 {
                     EnableButtons();
+                }
+                else if(((TextBox)sender).Name != "IdBox")
+                {
+                    Select.IsEnabled = true;
                 }
                 else
                 {
@@ -171,18 +180,18 @@ namespace ProyectoAdminBD.MVVM.View
 
         public void EnableButtons()
         {
+            Select.IsEnabled = true;
             Save.IsEnabled = true;
             Update.IsEnabled = true;
             Delete.IsEnabled = true;
-            Select.IsEnabled = true;
         }
 
         public void DisableButtons()
         {
+            Select.IsEnabled = false;
             Save.IsEnabled = false;
             Update.IsEnabled = false;
             Delete.IsEnabled = false;
-            Select.IsEnabled = false;
         }
 
         private T? FindVisualChild<T>(DependencyObject parent, string name) where T : FrameworkElement
