@@ -84,11 +84,11 @@ namespace ProyectoAdminBD
                 {
                     if (rb.IsChecked == true) // Use rb.IsChecked to check if RadioButton is checked
                     {
-                        ListaRegistros.Visibility = Visibility.Visible;
+                        ListaRegistros.Visibility = Visibility.Collapsed;
                     }
                     else
                     {
-                        ListaRegistros.Visibility = Visibility.Collapsed;
+                        ListaRegistros.Visibility = Visibility.Visible;
                     }
                 }
             }

@@ -11,14 +11,14 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30" Height="60">
                 <TextBlock Text="Id Genero" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
-                <TextBox Name="IdBox" Style="{StaticResource ModernTextBox}" Uid="Id de genero" TextChanged="SearchByTextBox"/>
+                <TextBox MaxLength="2" Name="IdBox" Style="{StaticResource ModernTextBox}" Uid="Id de genero" TextChanged="SearchByTextBox"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 0 10 20" Height="60">
                 <TextBlock Text="Descripcion" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
-                <TextBox Name="DescBox" Style="{StaticResource ModernTextBox}" Uid="Descripcion" TextChanged="SearchByTextBox"/>
+                <TextBox MaxLength="30" Name="DescBox" Style="{StaticResource ModernTextBox}" Uid="Descripcion" TextChanged="SearchByTextBox"/>
             </StackPanel>
             <Border MaxHeight="150" Height="150">
-                <ListView x:Name="myListView">
+                <ListView x:Name="myListView" SelectionChanged="myListView_SelectionChanged">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding Id}"/>
@@ -32,6 +32,7 @@
                 <Button Click="ExecOperation" Name="Update" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
                 <Button Click="ExecOperation" Name="Delete" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
                 <Button Click="ExecOperation" Name="Select" Style="{StaticResource MainButton}" Content="Buscar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button Click="ExecOperation" Name="Clear" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
             </StackPanel>
         </StackPanel>
     </Grid>

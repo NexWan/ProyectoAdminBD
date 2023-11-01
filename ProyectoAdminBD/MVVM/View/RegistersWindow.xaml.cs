@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Markup;
 using System.Windows.Media;
 using Microsoft.Extensions.Configuration;
 using ProyectoAdminBD.Connection;
@@ -24,6 +25,7 @@ namespace ProyectoAdminBD.MVVM.View
         DataHolder holder;
 
         public List<object> listData = new List<object>();
+        public List<object> ogData = new List<object>();
         public RegistersWindow()
         {
             InitializeComponent();
@@ -33,6 +35,9 @@ namespace ProyectoAdminBD.MVVM.View
             holder = DataHolder.Instance;
             UpdateList();
             DisableButtons();
+            IdBox.MaxLength = 2;
+            DescBox.MaxLength = 30;
+            ogData = listData;
         }
 
         private void UpdateList()
@@ -153,6 +158,13 @@ namespace ProyectoAdminBD.MVVM.View
                                 MessageBox.Show($"Ha ocurrido un error al eliminar! {ex.Message}", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
                             break;
+                        case "LIMPIAR":
+                            IdBox.Text = string.Empty;
+                            DescBox.Text = string.Empty;
+                            IdBox.IsEnabled = true;
+                            DisableButtons();
+                            myListView.ItemsSource = ogData;
+                            break;
                     }
                 }
             }
@@ -184,6 +196,7 @@ namespace ProyectoAdminBD.MVVM.View
             Save.IsEnabled = true;
             Update.IsEnabled = true;
             Delete.IsEnabled = true;
+            Clear.IsEnabled = true;
         }
 
         public void DisableButtons()
@@ -192,6 +205,7 @@ namespace ProyectoAdminBD.MVVM.View
             Save.IsEnabled = false;
             Update.IsEnabled = false;
             Delete.IsEnabled = false;
+            Clear.IsEnabled = false;
         }
 
         private T? FindVisualChild<T>(DependencyObject parent, string name) where T : FrameworkElement
@@ -211,6 +225,19 @@ namespace ProyectoAdminBD.MVVM.View
                 }
             }
             return null;
+        }
+
+        private void myListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var item = (sender as ListView).SelectedItem;
+
+            if (item != null)
+            {
+                Debug.WriteLine(((Genero)item).Id + " " + ((Genero)item).Descripcion);
+                IdBox.Text = ((Genero)item).Id;
+                IdBox.IsEnabled = false; 
+                DescBox.Text = ((Genero)item).Descripcion;
+            }
         }
     }
 }
