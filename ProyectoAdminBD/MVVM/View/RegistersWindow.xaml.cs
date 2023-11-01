@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -23,6 +24,8 @@ namespace ProyectoAdminBD.MVVM.View
     {
         private IConfiguration _configuration;
         DataHolder holder;
+        SqlCommand command;
+        SqlDataReader reader;
 
         public List<object> listData = new List<object>();
         public List<object> ogData = new List<object>();
@@ -87,18 +90,24 @@ namespace ProyectoAdminBD.MVVM.View
                         case "GUARDAR":
                             try
                             {
-                                String q = $"INSERT INTO genero VALUES ('{passedId}', '{passedDesc}')";
+                                String insertQ = $"INSERT INTO genero VALUES ('{passedId}', '{passedDesc}')";
+                                string searchQ = $"SELECT * FROM genero WHERE id_genero = '{passedId}'";
                                 using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
                                 {
-                                    using (SqlCommand command = new SqlCommand(q, conn))
+                                    conn.Open();
+                                    SqlCommand cmd = conn.CreateCommand();
+                                    cmd.CommandText = searchQ;
+                                    SqlDataReader reader = cmd.ExecuteReader();
+                                    if(reader.Read())
                                     {
-                                        conn.Open();
-                                        int rowsAffected = command.ExecuteNonQuery();
-                                        if (rowsAffected > 0)
-                                        {
-                                            MessageBox.Show("Dato insertado con exito!","Exito!",MessageBoxButton.OK, MessageBoxImage.Information);
-                                            UpdateList();
-                                        }
+                                        MessageBox.Show("El dato ya existe en la BD! intente de nuevo", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                                        return;
+                                    }
+                                    reader.Close();
+                                    cmd.CommandText = insertQ;
+                                    if(cmd.ExecuteNonQuery() > 0 ) {
+                                        MessageBox.Show("Dato insertado con exito!", "Exito!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                        UpdateList();
                                     }
                                 }
 
@@ -159,25 +168,28 @@ namespace ProyectoAdminBD.MVVM.View
                             }
                             break;
                         case "LIMPIAR":
-                            IdBox.Text = string.Empty;
-                            DescBox.Text = string.Empty;
+                            FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = string.Empty;
+                            FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = string.Empty;
                             IdBox.IsEnabled = true;
                             DisableButtons();
-                            myListView.ItemsSource = ogData;
+                            UpdateList();
                             break;
                     }
                 }
             }
         }
 
-        private void SearchByTextBox(object sender, TextChangedEventArgs e)
+        private  void SearchByTextBox(object sender, TextChangedEventArgs e)
         {
             TextBox IdTxtbox = FindVisualChild<TextBox>(sender as TextBox, "LoginText");
             if (IdTxtbox != null)
             {
+                if(IdTxtbox.Text == string.Empty)
+                    UpdateList();
                 if (IdTxtbox.Text != string.Empty && ((TextBox)sender).Name == "IdBox")
                 {
                     EnableButtons();
+                    myListView.ItemsSource = ExecQuery(IdTxtbox.Text);
                 }
                 else if(((TextBox)sender).Name != "IdBox")
                 {
@@ -188,6 +200,17 @@ namespace ProyectoAdminBD.MVVM.View
                     DisableButtons();
                 }
             }
+        }
+
+        private List<Genero> ExecQuery(string id)
+        {
+            List<Genero> tempData = new List<Genero>();
+            foreach (Genero obj in listData)
+            {
+                if (obj.Id.Contains(id))
+                    tempData.Add(obj);
+            }
+            return tempData;
         }
 
         public void EnableButtons()
@@ -234,9 +257,9 @@ namespace ProyectoAdminBD.MVVM.View
             if (item != null)
             {
                 Debug.WriteLine(((Genero)item).Id + " " + ((Genero)item).Descripcion);
-                IdBox.Text = ((Genero)item).Id;
-                IdBox.IsEnabled = false; 
-                DescBox.Text = ((Genero)item).Descripcion;
+                FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = ((Genero)item).Id;
+                IdBox.IsEnabled = false;
+                FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = ((Genero)item).Descripcion;
             }
         }
     }
