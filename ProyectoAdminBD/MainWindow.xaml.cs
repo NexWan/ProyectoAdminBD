@@ -1,5 +1,4 @@
-﻿using ProyectoAdminBD.MVVM.ViewModel;
-using ProyectoAdminBD.Theme;
+﻿using ProyectoAdminBD.Theme;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -114,7 +113,7 @@ namespace ProyectoAdminBD
             }
         }
 
-        private T FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
+        private T? FindVisualChild<T>(DependencyObject parent) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {

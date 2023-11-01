@@ -51,8 +51,8 @@ namespace ProyectoAdminBD.MVVM.View
 
         private void ExecOperation(object sender, RoutedEventArgs e)
         {
-            string passedId = FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text;
-            string passedDesc = FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text;
+            string? passedId = FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text;
+            string? passedDesc = FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text;
             Button? button = sender as Button;
             if (button != null)
             {

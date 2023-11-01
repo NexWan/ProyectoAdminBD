@@ -69,7 +69,7 @@ namespace ProyectoAdminBD.Theme
             this.currentQuery = query;
         }
 
-        public bool CheckForInternetConnection(int timeoutMs = 10000, string url = null)
+        public bool CheckForInternetConnection(int timeoutMs = 10000, string? url = null)
         {
             try
             {
