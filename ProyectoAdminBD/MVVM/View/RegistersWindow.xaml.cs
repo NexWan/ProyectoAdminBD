@@ -204,7 +204,7 @@ namespace ProyectoAdminBD.MVVM.View
                 if (IdTxtbox.Text != string.Empty && ((TextBox)sender).Name == "IdBox" && _clear)
                 {
                     EnableButtons();
-                    myListView.ItemsSource = await Task.Run(ExecQueryAsync);
+                    myListView.ItemsSource = await ExecQueryAsync(IdTxtbox.Text, "Id_genero");
                 }
                 else if (((TextBox)sender).Name != "IdBox" && _clear)
                 {
@@ -218,7 +218,7 @@ namespace ProyectoAdminBD.MVVM.View
             }
         }
 
-        private Task<List<Genero>> ExecQueryAsync(string id, string type)
+        private async Task<List<Genero>> ExecQueryAsync(string id, string type)
         {
             List<Genero> tempData = new List<Genero>();
             foreach (Genero obj in listData)
