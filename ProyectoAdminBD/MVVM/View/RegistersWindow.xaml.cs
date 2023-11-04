@@ -7,7 +7,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Markup;
 using System.Windows.Media;
 using Microsoft.Extensions.Configuration;
 using ProyectoAdminBD.Connection;
@@ -24,8 +23,9 @@ namespace ProyectoAdminBD.MVVM.View
     {
         private IConfiguration _configuration;
         DataHolder holder;
-        SqlCommand command;
+        SqlCommand cmd;
         SqlDataReader reader;
+        bool _clear = true;
 
         public List<object> listData = new List<object>();
         public List<object> ogData = new List<object>();
@@ -67,9 +67,9 @@ namespace ProyectoAdminBD.MVVM.View
                 string? context = button.Content as string;
                 if (context != null)
                 {
-                    if(!holder.CheckForValidText(passedId) || !holder.CheckForValidText(passedDesc))
+                    if (!holder.CheckForValidText(passedId) || !holder.CheckForValidText(passedDesc))
                     {
-                        MessageBox.Show("Caracteres ilegales detectados, por favor intente de nuevo", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
+                        new ShoInfoMsg("ERROR", "Caracteres ilegales detectados, intente de nuevo");
                         return;
                     }
                     Debug.Write(context);
@@ -78,7 +78,7 @@ namespace ProyectoAdminBD.MVVM.View
                         case "BUSCAR":
                             Genero result = new Genero();
                             if (passedId == string.Empty) result = (Genero)listData.Find(g => ((Genero)g).Descripcion == passedDesc);
-                            else result = (Genero)listData.Find(g => ((Genero)g).Id == passedId);
+                            else result = (Genero)listData.Find(g => ((Genero)g).Id.ToUpper() == passedId.ToUpper());
 
                             if (result != null)
                             {
@@ -95,24 +95,25 @@ namespace ProyectoAdminBD.MVVM.View
                                 using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
                                 {
                                     conn.Open();
-                                    SqlCommand cmd = conn.CreateCommand();
+                                    cmd = conn.CreateCommand();
                                     cmd.CommandText = searchQ;
-                                    SqlDataReader reader = cmd.ExecuteReader();
-                                    if(reader.Read())
+                                    reader = cmd.ExecuteReader();
+                                    if (reader.Read())
                                     {
-                                        MessageBox.Show("El dato ya existe en la BD! intente de nuevo", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
-                                        return;
+                                        new ShoInfoMsg("ERROR", "Dato ya existente en la BD, intente de nuevo");
+                                        break;
                                     }
                                     reader.Close();
                                     cmd.CommandText = insertQ;
-                                    if(cmd.ExecuteNonQuery() > 0 ) {
-                                        MessageBox.Show("Dato insertado con exito!", "Exito!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                    if (cmd.ExecuteNonQuery() > 0)
+                                    {
+                                        new ShoInfoMsg("SUCCESS", "Dato insertado con exito!");
                                         UpdateList();
                                     }
                                 }
 
                             }
-                            catch(Exception ex)
+                            catch (Exception ex)
                             {
                                 MessageBox.Show($"Ha ocurrido un error al insertar! {ex.Message}", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);
                             }
@@ -131,8 +132,9 @@ namespace ProyectoAdminBD.MVVM.View
                                         Debug.WriteLine(rowsAffected);
                                         if (rowsAffected > 0)
                                         {
-                                            MessageBox.Show("Dato actualizado con exito!", "Exito!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                            new ShoInfoMsg("SUCCESS", "Dato actualizado con exito!");
                                             UpdateList();
+                                            goto LIMPIAR;
                                         }
                                     }
                                 }
@@ -146,6 +148,11 @@ namespace ProyectoAdminBD.MVVM.View
                         case "ELIMINAR":
                             try
                             {
+                                if (passedId == string.Empty)
+                                {
+                                    new ShoInfoMsg("WARNING", "No se recomienda eliminar elementos sin un ID expecifico, intente de nuevo!");
+                                    return;
+                                }
                                 String q = $"DELETE FROM genero WHERE id_genero = '{passedId}'";
                                 using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
                                 {
@@ -155,8 +162,13 @@ namespace ProyectoAdminBD.MVVM.View
                                         int rowsAffected = command.ExecuteNonQuery();
                                         if (rowsAffected > 0)
                                         {
-                                            MessageBox.Show("Dato eliminado con exito!", "Exito!", MessageBoxButton.OK, MessageBoxImage.Information);
+                                            new ShoInfoMsg("SUCCESS", "Dato insertado con exito!");
                                             UpdateList();
+                                            goto LIMPIAR;
+                                        }
+                                        else
+                                        {
+                                            new ShoInfoMsg("ERROR", "No se pudo eliminar este ID, compruebe que exista!");
                                         }
                                     }
                                 }
@@ -168,32 +180,36 @@ namespace ProyectoAdminBD.MVVM.View
                             }
                             break;
                         case "LIMPIAR":
-                            FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = string.Empty;
-                            FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = string.Empty;
-                            IdBox.IsEnabled = true;
-                            DisableButtons();
-                            UpdateList();
+                            goto LIMPIAR;
                             break;
                     }
+                LIMPIAR:
+                    FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = string.Empty;
+                    FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = string.Empty;
+                    IdBox.IsEnabled = true;
+                    DisableButtons();
+                    UpdateList();
+                    _clear = true;
                 }
             }
         }
 
-        private  void SearchByTextBox(object sender, TextChangedEventArgs e)
+        private async void SearchByTextBox(object sender, TextChangedEventArgs e)
         {
             TextBox IdTxtbox = FindVisualChild<TextBox>(sender as TextBox, "LoginText");
             if (IdTxtbox != null)
             {
-                if(IdTxtbox.Text == string.Empty)
+                if (IdTxtbox.Text == string.Empty)
                     UpdateList();
-                if (IdTxtbox.Text != string.Empty && ((TextBox)sender).Name == "IdBox")
+                if (IdTxtbox.Text != string.Empty && ((TextBox)sender).Name == "IdBox" && _clear)
                 {
                     EnableButtons();
-                    myListView.ItemsSource = ExecQuery(IdTxtbox.Text);
+                    myListView.ItemsSource = await Task.Run(ExecQueryAsync);
                 }
-                else if(((TextBox)sender).Name != "IdBox")
+                else if (((TextBox)sender).Name != "IdBox" && _clear)
                 {
                     Select.IsEnabled = true;
+                    myListView.ItemsSource = await ExecQueryAsync(IdTxtbox.Text, "DESC");
                 }
                 else
                 {
@@ -202,12 +218,14 @@ namespace ProyectoAdminBD.MVVM.View
             }
         }
 
-        private List<Genero> ExecQuery(string id)
+        private Task<List<Genero>> ExecQueryAsync(string id, string type)
         {
             List<Genero> tempData = new List<Genero>();
             foreach (Genero obj in listData)
             {
-                if (obj.Id.Contains(id))
+                if (obj.Id.Contains(id) && type == "ID")
+                    tempData.Add(obj);
+                else if(obj.Descripcion.Contains(id) && type == "DESC")
                     tempData.Add(obj);
             }
             return tempData;
@@ -256,10 +274,12 @@ namespace ProyectoAdminBD.MVVM.View
 
             if (item != null)
             {
+                _clear = false;
                 Debug.WriteLine(((Genero)item).Id + " " + ((Genero)item).Descripcion);
                 FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = ((Genero)item).Id;
                 IdBox.IsEnabled = false;
                 FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = ((Genero)item).Descripcion;
+                EnableButtons();
             }
         }
     }
