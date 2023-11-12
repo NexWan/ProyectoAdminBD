@@ -11,7 +11,7 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30" Height="60">
                 <TextBlock Text="Id Presentado" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
-                <TextBox MaxLength="2" Name="IdBox" Style="{StaticResource ModernTextBox}" Uid="Id Presentado" />
+                <TextBox MaxLength="2" Name="IdBox" Style="{StaticResource SearchBox}" Uid="Id Presentado" />
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 0 10 20" Height="60">
                 <TextBlock Text="Descripcion" Foreground="White" FontSize="30" Margin="10 0 20 0" VerticalAlignment="Center"/>
@@ -28,7 +28,7 @@
                 </ListView>
             </Border>
             <StackPanel Orientation="Horizontal" Margin="20" Height="30" HorizontalAlignment="Center">
-                <Button  Name="Save" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button  Name="Save" Click="Save_Click" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
                 <Button  Name="Update" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
                 <Button  Name="Delete" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
                 <Button  Name="Clear" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>

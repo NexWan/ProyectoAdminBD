@@ -4,18 +4,23 @@
         <Setter Property="Width" Value="250"/>
         <Setter Property="Height" Value="40"/>
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Padding" Value="5"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Padding" Value="10"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Text" Value="Ola"/>
+        <Setter Property="Margin" Value="1"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border BorderBrush="{TemplateBinding BorderBrush}" 
+                    <Border BorderBrush="Transparent" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             CornerRadius="5"
-                            Background="#CFCFCFCF">
-                        <ScrollViewer x:Name="PART_ContentHost"/>
+                            Background="#353340">
+                        <ScrollViewer x:Name="PART_ContentHost" Focusable="False" HorizontalScrollBarVisibility="Hidden"
+                                      VerticalScrollBarVisibility="Hidden"/>
                     </Border>
+                    
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
