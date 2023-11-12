@@ -75,18 +75,6 @@ namespace ProyectoAdminBD.MVVM.View
                     Debug.Write(context);
                     switch (context.ToUpper())
                     {
-                        case "BUSCAR":
-                            Genero result = new Genero();
-                            if (passedId == string.Empty) result = (Genero)listData.Find(g => ((Genero)g).Descripcion == passedDesc);
-                            else result = (Genero)listData.Find(g => ((Genero)g).Id.ToUpper() == passedId.ToUpper());
-
-                            if (result != null)
-                            {
-                                List<Genero> resultList = new List<Genero>();
-                                resultList.Add(result);
-                                myListView.ItemsSource = resultList;
-                            }
-                            break;
                         case "GUARDAR":
                             try
                             {
@@ -154,23 +142,22 @@ namespace ProyectoAdminBD.MVVM.View
                                     return;
                                 }
                                 String q = $"DELETE FROM genero WHERE id_genero = '{passedId}'";
+                                string verify = $"SELECT * FROM PERSONA_REGISTRADA WHERE id_genero = '{passedId}'";
                                 using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
                                 {
-                                    using (SqlCommand command = new SqlCommand(q, conn))
+                                    conn.Open();
+                                    cmd = conn.CreateCommand();
+                                    cmd.CommandText = verify;
+                                    reader = cmd.ExecuteReader();
+                                    if(reader.Read())
                                     {
-                                        conn.Open();
-                                        int rowsAffected = command.ExecuteNonQuery();
-                                        if (rowsAffected > 0)
-                                        {
-                                            new ShoInfoMsg("SUCCESS", "Dato insertado con exito!");
-                                            UpdateList();
-                                            goto LIMPIAR;
-                                        }
-                                        else
-                                        {
-                                            new ShoInfoMsg("ERROR", "No se pudo eliminar este ID, compruebe que exista!");
-                                        }
+                                        new ShoInfoMsg("ERROR", "No se pueden eliminar valores que ya estan en uso!");
+                                        return;
                                     }
+                                    reader.Close();
+                                    cmd.CommandText = q;
+                                    if (cmd.ExecuteNonQuery() > 0)
+                                        new ShoInfoMsg("SUCCESS", "Dato eliminado con exito!");
                                 }
 
                             }
@@ -204,14 +191,13 @@ namespace ProyectoAdminBD.MVVM.View
                 if (IdTxtbox.Text != string.Empty && ((TextBox)sender).Name == "IdBox" && _clear)
                 {
                     EnableButtons();
-                    myListView.ItemsSource = await ExecQueryAsync(IdTxtbox.Text, "Id_genero");
+                    myListView.ItemsSource = await ExecQueryAsync(IdTxtbox.Text, "ID");
                 }
                 else if (((TextBox)sender).Name != "IdBox" && _clear)
                 {
-                    Select.IsEnabled = true;
                     myListView.ItemsSource = await ExecQueryAsync(IdTxtbox.Text, "DESC");
                 }
-                else
+                else if(FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text == string.Empty && FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text == string.Empty)
                 {
                     DisableButtons();
                 }
@@ -223,26 +209,39 @@ namespace ProyectoAdminBD.MVVM.View
             List<Genero> tempData = new List<Genero>();
             foreach (Genero obj in listData)
             {
-                if (obj.Id.Contains(id) && type == "ID")
+                if (obj.Id.ToUpper().Contains(id.ToUpper()) && type == "ID")
                     tempData.Add(obj);
-                else if(obj.Descripcion.Contains(id) && type == "DESC")
+                else if(obj.Descripcion.ToUpper().Contains(id.ToUpper()) && type == "DESC")
                     tempData.Add(obj);
+            }
+            if(tempData.Count == 1)
+            {
+                FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = ((Genero)tempData[0]).Id;
+                FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = ((Genero)tempData[0]).Descripcion;
+                _clear = false;
+            }
+            else
+            {
+                FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = string.Empty;
             }
             return tempData;
         }
 
         public void EnableButtons()
         {
-            Select.IsEnabled = true;
             Save.IsEnabled = true;
             Update.IsEnabled = true;
             Delete.IsEnabled = true;
             Clear.IsEnabled = true;
         }
 
+        public void ClearTextBoxes()
+        {
+            FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = string.Empty;
+        }
+
         public void DisableButtons()
         {
-            Select.IsEnabled = false;
             Save.IsEnabled = false;
             Update.IsEnabled = false;
             Delete.IsEnabled = false;

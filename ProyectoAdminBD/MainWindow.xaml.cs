@@ -102,12 +102,11 @@ namespace ProyectoAdminBD
                 String context = rb.Content as String;
                 if (context != null)
                 {
-                    switch (context.ToUpper())
+                    query = context.ToUpper() switch
                     {
-                        case "GENERO":
-                            query = "SELECT id_genero, DESCRIPCION FROM genero";
-                            break;
-                    }
+                        "GENERO" => "SELECT id_genero, DESCRIPCION FROM genero",
+                        "PRESENTADO" => "SELECT id_presentado, descripcion FROM presentado"
+                    };
                     DataHolder.Instance.setCurrentQuery(query);
                 }
             }

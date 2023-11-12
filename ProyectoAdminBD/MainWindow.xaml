@@ -119,7 +119,7 @@
                              Foreground="white" Height="40"
                              Checked="RadioButton_Checked"
                              />
-                <ListBox x:Name="ListaRegistros" Visibility="Collapsed" Style="{StaticResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox x:Name="ListaRegistros" Visibility="Visible" Style="{StaticResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
                         <RadioButton Content="Genero" 
                                      Style="{StaticResource MainWindowRadio}"
@@ -130,6 +130,17 @@
                                      Width="196"
                                      Height="25"
                                      />
+                    </ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
+                        <RadioButton Content="Presentado" 
+                             Style="{StaticResource MainWindowRadio}"
+                             Foreground="White"
+                             IsChecked="False"
+                             Click="CheckQuery"
+                             Command="{Binding PresViewCommand}"
+                             Width="196"
+                             Height="25"
+                             />
                     </ListBoxItem>
                 </ListBox>
             </StackPanel>

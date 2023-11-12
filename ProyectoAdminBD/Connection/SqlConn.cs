@@ -21,7 +21,7 @@ namespace ProyectoAdminBD.Connection
         {
             try
             {
-                sqlCon = new SqlConnection(_configuration.GetConnectionString("AdminConnection"));
+                sqlCon = new SqlConnection(_configuration.GetConnectionString("LocalConnection"));
             }
             catch (Exception e)
             {
