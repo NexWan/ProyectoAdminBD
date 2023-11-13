@@ -27,6 +27,8 @@ namespace ProyectoAdminBD.MVVM.Model
             }
         }
 
+        public ShoInfoMsg() { }
+
         public void ShowSuccessMessage(string message)
         {
             MessageBox.Show(message, "EXITO!",MessageBoxButton.OK, MessageBoxImage.Information);
@@ -42,6 +44,16 @@ namespace ProyectoAdminBD.MVVM.Model
         }
         public void ShowWarningMessage(string message) {
             MessageBox.Show(message, "ADVETENCIA!", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+        }
+
+        public bool ShowConfirmDialog(string message)
+        {
+            MessageBoxResult res = MessageBox.Show(message,"Confirmacion",MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (res == MessageBoxResult.Yes)
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

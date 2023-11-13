@@ -194,10 +194,14 @@ namespace ProyectoAdminBD.MVVM.View
                 {
                     EnableButtons();
                     myListView.ItemsSource = await ExecQueryAsync(txt, "ID");
-                    if(myListView.Items.Count == 1)
-                        myListView.SelectedIndex = 0;
+                }else if(txt != string.Empty && IdTxtBox.Name == "DescBox" && _clear)
+                {
+                    EnableButtons();
+                    myListView.ItemsSource = await ExecQueryAsync(txt, "DESC");
                 }
             }
+            if (myListView.Items.Count == 1)
+                myListView.SelectedIndex = 0;
         }
 
         private async Task<List<Presentado>> ExecQueryAsync(string id, string type)

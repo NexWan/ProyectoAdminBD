@@ -10,13 +10,13 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30" Height="60">
                 <TextBlock Text="Id Pais" Foreground="White" VerticalAlignment="Center" FontSize="30" />
-                <TextBox MaxLength="2" Name="IdBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
+                <TextBox TextChanged="SearchByTextBox" MaxLength="2" Name="IdBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 0 10 20" Height="60">
                 <TextBlock Text="Nombre" Foreground="White" VerticalAlignment="Center" FontSize="30" />
-                <TextBox MaxLength="30" Name="NombreBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
+                <TextBox TextChanged="SearchByTextBox"  MaxLength="30" Name="NombreBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
                 <TextBlock Text="Nacionalidad" Foreground="White" VerticalAlignment="Center" FontSize="30" />
-                <TextBox MaxLength="30" Name="NacBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
+                <TextBox TextChanged="SearchByTextBox"  MaxLength="30" Name="NacBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
             </StackPanel>
             <Border MaxHeight="150" Height="150">
                 <ListView x:Name="myListView" SelectionChanged="SelectManager">
