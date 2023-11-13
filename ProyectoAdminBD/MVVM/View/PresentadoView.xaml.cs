@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using ProyectoAdminBD.Connection;
 using ProyectoAdminBD.Theme;
-using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Windows;
@@ -9,8 +8,7 @@ using System.Windows.Controls;
 using ProyectoAdminBD.MVVM.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Drawing;
-using System.Windows.Media;
+
 
 namespace ProyectoAdminBD.MVVM.View
 {

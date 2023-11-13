@@ -27,6 +27,9 @@
             <DataTemplate DataType="{x:Type viewModel:PresentadoViewModel}">
                 <view:PresentadoView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:PaisViewModel}">
+                <view:PaisView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

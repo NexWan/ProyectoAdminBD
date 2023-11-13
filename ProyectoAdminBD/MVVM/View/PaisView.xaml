@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ProyectoAdminBD.MVVM.View.PaisView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="850">
+    <Grid Background="Transparent">
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" Margin="10 30" Height="60">
+                <TextBlock Text="Id Pais" Foreground="White" VerticalAlignment="Center" FontSize="30" />
+                <TextBox MaxLength="2" Name="IdBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10 0 10 20" Height="60">
+                <TextBlock Text="Nombre" Foreground="White" VerticalAlignment="Center" FontSize="30" />
+                <TextBox MaxLength="30" Name="NombreBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
+                <TextBlock Text="Nacionalidad" Foreground="White" VerticalAlignment="Center" FontSize="30" />
+                <TextBox MaxLength="30" Name="NacBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
+            </StackPanel>
+            <Border MaxHeight="150" Height="150">
+                <ListView x:Name="myListView" SelectionChanged="SelectManager">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding _id}"/>
+                            <GridViewColumn Header="Nombre" Width="200" DisplayMemberBinding="{Binding _nombre}"/>
+                            <GridViewColumn Header="Nacionalidad" Width="200" DisplayMemberBinding="{Binding _nacionalidad}"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Border>
+            <StackPanel Orientation="Horizontal" Margin="20" Height="30" HorizontalAlignment="Center">
+                <Button  Name="Save" Click="ExecOperation" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button  Name="Update" Click="ExecOperation" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button  Name="Delete" Click="ExecOperation" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
+                <Button  Name="Clear" Click="ExecOperation" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -106,7 +106,8 @@ namespace ProyectoAdminBD
                     query = context.ToUpper() switch
                     {
                         "GENERO" => "SELECT id_genero, DESCRIPCION FROM genero",
-                        "PRESENTADO" => "SELECT id_presentado, descripcion FROM presentado"
+                        "PRESENTADO" => "SELECT id_presentado, descripcion FROM presentado",
+                        "PAIS" => "SELECT id_pais, nombre, nacionalidad FROM pais"
                     };
                     DataHolder.Instance.setCurrentQuery(query);
                     Debug.WriteLine(query);
