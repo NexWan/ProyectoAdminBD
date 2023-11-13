@@ -149,7 +149,7 @@ namespace ProyectoAdminBD.MVVM.View
                                     cmd = conn.CreateCommand();
                                     cmd.CommandText = verify;
                                     reader = cmd.ExecuteReader();
-                                    if(reader.Read())
+                                    if (reader.Read())
                                     {
                                         new ShoInfoMsg("ERROR", "No se pueden eliminar valores que ya estan en uso!");
                                         return;
@@ -168,17 +168,16 @@ namespace ProyectoAdminBD.MVVM.View
                             break;
                         case "LIMPIAR":
                             goto LIMPIAR;
-                            break;
                     }
-                LIMPIAR:
-                    FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = string.Empty;
-                    FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = string.Empty;
-                    IdBox.IsEnabled = true;
-                    DisableButtons();
-                    UpdateList();
-                    _clear = true;
                 }
             }
+        LIMPIAR:
+            FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = string.Empty;
+            FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = string.Empty;
+            IdBox.IsEnabled = true;
+            DisableButtons();
+            UpdateList();
+            _clear = true;
         }
 
         private async void SearchByTextBox(object sender, TextChangedEventArgs e)
@@ -197,7 +196,7 @@ namespace ProyectoAdminBD.MVVM.View
                 {
                     myListView.ItemsSource = await ExecQueryAsync(IdTxtbox.Text, "DESC");
                 }
-                else if(FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text == string.Empty && FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text == string.Empty)
+                else if (FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text == string.Empty && FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text == string.Empty)
                 {
                     DisableButtons();
                 }
@@ -211,10 +210,10 @@ namespace ProyectoAdminBD.MVVM.View
             {
                 if (obj.Id.ToUpper().Contains(id.ToUpper()) && type == "ID")
                     tempData.Add(obj);
-                else if(obj.Descripcion.ToUpper().Contains(id.ToUpper()) && type == "DESC")
+                else if (obj.Descripcion.ToUpper().Contains(id.ToUpper()) && type == "DESC")
                     tempData.Add(obj);
             }
-            if(tempData.Count == 1)
+            if (tempData.Count == 1)
             {
                 FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = ((Genero)tempData[0]).Id;
                 FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = ((Genero)tempData[0]).Descripcion;

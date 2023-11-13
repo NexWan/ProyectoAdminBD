@@ -1,5 +1,6 @@
 ﻿using ProyectoAdminBD.Theme;
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -108,6 +109,7 @@ namespace ProyectoAdminBD
                         "PRESENTADO" => "SELECT id_presentado, descripcion FROM presentado"
                     };
                     DataHolder.Instance.setCurrentQuery(query);
+                    Debug.WriteLine(query);
                 }
             }
         }

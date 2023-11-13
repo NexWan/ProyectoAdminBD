@@ -8,8 +8,8 @@ namespace ProyectoAdminBD.MVVM.Model
 {
     internal class Presentado
     {
-        public string _id { get; private set; }
-        public string _descripcion { get; private set;}
+        public string _id { get; set; }
+        public string _descripcion { get; set;}
 
     }
 }
