@@ -43,11 +43,16 @@
                                 <GridViewColumn Header="Apellido Materno" Width="200" DisplayMemberBinding="{Binding _ap_materno}"/>
                                 <GridViewColumn Header="Edad" Width="50" DisplayMemberBinding="{Binding _edad}"/>
                                 <GridViewColumn Header="Parentezco" Width="200" DisplayMemberBinding="{Binding _parentezco}"/>
-
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Border>
+                <StackPanel Orientation="Horizontal" Margin="20" Height="30" HorizontalAlignment="Center">
+                    <Button Name="SaveP" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Name="UpdateP" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Name="DeleteP" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Name="ClearP" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
+                </StackPanel>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="ABUELOS" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" Margin="10 30 10 10" Height="50">
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre"/>
@@ -71,6 +76,26 @@
                         <ComboBoxItem Content="Patern@"/>
                         <ComboBoxItem Content="Matern@"/>
                     </ComboBox>
+                </StackPanel>
+                <Border MaxHeight="100" Height="100">
+                    <ListView>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="CURP" Width="50" DisplayMemberBinding="{Binding _id}"/>
+                                <GridViewColumn Header="Nombre" Width="200" DisplayMemberBinding="{Binding _nombre}"/>
+                                <GridViewColumn Header="Apellido Paterno" Width="200" DisplayMemberBinding="{Binding _ap_paterno}"/>
+                                <GridViewColumn Header="Apellido Materno" Width="200" DisplayMemberBinding="{Binding _ap_materno}"/>
+                                <GridViewColumn Header="Edad" Width="50" DisplayMemberBinding="{Binding _edad}"/>
+                                <GridViewColumn Header="Parentezco" Width="200" DisplayMemberBinding="{Binding _parentezco}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </Border>
+                <StackPanel Orientation="Horizontal" Margin="20" Height="30" HorizontalAlignment="Center">
+                    <Button Name="SaveA" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Name="UpdateA" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Name="DeleteA" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Name="ClearA" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
                 </StackPanel>
             </StackPanel>
         </Grid>

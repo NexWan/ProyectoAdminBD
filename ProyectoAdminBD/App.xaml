@@ -34,6 +34,9 @@
             <DataTemplate DataType="{x:Type viewModel:ParentalesViewModel}">
                 <view:PaternalesView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:EntidadViewModel}">
+                <view:EntidadView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
