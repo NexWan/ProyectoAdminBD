@@ -1,14 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace ProyectoAdminBD.MVVM.Model
 {
     internal class ShoInfoMsg
     {
+        public const string SUCCESS = "SUCCESS";
+        public const string ERROR = "ERROR";
+        public const string INFORMATION = "INFORMATION";
+        public const string WARNING = "WARNING";
+
+
         public ShoInfoMsg(string typeInfo, string message) { 
             switch(typeInfo)
             {

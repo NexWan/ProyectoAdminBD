@@ -53,7 +53,7 @@ namespace ProyectoAdminBD.MVVM.View
             string q;
             if (!holder.CheckForValidText(id) || !holder.CheckForValidText(desc))
             {
-                new ShoInfoMsg("ERROR", "Caracteres ilegales detectados!, intente denuevo");
+                new ShoInfoMsg(ShoInfoMsg.ERROR, "Caracteres ilegales detectados!, intente denuevo");
                 return;
             }
             Button btn = sender as Button;
@@ -72,17 +72,17 @@ namespace ProyectoAdminBD.MVVM.View
                             conn.Open();
                             if (VerifyExistingValue(conn, searchQ))
                             {
-                                new ShoInfoMsg("ERROR", "Este dato ya existe en la BD, intente de nuevo!");
+                                new ShoInfoMsg(ShoInfoMsg.ERROR, "Este dato ya existe en la BD, intente de nuevo!");
                                 break;
                             }
                             if (id.ToUpper()[0] != 'V' && id.ToUpper()[0] != 'M')
                             {
-                                new ShoInfoMsg("ERROR", "Solo se pueden insertar ID con el valor de V o M, intente de nuevo");
+                                new ShoInfoMsg(ShoInfoMsg.ERROR, "Solo se pueden insertar ID con el valor de V o M, intente de nuevo");
                                 break;
                             }
                             if (ExecQuery(conn, insertQ))
                             {
-                                new ShoInfoMsg("SUCCESS", "Dato insertado con exito!");
+                                new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato insertado con exito!");
                                 UpdateList();
                             }
                         }
@@ -94,13 +94,13 @@ namespace ProyectoAdminBD.MVVM.View
                             conn.Open();
                             if (ExecQuery(conn, q))
                             {
-                                new ShoInfoMsg("SUCCESS", "Dato actualizado con exito!");
+                                new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato actualizado con exito!");
                                 UpdateList();
                                 goto LIMPIAR;
                             }
                             else
                             {
-                                new ShoInfoMsg("ERROR", "No se encontro un valor con esa ID, intente de nuevo");
+                                new ShoInfoMsg(ShoInfoMsg.ERROR, "No se encontro un valor con esa ID, intente de nuevo");
                             }
                         }
                         break;
@@ -108,7 +108,7 @@ namespace ProyectoAdminBD.MVVM.View
                         q = $"DELETE FROM presentado WHERE id_presentado = '{id}'";
                         if (id == string.Empty)
                         {
-                            new ShoInfoMsg("WARNING", "No se recomienda eliminar valores sin un ID especifico, intente de nuevo.");
+                            new ShoInfoMsg(ShoInfoMsg.WARNING, "No se recomienda eliminar valores sin un ID especifico, intente de nuevo.");
                             break;
                         }
                         using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
@@ -116,12 +116,12 @@ namespace ProyectoAdminBD.MVVM.View
                             conn.Open();
                             if (VerifyExistingValue(conn, $"SELECT * FROM persona_registrada WHERE idpresentado = '{id}'"))
                             {
-                                new ShoInfoMsg("ERROR", "Este dato es hijo de una tabla!, no se puede eliminar");
+                                new ShoInfoMsg(ShoInfoMsg.ERROR, "Este dato es hijo de una tabla!, no se puede eliminar");
                                 break;
                             }
                             if (ExecQuery(conn, q))
                             {
-                                new ShoInfoMsg("SUCCESS", "Dato eliminado con exito!");
+                                new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato eliminado con exito!");
                                 UpdateList();
                                 goto LIMPIAR;
                             }

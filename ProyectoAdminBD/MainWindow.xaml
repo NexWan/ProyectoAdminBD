@@ -36,7 +36,7 @@
                     <Setter Property="BorderBrush" Value="Transparent"/>
                 </Trigger>
                 <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Background" Value="#301934" />
                     <Setter Property="BorderThickness" Value="0"/>
                     <Setter Property="BorderBrush" Value="Transparent"/>
                 </Trigger>
@@ -119,7 +119,7 @@
                              Foreground="white" Height="40"
                              Checked="RadioButton_Checked"
                              />
-                <ListBox x:Name="ListaRegistros" Visibility="Visible" Style="{StaticResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox x:Name="ListaRegistros" Visibility="Collapsed" Style="{StaticResource ListBoxStyle}" SelectionChanged="ListBox_SelectionChanged">
                     <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
                         <RadioButton Content="Genero" 
                                      Style="{StaticResource MainWindowRadio}"
@@ -149,6 +149,17 @@
                              IsChecked="False"
                              Click="CheckQuery"
                              Command="{Binding PaisViewCommand}"
+                             Width="196"
+                             Height="25"
+                             />
+                    </ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
+                        <RadioButton Content="Parentales" 
+                             Style="{StaticResource MainWindowRadio}"
+                             Foreground="White"
+                             IsChecked="False"
+                             Click="CheckQuery"
+                             Command="{Binding ParentalesViewCommand}"
                              Width="196"
                              Height="25"
                              />

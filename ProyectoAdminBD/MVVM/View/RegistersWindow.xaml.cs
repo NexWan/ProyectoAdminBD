@@ -69,7 +69,7 @@ namespace ProyectoAdminBD.MVVM.View
                 {
                     if (!holder.CheckForValidText(passedId) || !holder.CheckForValidText(passedDesc))
                     {
-                        new ShoInfoMsg("ERROR", "Caracteres ilegales detectados, intente de nuevo");
+                        new ShoInfoMsg(ShoInfoMsg.ERROR, "Caracteres ilegales detectados, intente de nuevo");
                         return;
                     }
                     Debug.Write(context);
@@ -88,14 +88,14 @@ namespace ProyectoAdminBD.MVVM.View
                                     reader = cmd.ExecuteReader();
                                     if (reader.Read())
                                     {
-                                        new ShoInfoMsg("ERROR", "Dato ya existente en la BD, intente de nuevo");
+                                        new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato ya existente en la BD, intente de nuevo");
                                         break;
                                     }
                                     reader.Close();
                                     cmd.CommandText = insertQ;
                                     if (cmd.ExecuteNonQuery() > 0)
                                     {
-                                        new ShoInfoMsg("SUCCESS", "Dato insertado con exito!");
+                                        new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato insertado con exito!");
                                         UpdateList();
                                     }
                                 }
@@ -120,7 +120,7 @@ namespace ProyectoAdminBD.MVVM.View
                                         Debug.WriteLine(rowsAffected);
                                         if (rowsAffected > 0)
                                         {
-                                            new ShoInfoMsg("SUCCESS", "Dato actualizado con exito!");
+                                            new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato actualizado con exito!");
                                             UpdateList();
                                             goto LIMPIAR;
                                         }
@@ -138,7 +138,7 @@ namespace ProyectoAdminBD.MVVM.View
                             {
                                 if (passedId == string.Empty)
                                 {
-                                    new ShoInfoMsg("WARNING", "No se recomienda eliminar elementos sin un ID expecifico, intente de nuevo!");
+                                    new ShoInfoMsg(ShoInfoMsg.WARNING, "No se recomienda eliminar elementos sin un ID expecifico, intente de nuevo!");
                                     return;
                                 }
                                 String q = $"DELETE FROM genero WHERE id_genero = '{passedId}'";
@@ -151,13 +151,13 @@ namespace ProyectoAdminBD.MVVM.View
                                     reader = cmd.ExecuteReader();
                                     if (reader.Read())
                                     {
-                                        new ShoInfoMsg("ERROR", "No se pueden eliminar valores que ya estan en uso!");
+                                        new ShoInfoMsg(ShoInfoMsg.ERROR, "No se pueden eliminar valores que ya estan en uso!");
                                         return;
                                     }
                                     reader.Close();
                                     cmd.CommandText = q;
                                     if (cmd.ExecuteNonQuery() > 0)
-                                        new ShoInfoMsg("SUCCESS", "Dato eliminado con exito!");
+                                        new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato eliminado con exito!");
                                 }
 
                             }

@@ -9,11 +9,13 @@ namespace ProyectoAdminBD.MVVM.ViewModel
         public RelayCommand RegViewCommand { get; set; }
         public RelayCommand PresViewCommand { get; set; }
         public RelayCommand PaisViewCommand { get; set; }
+        public RelayCommand ParentalesViewCommand {  get; set; }
 
         public HomeViewModel HomeVm { get; set; }
         public RegisterViewModel RegVm { get; set; }
         public PresentadoViewModel PresentadoVm { get; set; }
         public PaisViewModel PaisVm { get; set; }
+        public ParentalesViewModel ParentalesVm { get; set; }
 
 
         private object _currentView;
@@ -33,6 +35,7 @@ namespace ProyectoAdminBD.MVVM.ViewModel
             RegVm = new RegisterViewModel();
             PresentadoVm = new PresentadoViewModel();
             PaisVm = new PaisViewModel();
+            ParentalesVm = new ParentalesViewModel();
             CurrentView = HomeVm;
 
             HomeViewCommand = new RelayCommand(o =>
@@ -53,6 +56,11 @@ namespace ProyectoAdminBD.MVVM.ViewModel
             PaisViewCommand = new RelayCommand(o =>
             {
                 CurrentView = PaisVm;
+            });
+
+            ParentalesViewCommand = new RelayCommand(o =>
+            {
+                CurrentView = ParentalesVm;
             });
         }
     }

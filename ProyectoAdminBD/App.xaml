@@ -16,6 +16,7 @@
                 <ResourceDictionary Source="Theme/MainWindowButton.xaml"/>
                 <ResourceDictionary Source="Theme/MainWindowRadio.xaml"/>
                 <ResourceDictionary Source="Theme/SearchBox.xaml"/>
+                <ResourceDictionary Source="Theme/FormsTitle.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PasswordHint" Color="LightGray" />
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
@@ -29,6 +30,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewModel:PaisViewModel}">
                 <view:PaisView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:ParentalesViewModel}">
+                <view:PaternalesView/>
             </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>

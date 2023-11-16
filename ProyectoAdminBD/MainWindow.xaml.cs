@@ -108,7 +108,8 @@ namespace ProyectoAdminBD
                     {
                         "GENERO" => "SELECT id_genero, DESCRIPCION FROM genero",
                         "PRESENTADO" => "SELECT id_presentado, descripcion FROM presentado",
-                        "PAIS" => "SELECT id_pais, nombre, nacionalidad FROM pais"
+                        "PAIS" => "SELECT id_pais, nombre, nacionalidad FROM pais",
+                        "PARENTALES" => "x"
                     };
                     DataHolder.Instance.setCurrentQuery(query);
                     Debug.WriteLine(query);
