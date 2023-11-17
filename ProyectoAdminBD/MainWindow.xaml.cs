@@ -110,7 +110,8 @@ namespace ProyectoAdminBD
                         "PRESENTADO" => "SELECT id_presentado, descripcion FROM presentado",
                         "PAIS" => "SELECT id_pais, nombre, nacionalidad FROM pais",
                         "PARENTALES" => "x",
-                        "ENTIDAD" => "SELECT * FROM entidad"
+                        "ENTIDAD" => "SELECT * FROM entidad",
+                        "MUNICIPIO" => "SELECT * FROM municipio"
                     };
                     DataHolder.Instance.setCurrentQuery(query);
                     Debug.WriteLine(query);

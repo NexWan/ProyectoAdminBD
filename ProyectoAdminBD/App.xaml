@@ -37,6 +37,9 @@
             <DataTemplate DataType="{x:Type viewModel:EntidadViewModel}">
                 <view:EntidadView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:MunicipioViewModel}">
+                <view:MunicipioView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

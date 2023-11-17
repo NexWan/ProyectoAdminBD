@@ -154,23 +154,34 @@
                              />
                     </ListBoxItem>
                     <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
-                        <RadioButton Content="Parentales" 
-                             Style="{StaticResource MainWindowRadio}"
-                             Foreground="White"
-                             IsChecked="False"
-                             Click="CheckQuery"
-                             Command="{Binding ParentalesViewCommand}"
-                             Width="196"
-                             Height="25"
-                             />
-                    </ListBoxItem>
-                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
                         <RadioButton Content="Entidad" 
                              Style="{StaticResource MainWindowRadio}"
                              Foreground="White"
                              IsChecked="False"
                              Click="CheckQuery"
                              Command="{Binding EntidadViewCommand}"
+                             Width="196"
+                             Height="25"
+                             />
+                    </ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
+                        <RadioButton Content="Municipio" 
+                             Style="{StaticResource MainWindowRadio}"
+                             Foreground="White"
+                             IsChecked="False"
+                             Click="CheckQuery"
+                             Command="{Binding MunicipioViewCommand}"
+                             Width="196"
+                             Height="25"
+                             />
+                    </ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
+                        <RadioButton Content="Parentales" 
+                             Style="{StaticResource MainWindowRadio}"
+                             Foreground="White"
+                             IsChecked="False"
+                             Click="CheckQuery"
+                             Command="{Binding ParentalesViewCommand}"
                              Width="196"
                              Height="25"
                              />

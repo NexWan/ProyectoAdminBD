@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ProyectoAdminBD.MVVM.View.EntidadView"
+﻿<UserControl x:Class="ProyectoAdminBD.MVVM.View.MunicipioView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,14 +17,16 @@
                 <TextBox TextChanged="SearchByTextBox" MaxLength="30" Name="NombreBox" Style="{StaticResource SearchBox}" Margin="10 0 20 0"/>
                 <TextBlock Text="Pais" Foreground="White" VerticalAlignment="Center" FontSize="30" />
                 <ComboBox VerticalAlignment="Center" Name="CountryCB" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30" SelectionChanged="CountryCB_SelectionChanged" Margin="10 0 0 0"/>
+                <TextBlock Style="{StaticResource FormsTitle}" Text="Estado"/>
+                <ComboBox VerticalAlignment="Center" Name="EntityCB" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30" />
             </StackPanel>
             <Border MaxHeight="150" Height="150">
-                <ListView x:Name="EntidadListView" SelectionChanged="SelectManager">
+                <ListView x:Name="MunicipioListView" SelectionChanged="SelectManager">
                     <ListView.View>
                         <GridView>
                             <GridViewColumn Header="ID" Width="50" DisplayMemberBinding="{Binding _id}"/>
-                            <GridViewColumn Header="Nombre" Width="200" DisplayMemberBinding="{Binding _nombre}"/>
-                            <GridViewColumn Header="Pais" Width="200" DisplayMemberBinding="{Binding _pais}"/>
+                            <GridViewColumn Header="Nombre" Width="200" DisplayMemberBinding="{Binding _name}"/>
+                            <GridViewColumn Header="Estado" Width="200" DisplayMemberBinding="{Binding _entidad}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
