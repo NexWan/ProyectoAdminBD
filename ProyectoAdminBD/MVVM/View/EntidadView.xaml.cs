@@ -18,6 +18,7 @@ namespace ProyectoAdminBD.MVVM.View
     /// </summary>
     public partial class EntidadView : UserControl
     {
+        bool wasTriggered = false;
         private IConfiguration _configuration;
         DataHolder holder;
         SqlCommand cmd;
@@ -141,6 +142,7 @@ namespace ProyectoAdminBD.MVVM.View
             IdBox.IsEnabled = true;
             DisableButtons();
             UpdateList();
+            wasTriggered = false;
             _clear = true;
         }
         private List<Pais> GetPaises()
@@ -215,7 +217,10 @@ namespace ProyectoAdminBD.MVVM.View
                 }
             }
             if (EntidadListView.Items.Count == 1)
+            {
                 EntidadListView.SelectedIndex = 0;
+                wasTriggered = true;
+            }
         }
 
         private async Task<List<Entidad>> GetEntidadsAsync(string id, string type)
@@ -238,11 +243,15 @@ namespace ProyectoAdminBD.MVVM.View
             {
                 _clear = false;
                 IdBox.Text = ((Entidad)item)._id;
-                IdBox.IsEnabled = false;
                 NombreBox.Text = ((Entidad)item)._nombre;
                 CountryCB.SelectedItem = paises.FirstOrDefault(p => p._id == ((Entidad)item)._pais);
                 EnableButtons();
             }
+            if (!wasTriggered)
+            {
+                IdBox.IsEnabled = false;
+            }
+            Debug.WriteLine(wasTriggered);
         }
 
         private void DisableButtons()
