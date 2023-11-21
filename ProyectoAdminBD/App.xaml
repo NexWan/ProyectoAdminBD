@@ -17,7 +17,6 @@
                 <ResourceDictionary Source="Theme/MainWindowRadio.xaml"/>
                 <ResourceDictionary Source="Theme/SearchBox.xaml"/>
                 <ResourceDictionary Source="Theme/FormsTitle.xaml"/>
-                <ResourceDictionary Source="Theme/ScrollModernStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <SolidColorBrush x:Key="PasswordHint" Color="LightGray" />
             <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">

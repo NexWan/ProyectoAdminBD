@@ -5,44 +5,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View" xmlns:viewmodel="clr-namespace:ProyectoAdminBD.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="900" d:DesignWidth="900">
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <StackPanel Orientation="Vertical">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="PADRES" Margin="20 10 20 0" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" Margin="10 30 10 10" Height="50">
                     <TextBlock Style="{StaticResource FormsTitle}" Text="CURP"/>
-                    <TextBox Style="{StaticResource SearchBox}" Name="CURP"/>
+                    <TextBox Style="{StaticResource SearchBox}" Name="CURP" TextChanged="SearchByTextPadres"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Pais"/>
                     <ComboBox VerticalAlignment="Center" Name="CountryCB" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30" SelectionChanged="CountryCB_SelectionChanged"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Nombres" />
-                    <TextBox Style="{StaticResource SearchBox}" Name="NOMBRES_PADRES"/>
+                    <TextBox Style="{StaticResource SearchBox}" Name="NOMBRES_PADRES" TextChanged="SearchByTextPadres"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno"/>
-                    <TextBox Style="{StaticResource SearchBox}" Name="Apellido_P_Padres"/>
-                    <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
-                    <TextBox Style="{StaticResource SearchBox}" Name="Apellido_M_Padres"/>
+                    <TextBox Style="{StaticResource SearchBox}" Name="Apellido_P_Padres" TextChanged="SearchByTextPadres"/>
+                    <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>                               
+                    <TextBox Style="{StaticResource SearchBox}" Name="Apellido_M_Padres" TextChanged="SearchByTextPadres"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10 10">
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Edad" />
-                    <TextBox Style="{StaticResource SearchBox}" PreviewTextInput="ValidateNumeric" Name="Edad_Padres"/>
+                    <TextBox Style="{StaticResource SearchBox}" TextChanged="SearchByTextPadres" PreviewTextInput="ValidateNumeric" Name="Edad_Padres"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Parentesco"/>
-                    <ComboBox Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Parentesco_Padres">
+                    <ComboBox SelectedValuePath="Content" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Parentesco_Padres" SelectionChanged="CheckBoxSelection">
                         <ComboBoxItem Content="Madre"/>
                         <ComboBoxItem Content="Padre"/>
                     </ComboBox>
                 </StackPanel>
                 <Border MaxHeight="100" Height="100">
-                    <ListView x:Name="TablaPadres">
+                    <ListView x:Name="TablaPadres" SelectionChanged="TablaPadres_SelectionChanged">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="CURP" Width="50" DisplayMemberBinding="{Binding _curp}"/>
+                                <GridViewColumn Header="CURP" Width="150" DisplayMemberBinding="{Binding _curp}"/>
                                 <GridViewColumn Header="Nombre" Width="200" DisplayMemberBinding="{Binding _nombres}"/>
+                                <GridViewColumn Header="Pais" Width="50" DisplayMemberBinding="{Binding _pais}"/>
                                 <GridViewColumn Header="Apellido Paterno" Width="200" DisplayMemberBinding="{Binding _ap_paterno}"/>
                                 <GridViewColumn Header="Apellido Materno" Width="200" DisplayMemberBinding="{Binding _ap_materno}"/>
                                 <GridViewColumn Header="Edad" Width="50" DisplayMemberBinding="{Binding _edad}"/>
-                                <GridViewColumn Header="Parentezco" Width="200" DisplayMemberBinding="{Binding _parentezco}"/>
+                                <GridViewColumn Header="Parentezco" Width="80" DisplayMemberBinding="{Binding _parentezco}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
@@ -53,48 +54,45 @@
                     <Button Click="ExecOperation" Name="DeleteP" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
                     <Button Click="ExecOperation" Name="ClearP" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
                 </StackPanel>
+                <!-- /////////////////////////////////AQUI EMPIEZA LOS DATOS DE ABUELO/////////////////////////////////// -->
                 <TextBlock Style="{StaticResource FormsTitle}" Text="ABUELOS" HorizontalAlignment="Center"/>
                 <StackPanel Orientation="Horizontal" Margin="10 30 10 10" Height="50">
+                    <TextBlock Style="{StaticResource FormsTitle}" Text="ID"/>
+                    <TextBox TextChanged="SearchByTextAbuelos" Style="{StaticResource SearchBox}" Name="ID_ABUELO"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre"/>
-                    <TextBox Style="{StaticResource SearchBox}"/>
+                    <TextBox TextChanged="SearchByTextAbuelos" Style="{StaticResource SearchBox}" Name="NOMBRES_ABUELO"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
+                    <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno" />
+                    <TextBox TextChanged="SearchByTextAbuelos"  Style="{StaticResource SearchBox}" Name="APELLIDO_P_ABUELO"/>
+                    <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
+                    <TextBox TextChanged="SearchByTextAbuelos" Style="{StaticResource SearchBox}" Name="APELLIDO_M_ABUELO"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 10" Height="50" Width="911">
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Pais"/>
                     <ComboBox VerticalAlignment="Center" Name="CountryCB2" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30" SelectionChanged="CountryCB_SelectionChanged"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Genero" />
                     <ComboBox Name="GeneroBox" DisplayMemberPath="Descripcion" SelectedValuePath="Id" Height="30" SelectionChanged="CountryCB_SelectionChanged"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
-                    <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno" />
-                    <TextBox Style="{StaticResource SearchBox}"/>
-                    <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
-                    <TextBox Style="{StaticResource SearchBox}"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10 10">
-                    <TextBlock Style="{StaticResource FormsTitle}" Text="Edad" />
-                    <TextBox Style="{StaticResource SearchBox}" PreviewTextInput="ValidateNumeric"/>
-                    <TextBlock Style="{StaticResource FormsTitle}" Text="Parentezco"/>
-                    <ComboBox Height="30" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <ComboBoxItem Content="Patern@"/>
-                        <ComboBoxItem Content="Matern@"/>
-                    </ComboBox>
-                </StackPanel>
                 <Border MaxHeight="100" Height="100">
-                    <ListView>
+                    <ListView Name="TablaAbuelos" SelectionChanged="TablaAbuelos_SelectionChanged">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding _curp}"/>
+                                <GridViewColumn Header="Id" Width="50" DisplayMemberBinding="{Binding _id}"/>
                                 <GridViewColumn Header="Nombre" Width="200" DisplayMemberBinding="{Binding _nombres}"/>
                                 <GridViewColumn Header="Apellido Paterno" Width="200" DisplayMemberBinding="{Binding _ap_paterno}"/>
                                 <GridViewColumn Header="Apellido Materno" Width="200" DisplayMemberBinding="{Binding _ap_materno}"/>
-                                <GridViewColumn Header="Edad" Width="50" DisplayMemberBinding="{Binding _edad}"/>
+                                <GridViewColumn Header="Genero" Width="50" DisplayMemberBinding="{Binding _genero}"/>
+                                <GridViewColumn Header="Pais" Width="60" DisplayMemberBinding="{Binding _pais}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
                 </Border>
                 <StackPanel Orientation="Horizontal" Margin="20" Height="30" HorizontalAlignment="Center">
-                    <Button Name="SaveA" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
-                    <Button Name="UpdateA" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
-                    <Button Name="DeleteA" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
-                    <Button Name="ClearA" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Click="ExecOperation" Name="SaveA" Style="{StaticResource MainButton}" Content="Guardar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Click="ExecOperation" Name="UpdateA" Style="{StaticResource MainButton}" Content="Modificar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Click="ExecOperation" Name="DeleteA" Style="{StaticResource MainButton}" Content="Eliminar" Width="90" Margin="10 0" Foreground="White"/>
+                    <Button Click="ExecOperation" Name="ClearA" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
                 </StackPanel>
             </StackPanel>
         </Grid>
