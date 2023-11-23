@@ -14,7 +14,7 @@
                     <TextBlock Style="{StaticResource FormsTitle}" Text="CURP"/>
                     <TextBox Style="{StaticResource SearchBox}" Name="CURP" TextChanged="SearchByTextPadres"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Pais"/>
-                    <ComboBox VerticalAlignment="Center" Name="CountryCB" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30" SelectionChanged="CountryCB_SelectionChanged"/>
+                    <ComboBox VerticalAlignment="Center" Name="CountryCB" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Nombres" />
                     <TextBox Style="{StaticResource SearchBox}" Name="NOMBRES_PADRES" TextChanged="SearchByTextPadres"/>
                 </StackPanel>
@@ -70,9 +70,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="10 10" Height="50" Width="911">
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Pais"/>
-                    <ComboBox VerticalAlignment="Center" Name="CountryCB2" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30" SelectionChanged="CountryCB_SelectionChanged"/>
+                    <ComboBox VerticalAlignment="Center" Name="CountryCB2" DisplayMemberPath="_nombre" SelectedValuePath="_id" Height="30"/>
                     <TextBlock Style="{StaticResource FormsTitle}" Text="Genero" />
-                    <ComboBox Name="GeneroBox" DisplayMemberPath="Descripcion" SelectedValuePath="Id" Height="30" SelectionChanged="CountryCB_SelectionChanged"/>
+                    <ComboBox Name="GeneroBox" DisplayMemberPath="Descripcion" SelectedValuePath="Id" Height="30"/>
                 </StackPanel>
                 <Border MaxHeight="100" Height="100">
                     <ListView Name="TablaAbuelos" SelectionChanged="TablaAbuelos_SelectionChanged">

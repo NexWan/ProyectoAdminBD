@@ -42,6 +42,8 @@ namespace ProyectoAdminBD.MVVM.View
             CountryCB.ItemsSource = GetPaises();
             CountryCB2.ItemsSource = CountryCB.ItemsSource;
             GeneroBox.ItemsSource = GetGeneros();
+            DisableButtons("Padres");
+            DisableButtons("Abuelos");
             UpdateListPadres();
             UpdateListAbuelos();
             textBoxesPadres = new TextBox[] {CURP, NOMBRES_PADRES,  Apellido_M_Padres, Apellido_P_Padres, Edad_Padres};
@@ -120,13 +122,9 @@ namespace ProyectoAdminBD.MVVM.View
             string context = button.Content.ToString().ToUpper();
             Debug.WriteLine(btName);
             if (btName[btName.Length - 1] == 'P')
-            {
                 PadresTasks(context);
-            }
             else
-            {
                 AbuelosTasks(context);
-            }
         }
 
         private void PadresTasks(string context)
@@ -340,10 +338,8 @@ namespace ProyectoAdminBD.MVVM.View
                 Apellido_P_Padres.Text = string.Empty;
                 Edad_Padres.Text = string.Empty;
                 Parentesco_Padres.SelectedValue = null;
-                DisableButtons();
+                DisableButtons("Padres");
                 UpdateListPadres();
-                wasTriggered = false;
-                _clear = true;
             }
             else if(task == "Abuelos")
             {
@@ -355,17 +351,16 @@ namespace ProyectoAdminBD.MVVM.View
                 CountryCB2.SelectedValue = null;
                 GeneroBox.SelectedItem = null;
                 GeneroBox.SelectedValue = null;
-                DisableButtons();
+                DisableButtons("Abuelos");
                 UpdateListAbuelos();
-                wasTriggered = false;
-                _clear = true;
             }
+            wasTriggered = false;
+            _clear = true;
         }
 
 
         private bool ExecQuery(SqlConnection conn, string query)
         {
-            Debug.WriteLine(query);
             if (reader != null) reader.Close();
             cmd = conn.CreateCommand();
             cmd.CommandText = query;
@@ -404,16 +399,6 @@ namespace ProyectoAdminBD.MVVM.View
             return data;
         }
 
-        private void CountryCB_Selected(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
-
-        private void CountryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            
-        }
-
         private void ValidateNumeric(object sender, System.Windows.Input.TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -425,7 +410,7 @@ namespace ProyectoAdminBD.MVVM.View
             var item = (sender as ListView).SelectedItem;
             if (item != null)
             {
-                EnableButtons();
+                EnableButtons("Padres");
                 Padres padres = (Padres)item;
                 _clear = false;
                 CURP.Text = padres._curp;
@@ -441,36 +426,43 @@ namespace ProyectoAdminBD.MVVM.View
         private void CheckBoxSelection(object sender, SelectionChangedEventArgs e)
         {
             ComboBox comboBox = (ComboBox)sender;
-
             object selectedItemn = comboBox.SelectedValue;
-
             Debug.WriteLine(selectedItemn);
         }
 
-        private void DisableButtons()
+        private void DisableButtons(string type)
         {
-            SaveP.IsEnabled = false;
-            UpdateP.IsEnabled = false;
-            DeleteP.IsEnabled = false;
-            ClearP.IsEnabled = false;
-
-            SaveA.IsEnabled = false;
-            UpdateA.IsEnabled = false;
-            DeleteA.IsEnabled = false;
-            ClearA.IsEnabled = false;
+            if(type == "Padres")
+            {
+                SaveP.IsEnabled = false;
+                UpdateP.IsEnabled = false;
+                DeleteP.IsEnabled = false;
+                ClearP.IsEnabled = false;
+            }
+            else{
+                SaveA.IsEnabled = false;
+                UpdateA.IsEnabled = false;
+                DeleteA.IsEnabled = false;
+                ClearA.IsEnabled = false;
+            }
         }
 
-        public void EnableButtons()
+        public void EnableButtons(string type)
         {
-            SaveP.IsEnabled = true;
-            UpdateP.IsEnabled = true;
-            DeleteP.IsEnabled = true;
-            ClearP.IsEnabled = true;
-
-            SaveA.IsEnabled = true;
-            UpdateA.IsEnabled = true;
-            DeleteA.IsEnabled = true;
-            ClearA.IsEnabled = true;
+            if (type == "Padres")
+            {
+                SaveP.IsEnabled = true;
+                UpdateP.IsEnabled = true;
+                DeleteP.IsEnabled = true;
+                ClearP.IsEnabled = true;
+            }
+            else
+            {
+                SaveA.IsEnabled = true;
+                UpdateA.IsEnabled = true;
+                DeleteA.IsEnabled = true;
+                ClearA.IsEnabled = true;
+            }
         }
 
         private async void SearchByTextPadres(object sender, TextChangedEventArgs e)
@@ -486,8 +478,7 @@ namespace ProyectoAdminBD.MVVM.View
             else if (txt != string.Empty && _clear && AreAllTextBoxesEmptyExceptOne(curr, textBoxesPadres))
             {
                 GetContextData(curr.Name, out dataType);
-                Debug.WriteLine(dataType);
-                EnableButtons();
+                EnableButtons("Abuelos");
                 TablaPadres.ItemsSource = await GetPadresAsync(txt, dataType);
             }
             if(TablaPadres.Items.Count == 1)
@@ -534,7 +525,7 @@ namespace ProyectoAdminBD.MVVM.View
             else if (txt != string.Empty && _clear && AreAllTextBoxesEmptyExceptOne(curr, textBoxesAbuelos))
             {
                 GetContextData(curr.Name, out dataType);
-                EnableButtons();
+                EnableButtons("Abuelos");
                 TablaAbuelos.ItemsSource = await GetAbuelosAsync(txt, dataType);
             }
             if (TablaAbuelos.Items.Count == 1)
@@ -611,7 +602,7 @@ namespace ProyectoAdminBD.MVVM.View
             var item = (sender as ListView).SelectedItem;
             if (item != null)
             {
-                EnableButtons();
+                EnableButtons("Abuelos");
                 Abuelos abuelos = (Abuelos)item;
                 _clear = false;
                 ID_ABUELO.Text = abuelos._id;

@@ -111,7 +111,8 @@ namespace ProyectoAdminBD
                         "PAIS" => "SELECT id_pais, nombre, nacionalidad FROM pais",
                         "PARENTALES" => "x",
                         "ENTIDAD" => "SELECT * FROM entidad",
-                        "MUNICIPIO" => "SELECT * FROM municipio"
+                        "MUNICIPIO" => "SELECT * FROM municipio",
+                        "ELEMENTOS DE REGISTRO" => "SELECT * FROM elementos_registro"
                     };
                     DataHolder.Instance.setCurrentQuery(query);
                     Debug.WriteLine(query);

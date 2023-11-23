@@ -186,6 +186,17 @@
                              Height="25"
                              />
                     </ListBoxItem>
+                    <ListBoxItem Style="{StaticResource ListBoxItemStyle}" Margin="0" Padding="0">
+                        <RadioButton Content="Elementos de registro" 
+                             Style="{StaticResource MainWindowRadio}"
+                             Foreground="White"
+                             IsChecked="False"
+                             Click="CheckQuery"
+                             Command="{Binding ParentalesViewCommand}"
+                             Width="196"
+                             Height="25"
+                             />
+                    </ListBoxItem>
                 </ListBox>
             </StackPanel>
         </Grid>
