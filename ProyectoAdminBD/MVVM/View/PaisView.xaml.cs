@@ -106,7 +106,8 @@ namespace ProyectoAdminBD.MVVM.View
                         }
                         break;
                     case "ELIMINAR":
-                        q = $"DELETE FROM presentado WHERE id_pais = '{id}'";
+                        q = $"DELETE FROM pais WHERE id_pais = '{id}'";
+                        string[] validation = new string[] { "abuelos", "padre", "madre", "entidad" };
                         if (id == string.Empty)
                         {
                             new ShoInfoMsg(ShoInfoMsg.WARNING, "No se recomienda eliminar valores sin un ID especifico, intente de nuevo.");
@@ -115,10 +116,13 @@ namespace ProyectoAdminBD.MVVM.View
                         using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
                         {
                             conn.Open();
-                            if (VerifyExistingValue(conn, $"SELECT * FROM entidad WHERE id_pais = '{id}'"))
+                            for(int i = 0; i < validation.Length; i++)
                             {
-                                new ShoInfoMsg(ShoInfoMsg.ERROR, "Este dato es hijo o padre de una tabla!, no se puede eliminar");
-                                break;
+                                if(VerifyExistingValue(conn, $"SELECT * FROM {validation[i]} WHERE id_pais = '{id}'")){
+                                    Debug.WriteLine($"SELECT * FROM {validation[i]} WHERE id_pais = '{id}'");
+                                    new ShoInfoMsg(ShoInfoMsg.ERROR, "El dato a eliminar tiene hijos en la BD!");
+                                    return;
+                                }
                             }
                             if (ExecQuery(conn, q))
                             {
@@ -146,6 +150,7 @@ namespace ProyectoAdminBD.MVVM.View
         {
             cmd = conn.CreateCommand();
             cmd.CommandText = query;
+            if (reader != null) reader.Close();
             reader = cmd.ExecuteReader();
             if (reader.Read())
             {
