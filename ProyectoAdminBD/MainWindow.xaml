@@ -198,6 +198,12 @@
                              />
                     </ListBoxItem>
                 </ListBox>
+                <RadioButton Style="{StaticResource MainWindowRadio}"
+                     IsChecked="False"
+                     Content="Empleados"
+                     Foreground="White"
+                     Height="40"
+                     Command="{Binding EmpleadosViewCommand}"/>
             </StackPanel>
         </Grid>
     </Border>
