@@ -6,46 +6,46 @@
              xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="900">
-    <Grid>
+    <ScrollViewer>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30 10 10" Height="50">
-                <TextBlock Style="{StaticResource FormsTitle}" Text="# Oficialia"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="NumOficialia"/>
+                <TextBlock Style="{StaticResource FormsTitle}" Text="# Oficialia" PreviewTextInput="ValidateNumeric"/>
+                <TextBox TextChanged="SearchByTextBox"  Style="{StaticResource SearchBox}" Name="NumOficialia"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Municipio"/>
                 <ComboBox VerticalAlignment="Center" Name="MunicipioCB" DisplayMemberPath="_name" SelectedValuePath="_id" Height="30"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre Oficial"/>
-                <TextBox Style="{StaticResource SearchBox}" x:Name="NombreOficial"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" x:Name="NombreOficial"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno"/>
-                <TextBox Style="{StaticResource SearchBox}" x:Name="ApPaternoOfi"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" x:Name="ApPaternoOfi"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
-                <TextBox Style="{StaticResource SearchBox}" x:Name="ApMaternoOfi"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" x:Name="ApMaternoOfi"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre Asistente"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="NomAsistente"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" Name="NomAsistente"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10" Height="50">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="ApPaternoAs"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" Name="ApPaternoAs"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="ApMaternoAs"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" Name="ApMaternoAs"/>
             </StackPanel>
-            <Border MaxHeight="100" Height="100">
-                <ListView x:Name="RegistroTable" SelectionChanged="SelectManager" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <Border MaxHeight="100" Height="100" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+                <ListView x:Name="RegistroTable" SelectionChanged="SelectManager" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="# Oficialia" Width="150" DisplayMemberBinding="{Binding _no_oficialia}"/>
-                            <GridViewColumn Header="Municipio" Width="200" DisplayMemberBinding="{Binding _municipio}"/>
+                            <GridViewColumn Header="# Oficialia" Width="60" DisplayMemberBinding="{Binding _no_oficialia}"/>
+                            <GridViewColumn Header="Municipio" Width="70" DisplayMemberBinding="{Binding _municipio}"/>
                             <GridViewColumn Header="Nombre oficial" Width="50" DisplayMemberBinding="{Binding _nombreOficial}"/>
-                            <GridViewColumn Header="Apellido Paterno" Width="200" DisplayMemberBinding="{Binding _apPaternoOficial}"/>
-                            <GridViewColumn Header="Apellido Materno" Width="200" DisplayMemberBinding="{Binding _apMaternoOficial}"/>
-                            <GridViewColumn Header="Nombre Asistente" Width="50" DisplayMemberBinding="{Binding _nombreAsistente}"/>
-                            <GridViewColumn Header="Parentezco" Width="80" DisplayMemberBinding="{Binding _apPaternoAsistente}"/>
-                            <GridViewColumn Header="Parentezco" Width="80" DisplayMemberBinding="{Binding _apMaternoAsistente}"/>
+                            <GridViewColumn Header="Apellido Paterno" Width="150" DisplayMemberBinding="{Binding _apPaternoOficial}"/>
+                            <GridViewColumn Header="Apellido Materno" Width="150" DisplayMemberBinding="{Binding _apMaternoOficial}"/>
+                            <GridViewColumn Header="Nombre Asistente" Width="150" DisplayMemberBinding="{Binding _nombreAsistente}"/>
+                            <GridViewColumn Header="Apellido Paterno" Width="150" DisplayMemberBinding="{Binding _apPaternoAsistente}"/>
+                            <GridViewColumn Header="Apellido Materno" Width="150" DisplayMemberBinding="{Binding _apMaternoAsistente}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>
@@ -57,5 +57,5 @@
                 <Button Click="ExecOperation" Name="Clear" Style="{StaticResource MainButton}" Content="Limpiar" Width="90" Margin="10 0" Foreground="White"/>
             </StackPanel>
         </StackPanel>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

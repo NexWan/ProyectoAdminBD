@@ -192,7 +192,7 @@
                              Foreground="White"
                              IsChecked="False"
                              Click="CheckQuery"
-                             Command="{Binding ParentalesViewCommand}"
+                             Command="{Binding ElRegistroViewCommand}"
                              Width="196"
                              Height="25"
                              />
