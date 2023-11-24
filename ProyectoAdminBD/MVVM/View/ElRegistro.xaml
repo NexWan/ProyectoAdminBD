@@ -9,8 +9,8 @@
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30 10 10" Height="50">
-                <TextBlock Style="{StaticResource FormsTitle}" Text="# Oficialia" PreviewTextInput="ValidateNumeric"/>
-                <TextBox TextChanged="SearchByTextBox"  Style="{StaticResource SearchBox}" Name="NumOficialia"/>
+                <TextBlock Style="{StaticResource FormsTitle}" Text="# Oficialia" />
+                <TextBox TextChanged="SearchByTextBox"  Style="{StaticResource SearchBox}" Name="NumOficialia" PreviewTextInput="ValidateNumeric"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Municipio"/>
                 <ComboBox VerticalAlignment="Center" Name="MunicipioCB" DisplayMemberPath="_name" SelectedValuePath="_id" Height="30"/>
             </StackPanel>
