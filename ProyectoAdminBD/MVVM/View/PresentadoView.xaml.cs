@@ -21,7 +21,7 @@ namespace ProyectoAdminBD.MVVM.View
         DataHolder holder;
         SqlCommand cmd;
         SqlDataReader reader;
-        bool _clear = true;
+        bool _clear = true, wasTriggered = false;
         List<Presentado> listData;
         public PresentadoView()
         {
@@ -138,7 +138,7 @@ namespace ProyectoAdminBD.MVVM.View
             DisableButtons();
             UpdateList();
             _clear = true;
-
+            wasTriggered = false;
         }
 
         private void DisableButtons()
@@ -201,7 +201,10 @@ namespace ProyectoAdminBD.MVVM.View
                 }
             }
             if (myListView.Items.Count == 1)
+            {
                 myListView.SelectedIndex = 0;
+                wasTriggered = true;
+            }
         }
 
         private async Task<List<Presentado>> ExecQueryAsync(string id, string type)
@@ -224,9 +227,10 @@ namespace ProyectoAdminBD.MVVM.View
             {
                 _clear = false;
                 IdBox.Text = ((Presentado)item)._id;
-                IdBox.IsEnabled = false;
                 DescBox.Text = ((Presentado)item)._descripcion;
                 EnableButtons();
+                if (!wasTriggered)
+                    IdBox.IsEnabled = false;
             }
         }
     }

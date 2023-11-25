@@ -34,7 +34,7 @@ namespace ProyectoAdminBD.MVVM.View
         DataHolder holder;
         SqlDataReader reader;
         SqlCommand cmd;
-        bool _clear = true;
+        bool _clear = true, wasTriggered = false;
         TextBox[] TextBoxes;
         public EmpleadosView()
         {
@@ -61,6 +61,7 @@ namespace ProyectoAdminBD.MVVM.View
                     No_oficialia = Convert.ToInt32(row["NO_OFICIALIA"])
                 });
             listData = list;
+            DisableButtons();
             EmpleadosList.ItemsSource = list;
         }
 
@@ -189,6 +190,8 @@ namespace ProyectoAdminBD.MVVM.View
             NumOficialia.SelectedValue = null;
             NumOficialia.SelectedItem = null;
             _clear = true;
+            ID.IsEnabled = true;
+            wasTriggered = false;
         }
 
         private bool AreAllTextBoxesEmptyExceptOne(TextBox exceptTextBox, params TextBox[] textBoxes)
@@ -209,7 +212,10 @@ namespace ProyectoAdminBD.MVVM.View
                 EmpleadosList.ItemsSource = await GetEmpleadosAsync(txt, curr.Name);
             }
             if (EmpleadosList.Items.Count == 1)
+            {
                 EmpleadosList.SelectedIndex = 0;
+                wasTriggered = true;
+            }
         }
 
         private async Task<List<Empleados>> GetEmpleadosAsync(string value, string dataType)
@@ -245,6 +251,8 @@ namespace ProyectoAdminBD.MVVM.View
                 ApPaterno.Text = sel.ApPaterno;
                 ApMaterno.Text = sel.ApMaterno;
                 Clave.Password = sel.Clave;
+                if (!wasTriggered)
+                    ID.IsEnabled = false;
             }
         }
 

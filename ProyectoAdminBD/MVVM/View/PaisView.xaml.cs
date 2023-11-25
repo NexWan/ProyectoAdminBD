@@ -21,7 +21,7 @@ namespace ProyectoAdminBD.MVVM.View
         DataHolder holder;
         SqlCommand cmd;
         SqlDataReader reader;
-        bool _clear = true;
+        bool _clear = true, wasTriggered = false;
         List<Pais> listData;
         public PaisView()
         {
@@ -144,6 +144,7 @@ namespace ProyectoAdminBD.MVVM.View
             DisableButtons();
             UpdateList();
             _clear = true;
+            wasTriggered = false;
         }
 
         private bool VerifyExistingValue(SqlConnection conn, string query)
@@ -210,7 +211,10 @@ namespace ProyectoAdminBD.MVVM.View
                 }
             }
             if (myListView.Items.Count == 1)
+            {
                 myListView.SelectedIndex = 0;
+                wasTriggered = true;
+            }
         }
 
         private async Task<List<Pais>> ExecQueryAsync(string id, string type)
@@ -235,10 +239,11 @@ namespace ProyectoAdminBD.MVVM.View
             {
                 _clear = false;
                 IdBox.Text = ((Pais)item)._id;
-                IdBox.IsEnabled = false;
                 NombreBox.Text = ((Pais)item)._nombre;
                 NacBox.Text = ((Pais)item)._nacionalidad;
                 EnableButtons();
+                if (!wasTriggered)
+                    IdBox.IsEnabled = false;
             }
         }
     }

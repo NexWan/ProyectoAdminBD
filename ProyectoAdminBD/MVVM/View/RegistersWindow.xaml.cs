@@ -25,7 +25,7 @@ namespace ProyectoAdminBD.MVVM.View
         DataHolder holder;
         SqlCommand cmd;
         SqlDataReader reader;
-        bool _clear = true;
+        bool _clear = true, wasTriggered = false;
 
         public List<object> listData = new List<object>();
         public List<object> ogData = new List<object>();
@@ -177,6 +177,7 @@ namespace ProyectoAdminBD.MVVM.View
             IdBox.IsEnabled = true;
             DisableButtons();
             UpdateList();
+            wasTriggered = false;
             _clear = true;
         }
 
@@ -218,6 +219,7 @@ namespace ProyectoAdminBD.MVVM.View
                 FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = ((Genero)tempData[0]).Id;
                 FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = ((Genero)tempData[0]).Descripcion;
                 _clear = false;
+                wasTriggered = true;
             }
             else
             {
@@ -275,9 +277,10 @@ namespace ProyectoAdminBD.MVVM.View
                 _clear = false;
                 Debug.WriteLine(((Genero)item).Id + " " + ((Genero)item).Descripcion);
                 FindVisualChild<TextBox>(IdBox as TextBox, "LoginText").Text = ((Genero)item).Id;
-                IdBox.IsEnabled = false;
                 FindVisualChild<TextBox>(DescBox as TextBox, "LoginText").Text = ((Genero)item).Descripcion;
                 EnableButtons();
+                if (!wasTriggered)
+                    IdBox.IsEnabled = false;
             }
         }
     }
