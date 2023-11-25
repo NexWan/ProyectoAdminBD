@@ -34,7 +34,7 @@ namespace ProyectoAdminBD.MVVM.View
         DataHolder holder;
         SqlDataReader reader;
         SqlCommand cmd;
-        bool _clear;
+        bool _clear = true;
         TextBox[] TextBoxes;
         public EmpleadosView()
         {
@@ -44,7 +44,7 @@ namespace ProyectoAdminBD.MVVM.View
             _configuration = appConfig.Configuration;
             UpdateList();
             NumOficialia.ItemsSource = GetElementos();
-
+            TextBoxes = new TextBox[] { ID, Nombre, ApPaterno, ApMaterno };
         }
 
         private void UpdateList()
@@ -79,7 +79,8 @@ namespace ProyectoAdminBD.MVVM.View
                     _apMaternoAsistente = row["apMaternoAsienta"].ToString(),
                     _apPaternoAsistente = row["apPaternoAsienta"].ToString()
                 });
-            return list;    
+            ElementosRegistros = list;
+            return list;
         }
 
         private void ExecOperation(object sender, RoutedEventArgs e)
@@ -95,11 +96,20 @@ namespace ProyectoAdminBD.MVVM.View
                 new ShoInfoMsg(ShoInfoMsg.ERROR, "Caracteres ilegales detectados, intente de nuevo");
                 return;
             }
-            using(SqlConnection conn = new SqlConn(_configuration).GetConnection())
+            using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
             {
+                Button bt = new Button();
+                bt.Content = "asasa";
+                ShowPass(bt, e);
                 conn.Open();
                 string q;
                 string context = (sender as Button).Content.ToString();
+                if (context.ToUpper() == "LIMPIAR")
+                {
+                    UpdateList();
+                    Clean();
+                    return;
+                }
                 if (string.IsNullOrEmpty(id) || string.IsNullOrEmpty(numOficialia) && context != "GUARDAR")
                 {
                     new ShoInfoMsg(ShoInfoMsg.ERROR, "El campo numero oficialia o Id no puede estar vacio!");
@@ -114,15 +124,43 @@ namespace ProyectoAdminBD.MVVM.View
                             return;
                         }
                         q = $"SELECT * FROM empleados WHERE id_empleado = {id}";
-                        if(VerifyExistingValue(conn, q))
+                        if (VerifyExistingValue(conn, q))
                         {
                             new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato ya existente en la BD!");
                             return;
                         }
                         q = $"INSERT INTO empleados VALUES ('{id}','{name}','{apPaterno}','{apMaterno}','{clave}','{numOficialia}')";
-                        if(ExecQuery(conn, q))
+                        if (ExecQuery(conn, q))
                             new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato insertado con exito!");
                         UpdateList();
+                        Clean();
+                        break;
+                    case "MODIFICAR":
+                        q = $"SELECT * FROM empleados WHERE id_empleado = {id}";
+                        if (!VerifyExistingValue(conn, q))
+                        {
+                            new ShoInfoMsg(ShoInfoMsg.ERROR, "El usuario no existe en la BD!, intente de nuevo");
+                            return;
+                        }
+                        q = $"UPDATE empleados SET no_oficialia = {numOficialia}, nombre = '{name}', ap_materno = '{apMaterno}'," +
+                            $"ap_paterno = '{apMaterno}', clave = '{clave}' WHERE id_empleado = {id}";
+                        if (ExecQuery(conn, q))
+                            new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato actualizado con exito!");
+                        UpdateList();
+                        Clean();
+                        break;
+                    case "ELIMINAR":
+                        q = $"SELECT * FROM empleados WHERE id_empleado = {id}";
+                        if (!VerifyExistingValue(conn, q))
+                        {
+                            new ShoInfoMsg(ShoInfoMsg.ERROR, "El dato no existe en la base de datos!");
+                            return;
+                        }
+                        q = $"DELETE FROM empleados WHERE id_empleado = {id}";
+                        if (ExecQuery(conn, q))
+                            new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato eliminado con exito!");
+                        UpdateList();
+                        Clean();
                         break;
                 }
             }
@@ -141,17 +179,76 @@ namespace ProyectoAdminBD.MVVM.View
             return false;
         }
 
+        private void Clean()
+        {
+            ID.Clear();
+            Nombre.Clear();
+            ApPaterno.Clear();
+            ApMaterno.Clear();
+            Clave.Clear();
+            NumOficialia.SelectedValue = null;
+            NumOficialia.SelectedItem = null;
+            _clear = true;
+        }
+
+        private bool AreAllTextBoxesEmptyExceptOne(TextBox exceptTextBox, params TextBox[] textBoxes)
+        {
+            return textBoxes.Except(new[] { exceptTextBox }).All(tb => string.IsNullOrEmpty(tb.Text));
+        }
+
         private async void SearchByTextBox(object sender, TextChangedEventArgs e)
         {
+            TextBox curr = (TextBox)sender;
+            string txt = curr.Text;
+            Debug.WriteLine(txt);
+            if (string.IsNullOrEmpty(txt) && AreAllTextBoxesEmptyExceptOne(curr, TextBoxes) && _clear)
+                UpdateList();
+            else if (txt.Length > 0 && AreAllTextBoxesEmptyExceptOne(curr, TextBoxes) && _clear)
+            {
+                EnableButtons();
+                EmpleadosList.ItemsSource = await GetEmpleadosAsync(txt, curr.Name);
+            }
+            if (EmpleadosList.Items.Count == 1)
+                EmpleadosList.SelectedIndex = 0;
+        }
 
+        private async Task<List<Empleados>> GetEmpleadosAsync(string value, string dataType)
+        {
+            List<Empleados> list = new List<Empleados>();
+            Debug.WriteLine(Convert.ToInt32(value.ToUpper()) + " " +  dataType);
+            value = value.ToUpper();
+            foreach (Empleados obj in listData)
+            {
+                if (dataType == "ID" && obj.Id == Convert.ToInt32(value))
+                    list.Add(obj);
+                if (dataType == "Nombre" && obj.Nombre.ToUpper().Contains(value))
+                    list.Add(obj);
+                if(dataType == "ApPaterno" && obj.ApPaterno.ToUpper().Contains(value))
+                    list.Add(obj);
+                if (dataType == "ApMaterno" && obj.ApMaterno.ToUpper().Contains(value))
+                    list.Add(obj);
+            }
+            return list;
         }
 
         private void SelectManager(object sender, SelectionChangedEventArgs e)
         {
-
+            var item = (sender as ListView).SelectedItem;
+            if (item != null)
+            {
+                EnableButtons();
+                Empleados sel = (Empleados)item;
+                _clear = false;
+                ID.Text = sel.Id.ToString();
+                NumOficialia.SelectedItem = ElementosRegistros.FirstOrDefault(e => e._no_oficialia == sel.No_oficialia);
+                Nombre.Text = sel.Nombre;
+                ApPaterno.Text = sel.ApPaterno;
+                ApMaterno.Text = sel.ApMaterno;
+                Clave.Password = sel.Clave;
+            }
         }
 
-        
+
 
         private bool VerifyExistingValue(SqlConnection conn, string query)
         {
@@ -199,5 +296,25 @@ namespace ProyectoAdminBD.MVVM.View
                 Marshal.ZeroFreeGlobalAllocUnicode(unmanagedString);
             }
         }
+
+        private void ShowPass(object sender, RoutedEventArgs e)
+        {
+            string context = (sender as Button).Content.ToString().ToUpper();
+            if (context == "VER CLAVE")
+            {
+                ButtonPass.Content = "Ocultar";
+                Clave.Visibility = Visibility.Collapsed;
+                ClaveShow.Visibility = Visibility.Visible;
+                ClaveShow.Text = Clave.Password;
+            }
+            else
+            {
+                ButtonPass.Content = "Ver clave";
+                Clave.Visibility = Visibility.Visible;
+                ClaveShow.Visibility = Visibility.Collapsed;
+                Clave.Password = ClaveShow.Text;
+            }
+        }
+
     }
 }

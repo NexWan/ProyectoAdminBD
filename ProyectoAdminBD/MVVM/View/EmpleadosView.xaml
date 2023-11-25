@@ -10,23 +10,25 @@
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 30 10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Id"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="ID"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" Name="ID"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Num Oficialia"/>
                 <ComboBox VerticalAlignment="Center" Name="NumOficialia" DisplayMemberPath="_no_oficialia" SelectedValuePath="_no_oficialia" Height="30"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="Nombre"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" x:Name="Nombre"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="ApPaterno"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" Name="ApPaterno"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="ApMaterno"/>
+                <TextBox TextChanged="SearchByTextBox" Style="{StaticResource SearchBox}" Name="ApMaterno"/>
             </StackPanel>
             <StackPanel Margin="10 10" Orientation="Horizontal">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Clave"/>
-                <PasswordBox Style="{StaticResource PwdBox}" Name="Clave"/>
+                <PasswordBox Style="{StaticResource PwdBox}" Name="Clave" />
+                <TextBox Style="{StaticResource SearchBox}" Name="ClaveShow" Visibility="Collapsed"/>
+                <Button Width="60" Content="Ver clave" Margin="10 5 10 5" Click="ShowPass" Name="ButtonPass"/>
             </StackPanel>
             <Border MaxHeight="100" Height="100" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                 <ListView x:Name="EmpleadosList" SelectionChanged="SelectManager" ScrollViewer.HorizontalScrollBarVisibility="Visible">
