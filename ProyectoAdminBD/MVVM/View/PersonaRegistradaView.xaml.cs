@@ -39,6 +39,7 @@ namespace ProyectoAdminBD.MVVM.View
         SqlCommand cmd;
         bool _clear;
         TextBox[] TextBoxes;
+        TextBox currentAwelo;
         public PersonaRegistradaView()
         {
             InitializeComponent();
@@ -163,28 +164,16 @@ namespace ProyectoAdminBD.MVVM.View
             string apMaterno = APMATERNO.Text;
             string curpPadre = CURPPADRE.Text;
             string curpMadre = CURPMADRE.Text;
+            string abueloPaterno = ABUELOP.Text;
+            string abuelaPaterna = ABUELAP.Text;
+            string abueloMaterno = ABUELOM.Text;
+            string abuelaMaterna = ABUELAM.Text;
             DateTime? fechaNac = FECHANAC.SelectedDate;
             TimeSpan? horaNac = TimeSpan.Parse(HORANAC.Text);
             string crip = CRIP.Text;
             string numActa = NUMACTA.Text;
             string numLibro = NUMLIBRO.Text;
             DateTime? fechaReg = FECHAREG.SelectedDate;
-            Debug.WriteLine($"CURP: {curp}");
-            Debug.WriteLine($"Municipio: {municipio}");
-            Debug.WriteLine($"Genero: {genero}");
-            Debug.WriteLine($"Presentado: {presentado}");
-            Debug.WriteLine($"Oficialia: {oficialia}");
-            Debug.WriteLine($"Nombre: {nombre}");
-            Debug.WriteLine($"Apellido Paterno: {apPaterno}");
-            Debug.WriteLine($"Apellido Materno: {apMaterno}");
-            Debug.WriteLine($"CURP Padre: {curpPadre}");
-            Debug.WriteLine($"CURP Madre: {curpMadre}");
-            Debug.WriteLine($"Fecha de Nacimiento: {fechaNac}");
-            Debug.WriteLine($"Hora de Nacimiento: {horaNac}");
-            Debug.WriteLine($"CRIP: {crip}");
-            Debug.WriteLine($"Número de Acta: {numActa}");
-            Debug.WriteLine($"Número de Libro: {numLibro}");
-            Debug.WriteLine($"Fecha de Registro: {fechaReg}");
             string context = (sender as Button).Content.ToString().ToUpper();
             using (SqlConnection conn = new SqlConn(_configuration).GetConnection())
             {
@@ -216,16 +205,18 @@ namespace ProyectoAdminBD.MVVM.View
                             new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato ya existe en la BD! intente de nuevo");
                             return;
                         }
-                        if(!VerifyExistingValue(conn, $"SELECT * FROM padre WHERE curp = '{curpPadre}'"))
+                        string[] checkParentales = {$"SELECT * FROM padre WHERE curp = '{curpPadre}'", $"SELECT * FROM madre WHERE curp = '{curpMadre}'",
+                                $"SELECT * FROM abuelos WHERE id_abuelo = {abueloMaterno}",$"SELECT * FROM abuelos WHERE id_abuelo = {abuelaMaterna}",
+                                $"SELECT * FROM abuelos WHERE id_abuelo = {abueloPaterno}", abuelaPaterna};
+                        for(int i = 0; i < checkParentales.Length; i++)
                         {
-                            new ShoInfoMsg(ShoInfoMsg.ERROR,"Curp de padre no existente!");
-                            return;
-                        }
-                        else if(!VerifyExistingValue(conn,$"SELECT * FROM madre WHERE curp = '{curpMadre}'"))
-                        {
-                            new ShoInfoMsg(ShoInfoMsg.ERROR, "Curp de madre no existente!");
-                            return;
-                        }
+                            if (!VerifyExistingValue(conn, checkParentales[i]))
+                            {
+                                new ShoInfoMsg(ShoInfoMsg.ERROR, "Verifique el valor de curp padre, madre o los abuelos, no se ha podido encontrar en la base de datos alguno!");
+                                return;
+                            }
+                        };
+
                         q = $"INSERT INTO persona_registrada VALUES (" +
                                 $"'{nombre}', " +
                                 $"'{apMaterno}', " +
@@ -245,7 +236,8 @@ namespace ProyectoAdminBD.MVVM.View
                                 $"'{fechaReg?.ToString("yyyy-MM-dd")}')";
                         if(ExecQuery(conn, q))
                         {
-                            new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato insertado con exito!");
+                            string[] inserts = { $"INSERT INTO personaAbuelos VALUES('{nuCurp}','{abueloPaterno}','Paterno')", $"INSERT INTO personaAbuelos VALUES('{nuCurp}','{abuelaPaterna}','Paterno')",
+                            $"INSERT INTO personaAbuelos VALUES('{nuCurp}','{abueloMaterno}','Materno')", $"INSERT INTO personaAbuelos VALUES('{nuCurp}','{abuelaMaterna}','Materna')"};
                         }
                         break;
                 }
@@ -334,5 +326,17 @@ namespace ProyectoAdminBD.MVVM.View
             return false;
         }
 
+        private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            currentAwelo = sender as TextBox;
+            SeleccionarAbuelos seleccionarAbuelos = new SeleccionarAbuelos();
+            seleccionarAbuelos.Closed += SeleccionarAbuelos_Closed;
+            seleccionarAbuelos.Show();
+        }
+
+        private void SeleccionarAbuelos_Closed(object? sender, EventArgs e)
+        {
+            currentAwelo.Text = holder.selectedAbueloId;
+        }
     }
 }

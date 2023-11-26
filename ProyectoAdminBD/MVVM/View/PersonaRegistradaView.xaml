@@ -39,6 +39,20 @@
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CURP Madre"/>
                 <TextBox x:Name="CURPMADRE" Style="{StaticResource SearchBox}"/>
             </StackPanel>
+            <TextBlock Style="{StaticResource FormsTitle}" Text="Abuelos Paternos" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock x:Name="ABUELOP" Text="Abuelo" Style="{StaticResource FormsTitle}"/>
+                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray"  IsReadOnly="True"/>
+                <TextBlock x:Name="ABUELAP" Text="Abuela" Style="{StaticResource FormsTitle}"/>
+                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray" IsReadOnly="True"/>
+            </StackPanel>
+            <TextBlock Style="{StaticResource FormsTitle}" Text="Abuelos Maternos" HorizontalAlignment="Center"/>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock x:Name="ABUELOM" Text="Abuelo" Style="{StaticResource FormsTitle}"/>
+                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray"  IsReadOnly="True"/>
+                <TextBlock x:Name="ABUELAM" Text="Abuela" Style="{StaticResource FormsTitle}"/>
+                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray" IsReadOnly="True"/>
+            </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Fecha de nacimiento"/>
                 <DatePicker Height="25" Width="130" Name="FECHANAC" SelectedDateFormat="Short"/>

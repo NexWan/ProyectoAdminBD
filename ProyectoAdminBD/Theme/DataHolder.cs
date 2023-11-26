@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProyectoAdminBD.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -22,7 +23,9 @@ namespace ProyectoAdminBD.Theme
         public string userLastFName { get; private set; }
         public string userLastMName { get; private set; }   
         public string currentQuery { get; private set; }
-        public Decimal userId { get; private set; }  
+        public Decimal userId { get; private set; }
+        public string selectedAbueloId { get; set; }
+
         public DataHolder() {
             this.UserLoggedIn = "";
         }
@@ -68,6 +71,7 @@ namespace ProyectoAdminBD.Theme
         {
             this.currentQuery = query;
         }
+
 
         public bool CheckForInternetConnection(int timeoutMs = 10000, string? url = null)
         {
