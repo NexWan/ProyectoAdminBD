@@ -41,7 +41,7 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Fecha de nacimiento"/>
-                <DatePicker Height="25" Width="130" Name="FECHANAC"/>
+                <DatePicker Height="25" Width="130" Name="FECHANAC" SelectedDateFormat="Short"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Hora"/>
                 <xctk:MaskedTextBox x:Name="HORANAC" Mask="00:00:00" Text="00:00:00" Style="{StaticResource SearchBox}"/>
             </StackPanel>
