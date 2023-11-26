@@ -17,10 +17,12 @@ namespace ProyectoAdminBD.MVVM.Model
         public string ApPaterno { get; set; }
         public string ApMaterno { get; set; }
         public DateTime FechaNac {  get; set; }
-        public DateTime HoraNac { get; set; }
+        public TimeSpan HoraNac { get; set; }
         public string Crip {  get; set; }
         public int No_acta {  get; set; }
         public int No_libro { get; set; }
         public DateTime FechaReg {  get; set; }
+        public String CurpPadre { get; set; }
+        public string CurpMadre { get; set; }
     }
 }

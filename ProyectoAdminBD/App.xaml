@@ -47,6 +47,9 @@
             <DataTemplate DataType="{x:Type viewModel:EmpleadosViewModel}">
                 <view:EmpleadosView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModel:PerRegViewModel}">
+                <view:PersonaRegistradaView/>
+            </DataTemplate>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

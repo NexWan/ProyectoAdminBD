@@ -204,6 +204,12 @@
                      Foreground="White"
                      Height="40"
                      Command="{Binding EmpleadosViewCommand}"/>
+                <RadioButton Style="{StaticResource MainWindowRadio}"
+                     IsChecked="False"
+                     Content="Actas"
+                     Foreground="White"
+                     Height="40"
+                     Command="{Binding PerRegViewCommand}"/>
             </StackPanel>
         </Grid>
     </Border>

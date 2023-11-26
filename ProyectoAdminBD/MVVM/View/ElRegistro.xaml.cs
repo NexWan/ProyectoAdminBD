@@ -35,6 +35,7 @@ namespace ProyectoAdminBD.MVVM.View
             var appConfig = new LoadConfig();
             _configuration = appConfig.Configuration;
             UpdateList();
+            TextBoxes = new TextBox[] { NumOficialia, NombreOficial, ApMaternoAs, ApMaternoOfi, ApPaternoAs, ApPaternoOfi, NomAsistente };
         }
 
         private void UpdateList()
@@ -54,7 +55,6 @@ namespace ProyectoAdminBD.MVVM.View
                 });
             RegistroTable.ItemsSource = temp;
             listData = temp;
-            TextBoxes = new TextBox[] {NumOficialia,NombreOficial,ApMaternoAs,ApMaternoOfi,ApPaternoAs,ApPaternoOfi,NomAsistente};
             DisableButtons();
         }
 
