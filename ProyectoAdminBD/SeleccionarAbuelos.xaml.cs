@@ -2,6 +2,7 @@
 using ProyectoAdminBD.Theme;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,8 +33,22 @@ namespace ProyectoAdminBD
         
         private List<Abuelos> GetAbuelos()
         {
+            string query = "";
+            for(int i = 0; i < holder.abuelos.Count; i++)
+                Debug.WriteLine(holder.abuelos[i]);
+            if (string.IsNullOrEmpty(holder.selectedAbueloId))
+                query = "SELECT * FROM abuelos";
+            else
+            {
+                query = $"SELECT * FROM abuelos WHERE id_abuelo != {holder.abuelos.First()}";
+                for(int i = 1; i < holder.abuelos.Count; i++)
+                {
+                    query += $"AND id_abuelo != '{holder.abuelos[i]}'";
+                }
+            }
+
             return new QueryExecutor().ExecuteQuery(
-                "SELECT * FROM Abuelos",
+                query,
                 row => new Abuelos
                 {
                     _id = row["id_abuelo"].ToString(),
@@ -68,6 +83,8 @@ namespace ProyectoAdminBD
             Abuelos? abuelo = TablaAbuelos.SelectedItem as Abuelos;
             id = abuelo._id;
             holder.selectedAbueloId = id;
+            holder.abuelos.Add(id);
+            Debug.WriteLine(holder.abuelos.Last());
             this.Close();
         }
     }

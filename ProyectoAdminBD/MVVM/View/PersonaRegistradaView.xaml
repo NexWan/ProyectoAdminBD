@@ -6,12 +6,12 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:ProyectoAdminBD.MVVM.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="900">
+             d:DesignHeight="1550" d:DesignWidth="900">
     <ScrollViewer>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" Margin="10 20 20 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CURP"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="CURP"/>
+                <TextBox Style="{StaticResource SearchBox}" Name="CURP" MaxLength="18"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Municipio"/>
                 <ComboBox Name="MUNICIPIO" DisplayMemberPath="_name" SelectedValuePath="_id" />
             </StackPanel>
@@ -25,49 +25,49 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="NOMBRE"/>
+                <TextBox Style="{StaticResource SearchBox}" Name="NOMBRE" MaxLength="30"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Apellido Paterno"/>
-                <TextBox x:Name="APPATERNO" Style="{StaticResource SearchBox}"/>
+                <TextBox x:Name="APPATERNO" Style="{StaticResource SearchBox}" MaxLength="30"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
-                <TextBox Style="{StaticResource SearchBox}" Name="APMATERNO"/>
+                <TextBox Style="{StaticResource SearchBox}" Name="APMATERNO" MaxLength="30"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CURP Padre"/>
-                <TextBox x:Name="CURPPADRE" Style="{StaticResource SearchBox}"/>
+                <TextBox x:Name="CURPPADRE" Style="{StaticResource SearchBox}" MaxLength="18"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CURP Madre"/>
-                <TextBox x:Name="CURPMADRE" Style="{StaticResource SearchBox}"/>
+                <TextBox x:Name="CURPMADRE" Style="{StaticResource SearchBox}" MaxLength="18"/>
             </StackPanel>
             <TextBlock Style="{StaticResource FormsTitle}" Text="Abuelos Paternos" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock x:Name="ABUELOP" Text="Abuelo" Style="{StaticResource FormsTitle}"/>
-                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray"  IsReadOnly="True"/>
-                <TextBlock x:Name="ABUELAP" Text="Abuela" Style="{StaticResource FormsTitle}"/>
-                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray" IsReadOnly="True"/>
+                <TextBlock Text="Abuelo" Style="{StaticResource FormsTitle}"/>
+                <TextBox  x:Name="ABUELOP" Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray"  IsReadOnly="True"/>
+                <TextBlock  Text="Abuela" Style="{StaticResource FormsTitle}"/>
+                <TextBox  x:Name="ABUELAP" Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray" IsReadOnly="True"/>
             </StackPanel>
             <TextBlock Style="{StaticResource FormsTitle}" Text="Abuelos Maternos" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="10">
-                <TextBlock x:Name="ABUELOM" Text="Abuelo" Style="{StaticResource FormsTitle}"/>
-                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray"  IsReadOnly="True"/>
-                <TextBlock x:Name="ABUELAM" Text="Abuela" Style="{StaticResource FormsTitle}"/>
-                <TextBox Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray" IsReadOnly="True"/>
+                <TextBlock Text="Abuelo" Style="{StaticResource FormsTitle}"/>
+                <TextBox x:Name="ABUELOM" Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray"  IsReadOnly="True"/>
+                <TextBlock Text="Abuela" Style="{StaticResource FormsTitle}"/>
+                <TextBox x:Name="ABUELAM" Style="{StaticResource SearchBox}" Text="Click para seleccionar" PreviewMouseDown="TextBlock_PreviewMouseDown" Foreground="Gray" IsReadOnly="True"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Fecha de nacimiento"/>
                 <DatePicker Height="25" Width="130" Name="FECHANAC" SelectedDateFormat="Short"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Hora"/>
-                <xctk:MaskedTextBox x:Name="HORANAC" Mask="00:00:00" Text="00:00:00" Style="{StaticResource SearchBox}"/>
+                <xctk:MaskedTextBox PreviewTextInput="timeMaskedTextBox_PreviewTextInput" x:Name="HORANAC" Mask="00:00:00" Text="00:00:00" Style="{StaticResource SearchBox}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CRIP"/>
-                <TextBox x:Name="CRIP" Style="{StaticResource SearchBox}"/>
+                <TextBox PreviewTextInput="VerifyNumeric" x:Name="CRIP" Style="{StaticResource SearchBox}"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Num Acta"/>
-                <TextBox x:Name="NUMACTA" Style="{StaticResource SearchBox}"/>
+                <TextBox PreviewTextInput="VerifyNumeric" x:Name="NUMACTA" Style="{StaticResource SearchBox}"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Num Libro"/>
-                <TextBox x:Name="NUMLIBRO" Style="{StaticResource SearchBox}"/>
+                <TextBox PreviewTextInput="VerifyNumeric" x:Name="NUMLIBRO" Style="{StaticResource SearchBox}"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Fecha de registro"/>
                 <DatePicker VerticalAlignment="Center" SelectedDateFormat="Long" Name="FECHAREG"/>
             </StackPanel>
@@ -75,22 +75,24 @@
                 <ListView x:Name="ActaTable" SelectionChanged="SelectManager" ScrollViewer.HorizontalScrollBarVisibility="Visible">
                     <ListView.View>
                         <GridView>
-                            <GridViewColumn Header="CURP" Width="60" DisplayMemberBinding="{Binding Curp}"/>
-                            <GridViewColumn Header="Padre" Width="60" DisplayMemberBinding="{Binding CurpPadre}"/>
-                            <GridViewColumn Header="Madre" Width="60" DisplayMemberBinding="{Binding CurpMadre}"/>
-                            <GridViewColumn Header="Municipio" Width="70" DisplayMemberBinding="{Binding Municipio}"/>
-                            <GridViewColumn Header="Genero" Width="50" DisplayMemberBinding="{Binding Genero}"/>
-                            <GridViewColumn Header="Presentado" Width="150" DisplayMemberBinding="{Binding Presentado}"/>
-                            <GridViewColumn Header="# oficialia" Width="150" DisplayMemberBinding="{Binding No_oficialia}"/>
-                            <GridViewColumn Header="Nombre" Width="150" DisplayMemberBinding="{Binding Nombre}"/>
-                            <GridViewColumn Header="Apellido Paterno" Width="150" DisplayMemberBinding="{Binding ApPaterno}"/>
-                            <GridViewColumn Header="Apellido Materno" Width="150" DisplayMemberBinding="{Binding ApMaterno}"/>
-                            <GridViewColumn Header="Fecha nacimiento" Width="150" DisplayMemberBinding="{Binding FechaNac}"/>
-                            <GridViewColumn Header="Hora nacimiento" Width="150" DisplayMemberBinding="{Binding HoraNac}"/>
+                            <GridViewColumn Header="CURP" Width="150" DisplayMemberBinding="{Binding Curp}"/>
+                            <GridViewColumn Header="Nombre" Width="120" DisplayMemberBinding="{Binding Nombre}"/>
+                            <GridViewColumn Header="Apellido Paterno" Width="120" DisplayMemberBinding="{Binding ApPaterno}"/>
+                            <GridViewColumn Header="Apellido Materno" Width="120" DisplayMemberBinding="{Binding ApMaterno}"/>
+                            <GridViewColumn Header="Fecha nacimiento" Width="80" DisplayMemberBinding="{Binding FechaNac}"/>
+                            <GridViewColumn Header="Hora nacimiento" Width="80" DisplayMemberBinding="{Binding HoraNac}"/>
+                            <GridViewColumn Header="Padre" Width="220" DisplayMemberBinding="{Binding Padre}"/>
+                            <GridViewColumn Header="Madre" Width="220" DisplayMemberBinding="{Binding Madre}"/>
+                            <GridViewColumn Header="Abuelos Paternos" Width="260" DisplayMemberBinding="{Binding AbueloPaterno}"/>
+                            <GridViewColumn Header="Abuelos Maternos" Width="260" DisplayMemberBinding="{Binding AbueloMaterno}"/>
+                            <GridViewColumn Header="Municipio" Width="60" DisplayMemberBinding="{Binding Municipio}"/>
+                            <GridViewColumn Header="Genero" Width="60" DisplayMemberBinding="{Binding Genero}"/>
+                            <GridViewColumn Header="Presentado" Width="60" DisplayMemberBinding="{Binding Presentado}"/>
+                            <GridViewColumn Header="# oficialia" Width="60" DisplayMemberBinding="{Binding No_oficialia}"/>
                             <GridViewColumn Header="CRIP" Width="150" DisplayMemberBinding="{Binding Crip}"/>
-                            <GridViewColumn Header="# Acta" Width="150" DisplayMemberBinding="{Binding No_acta}"/>
-                            <GridViewColumn Header="# Libro" Width="150" DisplayMemberBinding="{Binding No_libro}"/>
-                            <GridViewColumn Header="Fecha registro" Width="150" DisplayMemberBinding="{Binding FechaReg}"/>
+                            <GridViewColumn Header="# Acta" Width="50" DisplayMemberBinding="{Binding No_acta}"/>
+                            <GridViewColumn Header="# Libro" Width="50" DisplayMemberBinding="{Binding No_libro}"/>
+                            <GridViewColumn Header="Fecha registro" Width="100" DisplayMemberBinding="{Binding FechaReg}"/>
                         </GridView>
                     </ListView.View>
                 </ListView>

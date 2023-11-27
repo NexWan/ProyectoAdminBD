@@ -25,9 +25,11 @@ namespace ProyectoAdminBD.Theme
         public string currentQuery { get; private set; }
         public Decimal userId { get; private set; }
         public string selectedAbueloId { get; set; }
+        public List<string> abuelos { get; private set; }
 
         public DataHolder() {
             this.UserLoggedIn = "";
+            abuelos = new List<string>();
         }
 
         public static DataHolder Instance

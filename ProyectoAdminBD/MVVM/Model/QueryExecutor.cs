@@ -6,6 +6,7 @@ using ProyectoAdminBD.Connection;
 using ProyectoAdminBD.Theme;
 using System.Data;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ProyectoAdminBD.MVVM.Model
 {
@@ -18,6 +19,7 @@ namespace ProyectoAdminBD.MVVM.Model
         }
         public List<T> ExecuteQuery<T>(String query, Func<SqlDataReader, T> mapRowFunc)
         {
+            Debug.WriteLine(query);
             if (!DataHolder.Instance.CheckForInternetConnection())
             {
                 MessageBox.Show("No hay conexion a internet!", "ERROR!", MessageBoxButton.OK, MessageBoxImage.Error);

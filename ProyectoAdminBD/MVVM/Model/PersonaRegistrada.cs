@@ -22,7 +22,15 @@ namespace ProyectoAdminBD.MVVM.Model
         public int No_acta {  get; set; }
         public int No_libro { get; set; }
         public DateTime FechaReg {  get; set; }
-        public String CurpPadre { get; set; }
+        public string Padre { get; set; }
+        public string Madre { get; set; }
+        public string CurpPadre { get; set; }
         public string CurpMadre { get; set; }
+        public string AbueloPaterno { get; set; }
+        public string AbueloMaterno { get; set; }
+        public int AbueloPaternoId { get; set; }
+        public int AbuelaPaternaId { get; set; }
+        public int AbueloMaternoId { get; set; }
+        public int AbuelaMaternaId { get; set; }
     }
 }
