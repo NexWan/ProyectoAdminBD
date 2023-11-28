@@ -266,6 +266,7 @@ namespace ProyectoAdminBD.MVVM.View
                 conn.Open();
                 string q;
                 Debug.WriteLine(context);
+                
                 if (context == "LIMPIAR")
                 {
                     Clean();
@@ -285,11 +286,13 @@ namespace ProyectoAdminBD.MVVM.View
                 switch (context)
                 {
                     case "GUARDAR":
+                        VerifyTest();
                         GuardarQuery(conn);
                         UpdateList();
                         Clean();
                         break;
                     case "MODIFICAR":
+                        VerifyTest();
                         if (string.IsNullOrEmpty(curp) || string.IsNullOrEmpty(municipio) ||
                             string.IsNullOrEmpty(genero) || string.IsNullOrEmpty(presentado) ||
                             string.IsNullOrEmpty(oficialia))
@@ -339,6 +342,25 @@ namespace ProyectoAdminBD.MVVM.View
                         break;
                 }
             }
+        }
+
+        private void VerifyTest()
+        {
+            if (holder.CheckForValidText(nombre) &&
+               holder.CheckForValidText(apPaterno) &&
+               holder.CheckForValidText(apMaterno) &&
+               holder.CheckForValidText(curpPadre) &&
+               holder.CheckForValidText(curpMadre) &&
+               holder.CheckForValidText(abueloPaterno) &&
+               holder.CheckForValidText(abuelaPaterna) &&
+               holder.CheckForValidText(abueloMaterno) &&
+               holder.CheckForValidText(abuelaMaterna))
+            {
+                new ShoInfoMsg(ShoInfoMsg.ERROR, "Valores ilegales detectados!, intente de nuevo");
+                Clean();
+                return;
+            }
+
         }
         private void GuardarQuery(SqlConnection conn)
         {
