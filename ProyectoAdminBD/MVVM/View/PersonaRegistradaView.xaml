@@ -21,7 +21,7 @@
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Presentado"/>
                 <ComboBox Name="PRESENTADO" DisplayMemberPath="_descripcion" SelectedValuePath="_id"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Oficialia"/>
-                <ComboBox Name="OFICIALIA" DisplayMemberPath="_no_oficialia" SelectedValuePath="_no_oficialia"/>
+                <ComboBox Name="OFICIALIA" DisplayMemberPath="_no_oficialia" SelectedValuePath="_no_oficialia" IsEnabled="False"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre"/>

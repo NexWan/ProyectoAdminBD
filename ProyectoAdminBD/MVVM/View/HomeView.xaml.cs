@@ -22,7 +22,8 @@ namespace ProyectoAdminBD.MVVM.View
             UserInfoBox.Text += $"\n Nombre: {dh.UserLoggedIn}" +
                 $"\n Apellido Paterno: {dh.userLastFName}" +
                 $"\n Apellido Materno: {dh.userLastMName}" +
-                $"\n Numero de control: {dh.userId}";
+                $"\n Numero de control: {dh.userId}" +
+                $"\n Numero de oficialia: {dh.userNoOfi}";
             dateTextBlock.Text += $" {DateTime.Now.ToString("dd/MM/yyyy")}";
         }
 

@@ -478,7 +478,7 @@ namespace ProyectoAdminBD.MVVM.View
             else if (txt != string.Empty && _clear && AreAllTextBoxesEmptyExceptOne(curr, textBoxesPadres))
             {
                 GetContextData(curr.Name, out dataType);
-                EnableButtons("Abuelos");
+                EnableButtons("Padres");
                 TablaPadres.ItemsSource = await GetPadresAsync(txt, dataType);
             }
             if(TablaPadres.Items.Count == 1)

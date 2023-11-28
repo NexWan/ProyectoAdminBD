@@ -129,20 +129,30 @@ namespace ProyectoAdminBD.MVVM.View
                         Clean();
                         break;
                     case "MODIFICAR":
-                        q = $"SELECT * FROM empleados WHERE id_empleado = {id}";
-                        if (!VerifyExistingValue(conn, q))
+                        q = $"UPDATE empleados SET no_oficialia = {numOficialia}, nombre = '{name}', ap_materno = '{apMaterno}'," +
+                            $"ap_paterno = '{apMaterno}', clave = '{clave}' WHERE id_empleado = {id}";
+                        if (!string.IsNullOrEmpty(numOficialia) && Convert.ToInt32(id) == holder.userId)
+                        {
+                            new ShoInfoMsg(ShoInfoMsg.WARNING, "Se detecto que el campo de NO OFICIALIA contiene informacion, no puedes cambiar tu propio numero de oficialia");
+                            q = $"UPDATE empleados SET nombre = '{name}', ap_materno = '{apMaterno}'," +
+                            $"ap_paterno = '{apPaterno}', clave = '{clave}' WHERE id_empleado = {id}";
+                        }
+                        string s = $"SELECT * FROM empleados WHERE id_empleado = {id}";
+                        if (!VerifyExistingValue(conn, s))
                         {
                             new ShoInfoMsg(ShoInfoMsg.ERROR, "El usuario no existe en la BD!, intente de nuevo");
                             return;
                         }
-                        q = $"UPDATE empleados SET no_oficialia = {numOficialia}, nombre = '{name}', ap_materno = '{apMaterno}'," +
-                            $"ap_paterno = '{apMaterno}', clave = '{clave}' WHERE id_empleado = {id}";
                         if (ExecQuery(conn, q))
                             new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato actualizado con exito!");
                         UpdateList();
                         Clean();
                         break;
                     case "ELIMINAR":
+                        if (Convert.ToInt32(id) == holder.userId) {
+                            new ShoInfoMsg(ShoInfoMsg.ERROR,"No te puedes eliminar a ti mismo -_-");
+                            return;
+                        }
                         q = $"SELECT * FROM empleados WHERE id_empleado = {id}";
                         if (!VerifyExistingValue(conn, q))
                         {

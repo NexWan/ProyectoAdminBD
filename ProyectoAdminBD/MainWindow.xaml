@@ -103,6 +103,14 @@
                             Content="{Binding CurrentView}"
             />
 
+            <StackPanel Grid.Row="0" Grid.Column="0"> 
+                <TextBlock VerticalAlignment="Center" Cursor="Hand" PreviewMouseDown="TextBlock_PreviewMouseDown"
+                           HorizontalAlignment="Center" Foreground="White"
+                           Margin="20" FontSize="20" TextDecorations="Underline">
+                    Log out
+                </TextBlock>
+            </StackPanel>
+
 
             <!-- /////////////////// MENU //////////////////////////////-->
 

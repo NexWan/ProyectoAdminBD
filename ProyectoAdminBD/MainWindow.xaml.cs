@@ -143,6 +143,11 @@ namespace ProyectoAdminBD
             return null;
         }
 
+        private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            new Login().Show();
+            this.Close();
+        }
 
         private void Ellipse_MouseEnter(object sender, MouseEventArgs e)
         {

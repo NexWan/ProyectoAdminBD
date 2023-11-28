@@ -24,6 +24,7 @@ namespace ProyectoAdminBD.Theme
         public string userLastMName { get; private set; }   
         public string currentQuery { get; private set; }
         public Decimal userId { get; private set; } 
+        public int userNoOfi { get; private set; }
         public string selectedAbueloId { get; set; }
         public List<string> abuelos { get; private set; }
 
@@ -42,6 +43,11 @@ namespace ProyectoAdminBD.Theme
                 }
                 return instance;
             }
+        }
+
+        public void SetNumOficialia(int num)
+        {
+            this.userNoOfi = num;
         }
 
         public void ChangeUser(String name)

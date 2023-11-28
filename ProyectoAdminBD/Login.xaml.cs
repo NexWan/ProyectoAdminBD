@@ -131,10 +131,12 @@ namespace ProyectoAdminBD
                         string logLastFName = reader.GetString(2);
                         string logLastMName = reader.GetString(3);
                         var logId = reader.GetDecimal(0);
+                        var numOficialia = reader.GetDecimal(5);
                         dh.setUserLastMName(logLastMName);
                         dh.SetUserLastFName(logLastFName);
                         dh.ChangeUser(logUser);
                         dh.setUserId(logId);
+                        dh.SetNumOficialia(Convert.ToInt32(numOficialia));
                         // Perform UI-related operations on the UI thread using Dispatcher
                         Dispatcher.Invoke(() =>
                         {

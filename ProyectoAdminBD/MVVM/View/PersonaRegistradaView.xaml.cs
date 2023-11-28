@@ -57,6 +57,9 @@ namespace ProyectoAdminBD.MVVM.View
             OFICIALIA.ItemsSource = GetElementosRegistros();
             FECHANAC.DisplayDate = DateTime.Now;
             FECHAREG.DisplayDate = DateTime.Now;
+            OFICIALIA.SelectedItem = elementosRegistros?.FirstOrDefault(e => e._no_oficialia == holder.userNoOfi);
+            MUNICIPIO.SelectedIndex = 0;
+            MUNICIPIO.IsEnabled = false;
             UpdateList();
             DisableButtons();
             TextBoxes = new TextBox[] { CURP, NOMBRE, APPATERNO, APMATERNO, CURPPADRE, CURPMADRE, NUMLIBRO, NUMACTA };
@@ -74,7 +77,7 @@ namespace ProyectoAdminBD.MVVM.View
                 "SELECT PR.*, CONCAT(P.nombres,' ', P.ap_paterno,' ', p.ap_materno, ' Edad: ', p.edad) as PAPA, " +
                 "CONCAT(M.nombres,' ', M.ap_paterno,' ', M.ap_materno, ' Edad: ', M.edad) as MAMA " +
                 "FROM PERSONA_REGISTRADA pr, padre P, madre M " +
-                "WHERE pr.madre_Curp = m.Curp AND pr.padre_curp = p.curp",
+                $"WHERE pr.madre_Curp = m.Curp AND pr.padre_curp = p.curp AND no_oficialia = {holder.userNoOfi}",
                 row => new PersonaRegistrada
                 {
                     Curp = row["curp"].ToString(),
@@ -107,26 +110,37 @@ namespace ProyectoAdminBD.MVVM.View
                     Genero = row["id_genero"].ToString(),
                     Nombre = row["Nombre"].ToString()
                 });
+            var xLookUp = x.ToLookup(item => item.Curp);
+
             for (int i = 0; i < list.Count; i++)
             {
-                for (int j = 0; j < x.Count; j++)
-                    if (temp[i].Curp == x[j].Curp)
+                foreach (var matchingX in xLookUp[temp[i].Curp])
+                {
+                    if (matchingX.Parentesco.Contains("Pate"))
                     {
-                        if (x[j].Parentesco.Contains("Pate"))
-                        {
-                            if (x[j].Genero == "F") temp[i].AbuelaPaternaId = Convert.ToInt32(x[j].Id_abuelo);
-                            else temp[i].AbueloPaternoId = Convert.ToInt32(x[j].Id_abuelo);
-                            temp[i].AbueloPaterno += x[j].Nombre + " || ";
-                        }
+                        if (matchingX.Genero == "F")
+                            temp[i].AbuelaPaternaId = Convert.ToInt32(matchingX.Id_abuelo);
                         else
-                        {
-                            if (x[j].Genero == "F") temp[i].AbuelaMaternaId = Convert.ToInt32(x[j].Id_abuelo);
-                            else temp[i].AbueloMaternoId = Convert.ToInt32(x[j].Id_abuelo);
-                            temp[i].AbueloMaterno += x[j].Nombre + " || ";
-                        }
+                            temp[i].AbueloPaternoId = Convert.ToInt32(matchingX.Id_abuelo);
+                        temp[i].AbueloPaterno += matchingX.Nombre + " || ";
                     }
-                temp[i].AbueloPaterno = temp[i].AbueloPaterno.Substring(0, temp[i].AbueloPaterno.Length - 3);
-                temp[i].AbueloMaterno = temp[i].AbueloMaterno.Substring(0, temp[i].AbueloMaterno.Length - 3);
+                    else
+                    {
+                        if (matchingX.Genero == "F")
+                            temp[i].AbuelaMaternaId = Convert.ToInt32(matchingX.Id_abuelo);
+                        else
+                            temp[i].AbueloMaternoId = Convert.ToInt32(matchingX.Id_abuelo);
+
+                        temp[i].AbueloMaterno += matchingX.Nombre + " || ";
+                    }
+                }
+                temp[i].AbueloPaterno = temp[i].AbueloPaterno.Length > 3
+                    ? temp[i].AbueloPaterno.Substring(0, temp[i].AbueloPaterno.Length - 3)
+                    : temp[i].AbueloPaterno;
+
+                temp[i].AbueloMaterno = temp[i].AbueloMaterno.Length > 3
+                    ? temp[i].AbueloMaterno.Substring(0, temp[i].AbueloMaterno.Length - 3)
+                    : temp[i].AbueloMaterno;
             }
             ActaTable.ItemsSource = temp;
             listData = list;
@@ -135,7 +149,7 @@ namespace ProyectoAdminBD.MVVM.View
         private List<Municipio> GetMunicipios()
         {
             List<Municipio> temp = new QueryExecutor().ExecuteQuery(
-                "SELECT * FROM municipio",
+                $"SELECT M.* FROM ELEMENTOS_REGISTRO ER, municipio M WHERE ER.NO_OFICIALIA = {holder.userNoOfi} AND ER.id_Municipio = M.id_Municipio;",
                 row => new Municipio
                 {
                     _id = row["id_municipio"].ToString(),
@@ -443,14 +457,10 @@ namespace ProyectoAdminBD.MVVM.View
             triggerSearch = false;
             CURP.IsEnabled = true;
             CURP.Text = string.Empty;
-            MUNICIPIO.SelectedItem = null;
-            MUNICIPIO.SelectedValue = null;
             GENERO.SelectedValue = null;
             GENERO.SelectedItem = null;
             PRESENTADO.SelectedItem = null;
             PRESENTADO.SelectedValue = null;
-            OFICIALIA.SelectedValue = null;
-            OFICIALIA.SelectedItem = null;
             NOMBRE.Text  = string.Empty;
             APPATERNO.Text  = string.Empty;
             APMATERNO.Text  = string.Empty;
