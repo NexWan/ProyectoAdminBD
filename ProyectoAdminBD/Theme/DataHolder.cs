@@ -23,7 +23,7 @@ namespace ProyectoAdminBD.Theme
         public string userLastFName { get; private set; }
         public string userLastMName { get; private set; }   
         public string currentQuery { get; private set; }
-        public Decimal userId { get; private set; }
+        public Decimal userId { get; private set; } 
         public string selectedAbueloId { get; set; }
         public List<string> abuelos { get; private set; }
 

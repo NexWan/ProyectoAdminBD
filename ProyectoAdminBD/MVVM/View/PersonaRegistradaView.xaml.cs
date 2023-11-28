@@ -516,7 +516,7 @@ namespace ProyectoAdminBD.MVVM.View
                 if(type == "APPATERNO" && obj.ApPaterno.ToUpper().Contains(value))
                     temp.Add(obj);
                 if(type == "APMATERNO" && obj.ApMaterno.ToUpper().Contains(value))
-                        temp.Add(obj);
+                    temp.Add(obj);
                 if(type == "ABUELOP" && obj.AbueloPaternoId == Convert.ToInt32(value))
                     temp.Add(obj);
                 if(type == "ABUELOM" && obj.AbueloMaternoId == Convert.ToInt32(value))
