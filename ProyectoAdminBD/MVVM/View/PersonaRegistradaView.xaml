@@ -33,11 +33,16 @@
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Materno"/>
                 <TextBox Style="{StaticResource SearchBox}" Name="APMATERNO" MaxLength="30"/>
             </StackPanel>
+            <TextBlock Style="{StaticResource FormsTitle}" Text="Padres" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CURP Padre"/>
                 <TextBox x:Name="CURPPADRE" Style="{StaticResource SearchBox}" MaxLength="18"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="CURP Madre"/>
                 <TextBox x:Name="CURPMADRE" Style="{StaticResource SearchBox}" MaxLength="18"/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="10 10">
+                <TextBlock Text="Nombre del padre: " Name="NOMBREPADRE" Style="{StaticResource FormsTitle}"/>
+                <TextBlock Text="Nombre del madre: " Name="NOMBREMADRE"  Style="{StaticResource FormsTitle}"/>
             </StackPanel>
             <TextBlock Style="{StaticResource FormsTitle}" Text="Abuelos Paternos" HorizontalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" Margin="10">

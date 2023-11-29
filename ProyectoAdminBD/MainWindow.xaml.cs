@@ -15,6 +15,7 @@ namespace ProyectoAdminBD
     public partial class MainWindow : Window
     {
         public RadioButton? option1, option2, option3;
+        RadioButton[] rbs;
         public MainWindow()
         {
             InitializeComponent();
@@ -22,6 +23,20 @@ namespace ProyectoAdminBD
             this.Visibility = Visibility.Visible;
             this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             LoggText.Text += $" {dh.UserLoggedIn}";
+            rbs = new RadioButton[]{GENEROS,PRESENTADO, PAIS,ENTIDAD,MUNICIPIOS,PARENTALES,REGISTROS};
+            foreach(RadioButton rb in rbs)
+                rb.Checked += ChangeActive;
+        }
+
+        private void ChangeActive(object sender, RoutedEventArgs e)
+        {
+            foreach (RadioButton rb in rbs)
+            {
+                if (rb != (RadioButton)sender)
+                {
+                    rb.IsChecked = false;
+                }
+            }
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

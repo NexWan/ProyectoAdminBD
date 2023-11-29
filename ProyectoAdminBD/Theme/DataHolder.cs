@@ -27,6 +27,7 @@ namespace ProyectoAdminBD.Theme
         public int userNoOfi { get; private set; }
         public string selectedAbueloId { get; set; }
         public List<string> abuelos { get; private set; }
+        public string parentescoAbuelo { get; set; }
 
         public DataHolder() {
             this.UserLoggedIn = "";

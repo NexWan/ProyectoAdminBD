@@ -69,6 +69,8 @@ namespace ProyectoAdminBD.MVVM.View
             ABUELOM.TextChanged += SelectAbuelos;
             ABUELAP.TextChanged += SelectAbuelos;
             ABUELAM.TextChanged += SelectAbuelos;
+            NUMACTA.IsEnabled = false;
+            padres = GetPadres();
         }
 
         private void UpdateList()
@@ -173,6 +175,36 @@ namespace ProyectoAdminBD.MVVM.View
             generos = temp;
             return generos;
         }
+        private List<Padres> GetPadres()
+        {
+            List<Padres> dataPadres = new QueryExecutor().ExecuteQuery(
+                "SELECT * FROM padre",
+                row => new Padres
+                {
+                    _curp = row["curp"].ToString(),
+                    _pais = row["id_pais"].ToString(),
+                    _nombres = row["nombres"].ToString(),
+                    _ap_paterno = row["ap_paterno"].ToString(),
+                    _ap_materno = row["ap_materno"].ToString(),
+                    _edad = Convert.ToInt32(row["edad"]),
+                    _parentezco = "Padre"
+                });
+
+            List<Padres> dataMadres = new QueryExecutor().ExecuteQuery(
+                "SELECT * FROM madre",
+                row => new Padres
+                {
+                    _curp = row["curp"].ToString(),
+                    _pais = row["id_pais"].ToString(),
+                    _nombres = row["nombres"].ToString(),
+                    _ap_paterno = row["ap_paterno"].ToString(),
+                    _ap_materno = row["ap_materno"].ToString(),
+                    _edad = Convert.ToInt32(row["edad"]),
+                    _parentezco = "Madre"
+                });
+            List<Padres> combinedData = dataPadres.Concat(dataMadres).ToList();
+            return combinedData;
+        }
 
         private async void SelectAbuelos(object sender, TextChangedEventArgs e)
         {
@@ -272,6 +304,11 @@ namespace ProyectoAdminBD.MVVM.View
                     Clean();
                     return;
                 }
+                if ((abueloPaterno.Contains("para") || abueloMaterno.Contains("para") || abuelaPaterna.Contains("para") || abuelaMaterna.Contains("para")))
+                {
+                    new ShoInfoMsg(ShoInfoMsg.ERROR, "Asegurese de seleccioanr a un abuelo de la lista");
+                    return;
+                }
                 string[] checkParentales = {$"SELECT * FROM padre WHERE curp = '{curpPadre}'", $"SELECT * FROM madre WHERE curp = '{curpMadre}'",
                                 $"SELECT * FROM abuelos WHERE id_abuelo = {abueloMaterno}",$"SELECT * FROM abuelos WHERE id_abuelo = {abuelaMaterna}",
                                 $"SELECT * FROM abuelos WHERE id_abuelo = {abueloPaterno}", $"SELECT * FROM abuelos WHERE id_abuelo = {abuelaPaterna}"};
@@ -330,20 +367,21 @@ namespace ProyectoAdminBD.MVVM.View
                         break;
                     case "ELIMINAR":
                         new ShoInfoMsg(ShoInfoMsg.WARNING, "WIP");
-                        q = $"SELECT * FROM persona_registrada WHERE curp = {curp}";
+                        q = $"SELECT * FROM persona_registrada WHERE curp = '{curp}'";
                         if (!VerifyExistingValue(conn, q))
                         {
                             new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato no encontrado en la BD!, intente de nuevo");
                             return;
                         }
-                        q = $"DELTE FROM personaAbuelos where curp= '{curp}'";
+                        q = $"DELETE FROM personaAbuelos where curp= '{curp}'";
                         if (ExecQuery(conn, q))
                         {
                             q = $"DELETE FROM persona_registrada WHERE curp = '{curp}'";
                             if (ExecQuery(conn, q))
                                 new ShoInfoMsg(ShoInfoMsg.SUCCESS, "dato eliminado con exito!");
                         }
-                        
+                        UpdateList();
+                        Clean();
                         break;
                 }
             }
@@ -402,7 +440,7 @@ namespace ProyectoAdminBD.MVVM.View
                 string.IsNullOrEmpty(oficialia) || string.IsNullOrEmpty(nombre) ||
                 string.IsNullOrEmpty(apPaterno) || string.IsNullOrEmpty(apMaterno) ||
                 string.IsNullOrEmpty(curpPadre) || string.IsNullOrEmpty(curpMadre) ||
-                fechaNac == null || horaNac == null || string.IsNullOrEmpty(numActa) ||
+                fechaNac == null || horaNac == null ||
                 string.IsNullOrEmpty(numLibro) || fechaReg == null)
             {
                 new ShoInfoMsg(ShoInfoMsg.ERROR, "1 o mas campos vacios, por favor intente de nuevo!");
@@ -437,6 +475,11 @@ namespace ProyectoAdminBD.MVVM.View
                     $"{numActa}, " +
                     $"{numLibro}," +
                     $"'{fechaReg?.ToString("yyyy-MM-dd")}')";
+            if ((abueloPaterno.Contains("para") || abueloMaterno.Contains("para") || abuelaPaterna.Contains("para") || abuelaMaterna.Contains("para")))
+            {
+                new ShoInfoMsg(ShoInfoMsg.ERROR, "Asegurese de seleccioanr a un abuelo de la lista");
+                return;
+            }
             if (ExecQuery(conn, q))
             {
                 string[] inserts = { $"INSERT INTO personaAbuelos VALUES('{nuCurp}','{abueloPaterno}','Paterno')", $"INSERT INTO personaAbuelos VALUES('{nuCurp}','{abuelaPaterna}','Paterno')",
@@ -555,6 +598,29 @@ namespace ProyectoAdminBD.MVVM.View
             TextBox curr = sender as TextBox;
             string type = curr.Name;
             string txt = curr.Text;
+            if(type == "CURPPADRE")
+            {
+                Padres? padre = padres?.FirstOrDefault(p => p._curp == txt);
+                string? selectedName = padre?._nombres;
+                string? selectedLastNames = padre?._ap_paterno + " " + padre?._ap_materno;
+                if ((padre == null))
+                {
+                    NOMBREPADRE.Text = "Nombre padre: ESTA CURP NO EXISTE EN LA BD!";
+                }
+                else
+                    NOMBREPADRE.Text = "Nombre padre: " + selectedName + " " + selectedLastNames;
+            }else if (type == "CURPMADRE")
+            {
+                Padres? madre = padres?.FirstOrDefault(p => p._curp == txt);
+                string? selectedName = madre?._nombres;
+                string? selectedLastNames = madre?._ap_paterno + " " + madre?._ap_materno;
+                if ((madre == null))
+                {
+                    NOMBREMADRE.Text = "Nombre madre: ESTA CURP NO EXISTE EN LA BD!";
+                }
+                else
+                    NOMBREMADRE.Text = "Nombre madre: " + selectedName + " " + selectedLastNames;
+            }
             if (triggerSearch)
             {
                 Debug.WriteLine(type);
@@ -592,13 +658,13 @@ namespace ProyectoAdminBD.MVVM.View
                     temp.Add(obj);
                 if(type == "APMATERNO" && obj.ApMaterno.ToUpper().Contains(value))
                     temp.Add(obj);
-                if(type == "ABUELOP" && obj.AbueloPaternoId == Convert.ToInt32(value))
+                if(type == "ABUELOP" && !string.IsNullOrEmpty(value) && obj.AbueloPaternoId == Convert.ToInt32(value))
                     temp.Add(obj);
-                if(type == "ABUELOM" && obj.AbueloMaternoId == Convert.ToInt32(value))
+                if(type == "ABUELOM" && !string.IsNullOrEmpty(value) && obj.AbueloMaternoId == Convert.ToInt32(value))
                     temp.Add(obj);
-                if (type == "ABUELAP" && obj.AbuelaPaternaId == Convert.ToInt32(value))
+                if (type == "ABUELAP" && !string.IsNullOrEmpty(value) && obj.AbuelaPaternaId == Convert.ToInt32(value))
                     temp.Add(obj);
-                if (type == "ABUELAM" && obj.AbuelaMaternaId == Convert.ToInt32(value))
+                if (type == "ABUELAM" && !string.IsNullOrEmpty(value) && obj.AbuelaMaternaId == Convert.ToInt32(value))
                     temp.Add(obj);
                 if(type == "CURPPADRE" && obj.CurpPadre.ToUpper().Contains(value))
                     temp.Add(obj);
@@ -680,6 +746,12 @@ namespace ProyectoAdminBD.MVVM.View
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             currentAwelo = sender as TextBox;
+            string parentesco;
+            if (currentAwelo.Name.ToString().Contains("ABUELO")) parentesco = "M";
+            else if (currentAwelo.Name.ToString().Contains("ABUELA")) parentesco = "F";
+            else return;
+            Debug.WriteLine(parentesco);
+            holder.parentescoAbuelo = parentesco;
             SeleccionarAbuelos seleccionarAbuelos = new SeleccionarAbuelos();
             seleccionarAbuelos.Closed += SeleccionarAbuelos_Closed;
             seleccionarAbuelos.Show();
@@ -687,6 +759,7 @@ namespace ProyectoAdminBD.MVVM.View
 
         private void SeleccionarAbuelos_Closed(object? sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(holder.selectedAbueloId)) return;
             currentAwelo.Text = holder.selectedAbueloId;
         }
         private void timeMaskedTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

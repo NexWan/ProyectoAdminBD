@@ -37,10 +37,10 @@ namespace ProyectoAdminBD
             for(int i = 0; i < holder.abuelos.Count; i++)
                 Debug.WriteLine(holder.abuelos[i]);
             if (string.IsNullOrEmpty(holder.selectedAbueloId))
-                query = "SELECT * FROM abuelos";
+                query = $"SELECT * FROM abuelos WHERE id_genero = '{holder.parentescoAbuelo}'";
             else
             {
-                query = $"SELECT * FROM abuelos WHERE id_abuelo != {holder.abuelos.First()}";
+                query = $"SELECT * FROM abuelos WHERE id_genero = '{holder.parentescoAbuelo}' AND id_abuelo != {holder.abuelos.First()}";
                 for(int i = 1; i < holder.abuelos.Count; i++)
                 {
                     query += $"AND id_abuelo != '{holder.abuelos[i]}'";
