@@ -17,11 +17,11 @@
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Genero"/>
-                <ComboBox Name="GENERO" DisplayMemberPath="Descripcion" SelectedValuePath="Id"/>
+                <ComboBox SelectionChanged="SelectionComboBox" Name="GENERO" DisplayMemberPath="Descripcion" SelectedValuePath="Id"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Presentado"/>
-                <ComboBox Name="PRESENTADO" DisplayMemberPath="_descripcion" SelectedValuePath="_id"/>
+                <ComboBox SelectionChanged="SelectionComboBox"  Name="PRESENTADO" DisplayMemberPath="_descripcion" SelectedValuePath="_id"/>
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Oficialia"/>
-                <ComboBox Name="OFICIALIA" DisplayMemberPath="_no_oficialia" SelectedValuePath="_no_oficialia" IsEnabled="False"/>
+                <ComboBox  Name="OFICIALIA" DisplayMemberPath="_no_oficialia" SelectedValuePath="_no_oficialia" IsEnabled="False"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="10 10">
                 <TextBlock Style="{StaticResource FormsTitle}" Text="Nombre"/>

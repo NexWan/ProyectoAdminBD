@@ -322,7 +322,7 @@ namespace ProyectoAdminBD.MVVM.View
                             return;
                         }
                         q = $"UPDATE persona_registrada SET nombres = '{nombre}', apellido_materno = '{apMaterno}', apellido_paterno = '{apPaterno}'" +
-                            $", id_genero = '{genero}'";
+                            $", id_genero = '{genero}' WHERE curp = '{curp}'";
                         if (ExecQuery(conn, q))                    
                             new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato actualizado con exito!");
                         UpdateList();
@@ -344,9 +344,33 @@ namespace ProyectoAdminBD.MVVM.View
             }
         }
 
+        private async void SelectionComboBox(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox? current = sender as ComboBox;
+            Object? item = current.SelectedItem;
+            string? id = "", type;
+            EnableButtons();
+            if ( (GENERO.SelectedItem != null && PRESENTADO.SelectedItem != null))
+                return;
+            if (current.Name == "GENERO")
+            {
+                id = ((Genero)item)?.Id;
+            }
+            else if (current.Name == "PRESENTADO")
+            {
+                id = ((Presentado)item)?._id;
+            }
+            if(id != null)
+            {
+                ActaTable.ItemsSource = await GetPersonaRegistradasAsync(id, current.Name);
+                if (ActaTable.Items.Count == 1)
+                    ActaTable.SelectedIndex = 0;
+            }
+        }   
+
         private void VerifyTest()
         {
-            if (holder.CheckForValidText(nombre) &&
+            if (!(holder.CheckForValidText(nombre) &&
                holder.CheckForValidText(apPaterno) &&
                holder.CheckForValidText(apMaterno) &&
                holder.CheckForValidText(curpPadre) &&
@@ -354,7 +378,7 @@ namespace ProyectoAdminBD.MVVM.View
                holder.CheckForValidText(abueloPaterno) &&
                holder.CheckForValidText(abuelaPaterna) &&
                holder.CheckForValidText(abueloMaterno) &&
-               holder.CheckForValidText(abuelaMaterna))
+               holder.CheckForValidText(abuelaMaterna)))
             {
                 new ShoInfoMsg(ShoInfoMsg.ERROR, "Valores ilegales detectados!, intente de nuevo");
                 Clean();
@@ -387,6 +411,8 @@ namespace ProyectoAdminBD.MVVM.View
                 new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato ya existe en la BD! intente de nuevo");
                 return;
             }
+            q = $"SELECT * FROM persona_registrada WHERE no_oficialia = {holder.userNoOfi} AND no_libro = {numLibro}";
+            numActa = GetNumActas(conn, q).ToString();
             Random r = new Random();
             crip = r.NextInt64(1, 10).ToString();
             q = $"INSERT INTO persona_registrada VALUES (" +
@@ -424,6 +450,18 @@ namespace ProyectoAdminBD.MVVM.View
                     }
                 }
             }
+        }
+
+        private int GetNumActas(SqlConnection conn, string q)
+        {
+            if (reader != null) reader.Close();
+            int x = 1;
+            cmd = conn.CreateCommand();
+            cmd.CommandText = q;
+            reader = cmd.ExecuteReader();
+            while (reader.Read())
+                x++;
+            return x;
         }
         private string GenerarCurp(string apPaterno, string apMaterno, string nombre, DateTime? fechaNac, string genero, string municipio)
         {
@@ -560,6 +598,10 @@ namespace ProyectoAdminBD.MVVM.View
                 if(type == "CURPPADRE" && obj.CurpPadre.ToUpper().Contains(value))
                     temp.Add(obj);
                 if(type == "CURPMADRE" && obj.CurpMadre.ToUpper().Contains(value))
+                    temp.Add(obj);
+                if (type == "GENERO" && obj.Genero.ToUpper().Contains(value))
+                    temp.Add(obj);
+                if(type == "PRESENTADO" && obj.Presentado.ToUpper().Contains(value))
                     temp.Add(obj);
             }
             return temp;
