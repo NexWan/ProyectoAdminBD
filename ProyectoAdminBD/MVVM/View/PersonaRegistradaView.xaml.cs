@@ -301,7 +301,7 @@ namespace ProyectoAdminBD.MVVM.View
                             return;
                         }
                         if (string.IsNullOrEmpty(curpPadre) || string.IsNullOrEmpty(curpMadre) || string.IsNullOrEmpty(abuelaMaterna) || string.IsNullOrEmpty(abuelaPaterna)
-                            ||string.IsNullOrEmpty(abueloMaterno) || string.IsNullOrEmpty(abueloPaterno))
+                            || string.IsNullOrEmpty(abueloMaterno) || string.IsNullOrEmpty(abueloPaterno))
                             new ShoInfoMsg(ShoInfoMsg.WARNING, "Tome a consideracion que los campos padre, madre o abuelos no pueden ser modificados. Pero" +
                                 " los campos necesitan estar marcados para hacer las modificaciones");
 
@@ -316,29 +316,34 @@ namespace ProyectoAdminBD.MVVM.View
                                 return;
                         }
                         q = $"SELECT * FROM persona_registrada WHERE curp = '{curp}'";
-                        if(!VerifyExistingValue(conn, q))
+                        if (!VerifyExistingValue(conn, q))
                         {
                             new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato no encontrado en la BD!, intente de nuevo");
                             return;
                         }
                         q = $"UPDATE persona_registrada SET nombres = '{nombre}', apellido_materno = '{apMaterno}', apellido_paterno = '{apPaterno}'" +
                             $", id_genero = '{genero}' WHERE curp = '{curp}'";
-                        if (ExecQuery(conn, q))                    
+                        if (ExecQuery(conn, q))
                             new ShoInfoMsg(ShoInfoMsg.SUCCESS, "Dato actualizado con exito!");
                         UpdateList();
                         Clean();
                         break;
                     case "ELIMINAR":
                         new ShoInfoMsg(ShoInfoMsg.WARNING, "WIP");
-                        /*q = $"SELECT * FROM persona_registrada WHERE curp = {curp}";
+                        q = $"SELECT * FROM persona_registrada WHERE curp = {curp}";
                         if (!VerifyExistingValue(conn, q))
                         {
                             new ShoInfoMsg(ShoInfoMsg.ERROR, "Dato no encontrado en la BD!, intente de nuevo");
                             return;
                         }
-                        q = $"DELETE FROM persona_registrada WHERE curp = '{curp}'";
+                        q = $"DELTE FROM personaAbuelos where curp= '{curp}'";
                         if (ExecQuery(conn, q))
-                            new ShoInfoMsg(ShoInfoMsg.SUCCESS, "dato eliminado con exito!");*/
+                        {
+                            q = $"DELETE FROM persona_registrada WHERE curp = '{curp}'";
+                            if (ExecQuery(conn, q))
+                                new ShoInfoMsg(ShoInfoMsg.SUCCESS, "dato eliminado con exito!");
+                        }
+                        
                         break;
                 }
             }
