@@ -373,6 +373,7 @@ namespace ProyectoAdminBD.MVVM.View
 
         private bool VerifyExistingValue(SqlConnection conn, string query)
         {
+            if (reader != null) reader.Close();
             cmd = conn.CreateCommand();
             cmd.CommandText = query;
             reader = cmd.ExecuteReader();
